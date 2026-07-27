@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인공지능일반 포트폴리오 | AI General Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                        },
+                        ai: {
+                            purple: '#8b5cf6',
+                            cyan: '#06b6d4',
+                            emerald: '#10b981',
+                            rose: '#f43f5e'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* Glassmorphism Styles for Dark & Light */
+        .glass-card {
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        html.light .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        html.light body {
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+
+        html.light header {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-color: rgba(226, 232, 240, 0.8);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        canvas#particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 transition-colors duration-300 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white">
+
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="fixed top-5 right-5 z-50 flex flex-col gap-2"></div>
+
+    <header class="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/20">
+                    <i class="fa-solid fa-brain text-xl"></i>
+                </div>
+                <div>
+                    <span class="font-bold text-lg tracking-tight gradient-text">AI GENERAL</span>
+                    <span class="text-xs block text-slate-400 font-medium">인공지능일반 포트폴리오</span>
+                </div>
+            </div>
+
+            <!-- Header Quick Controls -->
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <!-- Theme Toggle Button -->
+                <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2.5 rounded-xl bg-slate-800/80 dark:bg-slate-800 light:bg-slate-200 text-amber-400 dark:text-amber-300 light:text-slate-700 hover:scale-105 transition shadow-sm" title="다크/라이트 모드 전환">
+                    <i class="fa-solid fa-moon text-lg" id="themeIcon"></i>
+                </button>
+
+                <!-- Edit Mode Toggle -->
+                <button id="editModeBtn" onclick="toggleEditMode()" class="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 light:bg-slate-200 light:hover:bg-slate-300 text-xs sm:text-sm font-semibold transition border border-slate-700/50 light:border-slate-300">
+                    <i class="fa-solid fa-pen-to-square text-sky-400"></i>
+                    <span id="editModeLabel">편집 모드</span>
+                </button>
+
+                <!-- Portfolio Summary Button -->
+                <button onclick="openSummaryModal()" class="hidden sm:flex items-center space-x-2 px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-medium text-sm shadow-md transition">
+                    <i class="fa-solid fa-file-invoice"></i>
+                    <span>종합 요약</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Fullscreen Hero Cover Section -->
+    <section class="relative z-10 min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center text-center px-4 py-12">
+        <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs sm:text-sm font-semibold mb-6">
+            <i class="fa-solid fa-sparkles"></i>
+            <span>2026학년도 1학기 AI 포트폴리오</span>
+        </div>
+        <h1 class="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight mb-6 max-w-4xl leading-tight">
+            <span class="gradient-text">인공지능일반</span><br>수강 포트폴리오
+        </h1>
+        <p class="text-slate-400 light:text-slate-600 text-sm sm:text-lg max-w-2xl mb-10 leading-relaxed">
+            기술의 윤리적 가치와 실생활 문제 해결을 탐구하는 <strong class="text-sky-400">박우혁</strong> 학생의 인공지능일반 학습 결과물 및 실습 프로젝트 모음입니다.
+        </p>
+        <button onclick="document.getElementById('profileSection').scrollIntoView({behavior: 'smooth'})" class="animate-bounce flex flex-col items-center text-sky-400 hover:text-sky-300 transition text-sm font-medium space-y-2 cursor-pointer focus:outline-none">
+            <span>아래로 스크롤하여 탐색하기</span>
+            <i class="fa-solid fa-chevron-down text-xl"></i>
+        </button>
+    </section>
+
+    <section id="profileSection" class="relative z-10 pt-8 pb-6 px-4 max-w-7xl mx-auto w-full">
+        <!-- Self-Introduction Profile Card -->
+        <div class="glass-card rounded-3xl p-6 sm:p-8 mb-8 border border-slate-700/50 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="flex flex-col md:flex-row items-center md:items-start gap-6 sm:gap-8 relative z-10">
+                <!-- Profile Image Avatar -->
+                <div class="relative group">
+                    <div class="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl overflow-hidden ring-4 ring-sky-500/30 shadow-2xl bg-slate-800 flex-shrink-0">
+                        <img id="profileAvatar" src="Gemini_Generated_Image_psja77psja77psja.png" 
+                             alt="프로필 이미지" 
+                             onerror="this.src='https://placehold.co/300x300/1e293b/38bdf8?text=Profile'"
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <button onclick="openProfileModal()" class="absolute -bottom-2 -right-2 w-9 h-9 rounded-xl bg-sky-500 hover:bg-sky-400 text-white shadow-lg flex items-center justify-center text-xs transition" title="프로필 수정">
+                        <i class="fa-solid fa-camera"></i>
+                    </button>
+                </div>
+
+                <!-- Profile Info & Bio -->
+                <div class="flex-1 text-center md:text-left space-y-3">
+                    <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
+                        <span id="profileRoleBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-sky-500/10 border border-sky-500/30 text-sky-400">
+                            AI & SW Engineering Aspirant
+                        </span>
+                        <span id="profileGrade" class="px-3 py-1 rounded-full text-xs font-medium bg-slate-800 light:bg-slate-200 text-slate-300 light:text-slate-700">
+                            2026학년도 1학기 수강생
+                        </span>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row items-center md:items-baseline gap-2">
+                        <h1 id="profileName" class="text-2xl sm:text-3xl font-black tracking-tight text-slate-100 light:text-slate-900">
+                            박우혁 <span class="text-sm font-normal text-slate-400 light:text-slate-500">(Park Woo-hyuk)</span>
+                        </h1>
+                        <span id="profileSubTitle" class="text-xs sm:text-sm text-sky-400 font-medium">인공지능일반 수강 포트폴리오</span>
+                    </div>
+
+                    <p id="profileBio" class="text-sm text-slate-300 light:text-slate-600 leading-relaxed max-w-2xl">
+                        안녕하세요! 인공지능이 제시하는 미래 기술과 인간 중심의 가치를 탐구하는 고등학교 학생 박우혁입니다. 
+                        '인공지능일반' 수업을 이수하며 AI 윤리 가이드라인 수립, 데이터 시각화, 그리고 실생활 문제 해결 웹앱을 제작했습니다.
+                    </p>
+
+                    <!-- Profile Tags & Contact Links -->
+                    <div class="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-3 text-xs">
+                        <div class="flex items-center space-x-1.5 text-slate-400 light:text-slate-600">
+                            <i class="fa-solid fa-envelope text-sky-400"></i>
+                            <span id="profileEmail">woohyuk@aigeneral.edu</span>
+                        </div>
+                        <div class="flex items-center space-x-1.5 text-slate-400 light:text-slate-600">
+                            <i class="fa-brands fa-github text-purple-400"></i>
+                            <span id="profileGithub">github.com/woohyuk-ai</span>
+                        </div>
+                        <button onclick="openProfileModal()" class="px-3 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 light:bg-slate-200 light:hover:bg-slate-300 text-xs text-sky-400 font-semibold border border-slate-700 light:border-slate-300 transition">
+                            <i class="fa-solid fa-user-pen mr-1"></i> 자기소개 수정
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Metrics Bar -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+            <div class="p-3 rounded-2xl glass-card">
+                <div class="text-2xl font-bold text-sky-400" id="statCardCount">8개</div>
+                <div class="text-xs text-slate-400 light:text-slate-600 mt-0.5">게시된 프로젝트</div>
+            </div>
+            <div class="p-3 rounded-2xl glass-card">
+                <div class="text-2xl font-bold text-indigo-400">100%</div>
+                <div class="text-xs text-slate-400 light:text-slate-600 mt-0.5">교과 이수 이행률</div>
+            </div>
+            <div class="p-3 rounded-2xl glass-card">
+                <div class="text-2xl font-bold text-emerald-400">3개</div>
+                <div class="text-xs text-slate-400 light:text-slate-600 mt-0.5">실습 웹/데이터 앱</div>
+            </div>
+            <div class="p-3 rounded-2xl glass-card">
+                <div class="text-2xl font-bold text-purple-400">AI+Ethics</div>
+                <div class="text-xs text-slate-400 light:text-slate-600 mt-0.5">융합적 윤리 가치</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+        <div class="glass-card p-4 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
+            
+            <!-- Category Filter Buttons -->
+            <div class="flex items-center space-x-1.5 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none" id="filterBtnGroup">
+                <button onclick="filterCards('all', event)" class="filter-btn active px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition bg-sky-500 text-white shadow-md">
+                    전체
+                </button>
+                <button onclick="filterCards('ethics', event)" class="filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition bg-slate-800 light:bg-slate-200 text-slate-300 light:text-slate-700 hover:bg-slate-700">
+                    윤리 & 리포트
+                </button>
+                <button onclick="filterCards('creative', event)" class="filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition bg-slate-800 light:bg-slate-200 text-slate-300 light:text-slate-700 hover:bg-slate-700">
+                    창작 & 스토리
+                </button>
+                <button onclick="filterCards('data', event)" class="filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition bg-slate-800 light:bg-slate-200 text-slate-300 light:text-slate-700 hover:bg-slate-700">
+                    데이터 분석
+                </button>
+                <button onclick="filterCards('app', event)" class="filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition bg-slate-800 light:bg-slate-200 text-slate-300 light:text-slate-700 hover:bg-slate-700">
+                    앱 & 문제해결
+                </button>
+            </div>
+
+            <!-- Search Bar & Add Button -->
+            <div class="flex items-center space-x-2 w-full md:w-auto">
+                <div class="relative flex-1 md:w-64">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                    <input type="text" id="searchInput" oninput="searchCards()" placeholder="프로젝트 키워드 검색..." 
+                           class="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-900/90 light:bg-slate-100 border border-slate-700 light:border-slate-300 text-xs sm:text-sm text-slate-200 light:text-slate-800 placeholder-slate-500 focus:outline-none focus:border-sky-500 transition">
+                </div>
+
+                <button onclick="openEditItemModal(null)" class="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs sm:text-sm shadow-md transition flex-shrink-0">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>새 프로젝트</span>
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="portfolioGrid">
+            <!-- Dynamic cards generated by JS -->
+        </div>
+
+        <!-- Empty Search Result State -->
+        <div id="noResults" class="hidden text-center py-16">
+            <i class="fa-solid fa-ghost text-4xl text-slate-600 mb-3"></i>
+            <p class="text-slate-400 font-medium">검색 결과와 일치하는 포트폴리오 카드가 없습니다.</p>
+            <button onclick="resetSearch()" class="mt-4 px-4 py-2 rounded-xl bg-sky-500/20 text-sky-400 text-sm hover:bg-sky-500/30 transition">
+                검색 조건 초기화
+            </button>
+        </div>
+    </main>
+
+    <!-- Detail View Modal Dialog -->
+    <div id="detailModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
+        <div class="relative w-full max-w-3xl glass-card bg-slate-900 light:bg-white rounded-3xl p-6 sm:p-8 border border-slate-700/60 shadow-2xl transition-all duration-300 transform my-8">
+            
+            <!-- Modal Header -->
+            <div class="flex items-start justify-between pb-4 border-b border-slate-800 light:border-slate-200">
+                <div class="flex items-center space-x-3">
+                    <div id="modalIconBox" class="w-12 h-12 rounded-2xl flex items-center justify-center text-white text-xl shadow-md">
+                        <!-- Dynamic Icon -->
+                    </div>
+                    <div>
+                        <span id="modalCategory" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20"></span>
+                        <h2 id="modalTitle" class="text-xl sm:text-2xl font-bold mt-1 text-slate-100 light:text-slate-900"></h2>
+                    </div>
+                </div>
+                <button onclick="closeModal()" class="p-2 rounded-full text-slate-400 hover:text-white light:hover:text-slate-800 hover:bg-slate-800 light:hover:bg-slate-100 transition">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="py-6 space-y-6 max-h-[65vh] overflow-y-auto pr-2" id="modalBody">
+                <!-- Dynamic Content Rendered Here -->
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="pt-4 border-t border-slate-800 light:border-slate-200 flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center space-x-2 text-xs text-slate-400">
+                    <i class="fa-solid fa-clock"></i>
+                    <span>수행 시기: <strong id="modalDate" class="text-slate-300 light:text-slate-700">2026.03 ~ 2026.07</strong></span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button id="editFromModalBtn" onclick="editCurrentModalItem()" class="px-3 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 text-xs font-semibold border border-amber-500/20 transition">
+                        <i class="fa-solid fa-pen-to-square mr-1"></i> 이 카드 수정
+                    </button>
+                    <button id="modalLikeBtn" onclick="toggleLikeCurrent()" class="px-3 py-1.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs font-medium border border-rose-500/20 transition flex items-center space-x-1">
+                        <i class="fa-solid fa-heart"></i>
+                        <span id="modalLikeCount">0</span>
+                    </button>
+                    <button onclick="closeModal()" class="px-4 py-1.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white text-xs font-semibold transition">
+                        닫기
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Edit / Add Portfolio Item Modal -->
+    <div id="editItemModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
+        <div class="relative w-full max-w-2xl glass-card bg-slate-900 light:bg-white rounded-3xl p-6 sm:p-8 border border-slate-700/60 shadow-2xl my-8">
+            <div class="flex justify-between items-center pb-4 border-b border-slate-800 light:border-slate-200">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2.5 bg-sky-500/20 text-sky-400 rounded-xl">
+                        <i class="fa-solid fa-pen-to-square text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 id="editModalTitle" class="text-lg font-bold text-slate-100 light:text-slate-900">프로젝트 카드 수정</h3>
+                        <p class="text-xs text-slate-400">포트폴리오 내용 및 정보를 업데이트합니다.</p>
+                    </div>
+                </div>
+                <button onclick="closeEditItemModal()" class="p-2 text-slate-400 hover:text-white light:hover:text-slate-800">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <form id="portfolioEditForm" onsubmit="saveItemForm(event)" class="py-4 space-y-4 text-xs sm:text-sm">
+                <input type="hidden" id="formItemId">
+
+                <div>
+                    <label class="block font-semibold mb-1 text-slate-300 light:text-slate-700">프로젝트 제목</label>
+                    <input type="text" id="formTitle" required placeholder="예: 생성형 AI 윤리 수칙 수립"
+                           class="w-full px-3 py-2 rounded-xl bg-slate-800 light:bg-slate-100 border border-slate-700 light:border-slate-300 text-slate-100 light:text-slate-900 focus:outline-none focus:border-sky-500">
+                </div>
+
+                <div>
+                    <label class="block font-semibold mb-1 text-slate-300 light:text-slate-700">프로젝트 대표 이미지 (내장 JPG 파일 선택 또는 상대 경로)</label>
+                    <div class="flex flex-col gap-2">
+                        <input type="file" id="cardFileInput" accept="image/*" onchange="handleCardFileSelect(event)"
+                               class="block w-full text-xs text-slate-400 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-sky-500/20 file:text-sky-400 hover:file:bg-sky-500/30 cursor-pointer">
+                        <input type="text" id="formImage" placeholder="파일 상대 경로(예: ./images/project.jpg) 또는 선택된 파일"
+                               class="w-full px-3 py-2 rounded-xl bg-slate-800 light:bg-slate-100 border border-slate-700 light:border-slate-300 text-slate-100 light:text-slate-900 focus:outline-none focus:border-sky-500">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-300 light:text-slate-700">카테고리 구분</label>
+                        <select id="formCategoryKey" class="w-full px-3 py-2 rounded-xl bg-slate-800 light:bg-slate-100 border border-slate-700 light:border-slate-300 text-slate-100 light:text-slate-900 focus:outline-none focus:border-sky-500">
+                            <option value="ethics">윤리 & 리포트</option>
+                            <option value="creative">창작 & 스토리</option>
+                            <option value="data">데이터 분석</option>
+                            <option value="app">앱 & 문제해결</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-300 light:text-slate-700">뱃지 이름</label>
+                        <input type="text" id="formBadge" required placeholder="예: 윤리 & 기준"
+                               class="w-full px-3 py-2 rounded-xl bg-slate-800 light:bg-slate-100 border border-slate-700 light:border-slate-300 text-slate-100 light:text-slate-900 focus:outline-none focus:border-sky-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-semibold mb-1 text-slate-300 light:text-slate-700">카드 간단 설명 (요약)</label>
+                    <textarea id="formDesc" rows="2" required placeholder="카드 전면에 표시될 2-3줄의 간략한 안내문"
+                              class="w-full px-3 py-2 rounded-xl bg-slate-800 light:bg-slate-100 border border-slate-700 light:border-slate-300 text-slate-100 light:text-slate-900 focus:outline-none focus:border-sky-500"></textarea>
+                </div>
+
+                <div>
+                    <label class="block font-semibold mb-1 text-slate-300 light:text-slate-700">상세 설명 (모달 상세 내용)</label>
+                    <textarea id="formDetailSummary" rows="3" required placeholder="모달 창 상단에 보일 상세 연구 내용"
+                              class="w-full px-3 py-2 rounded-xl bg-slate-800 light:bg-slate-100 border border-slate-700 light:border-slate-300 text-slate-100 light:text-slate-900 focus:outline-none focus:border-sky-500"></textarea>
+                </div>
+
+                <div>
+                    <label class="block font-semibold mb-1 text-slate-300 light:text-slate-700">주요 핵심 활동 (줄바꿈 구분)</label>
+                    <textarea id="formHighlights" rows="3" placeholder="예:\n투명성 원칙 준수\n2차 출처 가이드라인 수립"
+                              class="w-full px-3 py-2 rounded-xl bg-slate-800 light:bg-slate-100 border border-slate-700 light:border-slate-300 text-slate-100 light:text-slate-900 focus:outline-none focus:border-sky-500"></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-300 light:text-slate-700">사용 도구 (쉼표 , 구분)</label>
+                        <input type="text" id="formTools" placeholder="Python, ChatGPT, Claude"
+                               class="w-full px-3 py-2 rounded-xl bg-slate-800 light:bg-slate-100 border border-slate-700 light:border-slate-300 text-slate-100 light:text-slate-900 focus:outline-none focus:border-sky-500">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-300 light:text-slate-700">FontAwesome 아이콘</label>
+                        <input type="text" id="formIcon" placeholder="fa-scale-balanced"
+                               class="w-full px-3 py-2 rounded-xl bg-slate-800 light:bg-slate-100 border border-slate-700 light:border-slate-300 text-slate-100 light:text-slate-900 focus:outline-none focus:border-sky-500">
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-800 light:border-slate-200 flex justify-between items-center">
+                    <button type="button" id="deleteCardBtn" onclick="deleteCurrentFormItem()" class="px-3.5 py-2 rounded-xl bg-rose-500/20 text-rose-400 hover:bg-rose-500/30 text-xs font-semibold transition hidden">
+                        <i class="fa-solid fa-trash mr-1"></i> 삭제하기
+                    </button>
+                    <div class="flex items-center space-x-2 ml-auto">
+                        <button type="button" onclick="closeEditItemModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold">
+                            취소
+                        </button>
+                        <button type="submit" class="px-5 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold shadow-md">
+                            저장하기
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Profile Edit Modal -->
+    <div id="profileModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
+        <div class="relative w-full max-w-lg glass-card bg-slate-900 light:bg-white rounded-3xl p-6 sm:p-8 border border-slate-700/60 shadow-2xl my-8">
+            <div class="flex justify-between items-center pb-4 border-b border-slate-800 light:border-slate-200">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2.5 bg-purple-500/20 text-purple-400 rounded-xl">
+                        <i class="fa-solid fa-user-gear text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-100 light:text-slate-900">자기소개 프로필 수정</h3>
+                        <p class="text-xs text-slate-400">사진 및 프로필 인적사항을 변경합니다.</p>
+                    </div>
+                </div>
+                <button onclick="closeProfileModal()" class="p-2 text-slate-400 hover:text-white light:hover:text-slate-800">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <form onsubmit="saveProfileForm(event)" class="py-4 space-y-3.5 text-xs sm:text-sm">
+                <div>
+                    <label class="block font-semibold mb-1 text-slate-300 light:text-slate-700">프로필 사진 (내장 JPG 파일 선택 또는 경로)</label>
+                    <div class="flex flex-col gap-2">
+                        <input type="file" id="profileFileInput" accept="image/*" onchange="handleProfileFileSelect(event)"
+                               class="block w-full text-xs text-slate-400 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-purple-500/20 file:text-purple-400 hover:file:bg-purple-500/30 cursor-pointer">
+                        <input type="text" id="profileFormAvatar" required placeholder="내장 파일 경로 (예: ./my_photo.jpg) 또는 URL"
+                               class="w-full px-3 py-2 rounded-xl bg-slate-800 light:bg-slate-100 border border-slate-700 light:border-slate-300 text-slate-100 light:text-slate-900 focus:outline-none focus:border-sky-500">
+                    </div>
+                    <p class="text-[10px] text-slate-400 mt-1">내 컴퓨터의 JPG/PNG 파일(파일 선택 버튼)을 직접 등록하거나 프로젝트 폴더 내 경로(예: ./profile.jpg)를 사용할 수 있습니다.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-300 light:text-slate-700">이름</label>
+                        <input type="text" id="profileFormName" required placeholder="김인공"
+                               class="w-full px-3 py-2 rounded-xl bg-slate-800 light:bg-slate-100 border border-slate-700 light:border-slate-300 text-slate-100 light:text-slate-900 focus:outline-none focus:border-sky-500">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-300 light:text-slate-700">희망 진로/역할 뱃지</label>
+                        <input type="text" id="profileFormRole" required placeholder="AI & SW Engineering Aspirant"
+                               class="w-full px-3 py-2 rounded-xl bg-slate-800 light:bg-slate-100 border border-slate-700 light:border-slate-300 text-slate-100 light:text-slate-900 focus:outline-none focus:border-sky-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-semibold mb-1 text-slate-300 light:text-slate-700">자기소개글 (Bio)</label>
+                    <textarea id="profileFormBio" rows="3" required placeholder="나의 소신과 활동 각오..."
+                              class="w-full px-3 py-2 rounded-xl bg-slate-800 light:bg-slate-100 border border-slate-700 light:border-slate-300 text-slate-100 light:text-slate-900 focus:outline-none focus:border-sky-500"></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-300 light:text-slate-700">이메일</label>
+                        <input type="email" id="profileFormEmail" placeholder="student@aigeneral.edu"
+                               class="w-full px-3 py-2 rounded-xl bg-slate-800 light:bg-slate-100 border border-slate-700 light:border-slate-300 text-slate-100 light:text-slate-900 focus:outline-none focus:border-sky-500">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-300 light:text-slate-700">GitHub 주소</label>
+                        <input type="text" id="profileFormGithub" placeholder="github.com/ai-student"
+                               class="w-full px-3 py-2 rounded-xl bg-slate-800 light:bg-slate-100 border border-slate-700 light:border-slate-300 text-slate-100 light:text-slate-900 focus:outline-none focus:border-sky-500">
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-800 light:border-slate-200 flex justify-end space-x-2">
+                    <button type="button" onclick="closeProfileModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold">
+                        취소
+                    </button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold shadow-md">
+                        프로필 저장
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Portfolio Summary Modal -->
+    <div id="summaryModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
+        <div class="relative w-full max-w-2xl glass-card bg-slate-900 light:bg-white rounded-3xl p-6 sm:p-8 border border-slate-700/60 shadow-2xl my-8">
+            <div class="flex justify-between items-center pb-4 border-b border-slate-800 light:border-slate-200">
+                <div class="flex items-center space-x-3">
+                    <div class="p-3 bg-indigo-500/20 text-indigo-400 rounded-xl">
+                        <i class="fa-solid fa-award text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold">인공지능일반 종합 학습 리포트</h3>
+                        <p class="text-xs text-slate-400">한 학기 활동 성과 및 총괄 요약</p>
+                    </div>
+                </div>
+                <button onclick="closeSummaryModal()" class="p-2 text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <div class="py-6 space-y-4 text-sm text-slate-300 light:text-slate-700 leading-relaxed">
+                <div class="p-4 rounded-xl bg-slate-800/50 light:bg-slate-100 border border-slate-700 light:border-slate-200">
+                    <h4 class="font-bold text-sky-400 mb-1">핵심 역량 이수 평가</h4>
+                    <p class="text-xs text-slate-400 light:text-slate-600 mb-3">AI 윤리 이해, 미디어 표현, 데이터 정제 및 시각화, 문제 해결 컴퓨팅 사고력 종합 우수</p>
+                    <div class="space-y-2">
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold mb-1">
+                                <span>생성형 AI 리터러시 & 윤리</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="w-full h-2 bg-slate-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-sky-500 w-[95%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold mb-1">
+                                <span>데이터 분석 & 파이썬 처리</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="w-full h-2 bg-slate-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-indigo-500 w-[90%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold mb-1">
+                                <span>문제 해결 서비스 디자인</span>
+                                <span>92%</span>
+                            </div>
+                            <div class="w-full h-2 bg-slate-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-emerald-500 w-[92%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="font-bold text-slate-200 light:text-slate-900">대표 성과 요약</h4>
+                    <ul class="list-disc pl-5 space-y-1 text-xs text-slate-400 light:text-slate-600">
+                        <li>생성형 AI 표절·저작권 예방을 위한 5대 실천 윤리 가이드라인 수립</li>
+                        <li>공공데이터 API 연동을 통한 학교 인근 승강장/급식 데이터 웹앱 구축</li>
+                        <li>희망 진로(AI 소프트웨어 공학) 및 지역 사회 이슈(스마트 쓰레기 무단투기 예방) 데이터 분석 완료</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-800 light:border-slate-200 flex justify-between items-center">
+                <button onclick="resetDefaultData()" class="px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-400 text-xs font-medium">
+                    <i class="fa-solid fa-rotate-left mr-1"></i> 데이터 초기화
+                </button>
+                <div class="flex space-x-2">
+                    <button onclick="copySummaryText()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-200">
+                        <i class="fa-regular fa-copy mr-1"></i> 클립보드 복사
+                    </button>
+                    <button onclick="closeSummaryModal()" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-xs font-bold text-white">
+                        확인
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="relative z-10 border-t border-slate-800 light:border-slate-200 bg-slate-950/90 light:bg-slate-100 py-8 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p>© 2026 Artificial Intelligence General Course Portfolio. All rights reserved.</p>
+            <p class="text-slate-600">본 포트폴리오는 생성형 AI 윤리 및 최신 데이터 분석 기술을 준수하여 제작되었습니다.</p>
+        </div>
+    </footer>
+
+    <script>
+        /* Default Data Sets */
+        const initialPortfolioData = [
+            {
+                id: "principles",
+                categoryKey: "ethics",
+                badge: "윤리 & 기준",
+                title: "생성형 AI 활용 원칙",
+                desc: "올바른 인공지능 활용을 위한 개인적/사회적 윤리 수칙과 저작권 및 팩트체크 가이드라인 정립.",
+                icon: "fa-scale-balanced",
+                color: "from-sky-500 to-blue-600",
+                likes: 18,
+                date: "2026.03.15",
+                tools: ["ChatGPT", "Claude 3.5", "AI 윤리헌장"],
+                image: "",
+                detail: {
+                    summary: "생성형 AI 사용 시 발생할 수 있는 환각(Hallucination), 표절, 개인정보 유출 문제를 방지하기 위해 나만의 5대 활용 원칙을 수립했습니다.",
+                    highlights: [
+                        "<strong>투명성 원칙:</strong> AI가 생성한 결과물임을 출처에 명확히 밝힙니다.",
+                        "<strong>교차 검증:</strong> AI 답변은 반드시 2개 이상의 신뢰할 수 있는 학술/공공 출처로 재검증합니다.",
+                        "<strong>보안 준수:</strong> 개인정보나 민감한 프라이버시 데이터는 프롬프트에 입력하지 않습니다.",
+                        "<strong>저작권 존중:</strong> 타인의 창작물을 무단 학습/복제하지 않는 모범 사례를 따릅니다."
+                    ],
+                    interactiveType: "checklist"
+                }
+            },
+            {
+                id: "story-video",
+                categoryKey: "creative",
+                badge: "창작 & 미디어",
+                title: "AI 스토리와 영상",
+                desc: "LLM 스토리텔링과 이미지/음성 생성 AI 패밀리를 융합하여 제작한 단편 SF 숏폼 영상.",
+                icon: "fa-film",
+                color: "from-purple-500 to-pink-600",
+                likes: 24,
+                date: "2026.04.10",
+                tools: ["Sora", "Midjourney", "ElevenLabs", "Runway"],
+                detail: {
+                    summary: "인간과 AI가 공존하는 미래 도시를 배경으로 한 60초 분량의 SF 시나리오 기획 및 영상 제작 프로젝트입니다.",
+                    highlights: [
+                        "<strong>대본 작성:</strong> ChatGPT 프롬프트 엔지니어링을 통한 3막 구조 시나리오 완성",
+                        "<strong>콘셉트 아트:</strong> Midjourney 이미지 스타일 일관성 유지(Seed 고정) 기법 적용",
+                        "<strong>음성 & BGM:</strong> ElevenLabs 다국어 감정 음성 합성 및 Suno AI 배경음악 매칭"
+                    ],
+                    interactiveType: "videoMock"
+                }
+            },
+            {
+                id: "career-data",
+                categoryKey: "data",
+                badge: "데이터 탐구",
+                title: "진로 데이터 분석",
+                desc: "희망 직무(AI 엔지니어)의 채용 시장 트렌드와 요구 역량 데이터를 파이썬으로 시각화.",
+                icon: "fa-chart-pie",
+                color: "from-emerald-500 to-teal-600",
+                likes: 15,
+                date: "2026.04.28",
+                tools: ["Python", "Pandas", "Matplotlib", "Seaborn"],
+                detail: {
+                    summary: "최신 채용 공고 데이터 1,200건을 크롤링/정제하여 AI 직무별 가장 요구되는 라이브러리와 필수 소프트 스킬을 분석했습니다.",
+                    highlights: [
+                        "<strong>가장 요구되는 언어:</strong> Python (88%), C++ (42%), TypeScript (35%)",
+                        "<strong>핵심 프레임워크:</strong> PyTorch (68%), TensorFlow (45%), HuggingFace (38%)",
+                        "<strong>결론:</strong> 수학적 모델링 역량과 함께 MLOps 및 AI 윤리적 검증 능력이 급부상함"
+                    ],
+                    interactiveType: "chartCareer"
+                }
+            },
+            {
+                id: "career-report",
+                categoryKey: "ethics",
+                badge: "진로 로드맵",
+                title: "나의 진로 리포트",
+                desc: "데이터 분석 결과를 반영한 5개년 AI 융합 전문가 성장 로드맵 및 자기계발서.",
+                icon: "fa-user-astronaut",
+                color: "from-indigo-500 to-purple-600",
+                likes: 21,
+                date: "2026.05.12",
+                tools: ["Notion", "SWOT Analysis", "AI Career Model"],
+                detail: {
+                    summary: "인공지능 소프트웨어 개발자로서 기하급수적으로 발전하는 AI 환경 속에서 경쟁력을 갖추기 위한 SWOT 분석 및 5개년 액션 플랜입니다.",
+                    highlights: [
+                        "<strong>Strength (강점):</strong> 빠른 신기술 적응력 및 프로그래밍 기초 수학 역량",
+                        "<strong>Opportunity (기회):</strong> 전 산업군의 AI 트랜스포메이션 가속화",
+                        "<strong>Target:</strong> 대학진학 후 인간 중심 AI(Human-Centric AI) 연구실 입학 목표"
+                    ],
+                    interactiveType: "roadmap"
+                }
+            },
+            {
+                id: "local-issue",
+                categoryKey: "data",
+                badge: "지역 사회",
+                title: "지역 문제 데이터 분석",
+                desc: "공공데이터를 활용한 우리 동네 쓰레기 무단투기 및 대중교통 사각지대 현황 파악.",
+                icon: "fa-map-location-dot",
+                color: "from-amber-500 to-orange-600",
+                likes: 19,
+                date: "2026.05.29",
+                tools: ["QGIS", "Public Data Portal", "Python"],
+                detail: {
+                    summary: "지자체 유동인구 데이터와 CCTV 설치 위치 공공데이터를 결합하여 무단투기 발생 위험 지역 모형을 설계했습니다.",
+                    highlights: [
+                        "<strong>데이터 연동:</strong> 지역구 유동인구 5만 건 및 쓰레기 수거함 위치 데이터 결합",
+                        "<strong>발견점:</strong> 심야 시간대 1인 가구 밀집 지역의 CCTV 음영 지대에서 불법 투기 위험도 2.4배 상승",
+                        "<strong>해결 제안:</strong> 스마트 센서 기반 야간 가용 조명 및 경고 시스템 도입 건의"
+                    ],
+                    interactiveType: "chartLocal"
+                }
+            },
+            {
+                id: "school-app",
+                categoryKey: "app",
+                badge: "학교 웹앱",
+                title: "학교 문제 해결 웹앱",
+                desc: "급식실 대기시간을 예측하고 도서관 좌석 현황을 실시간 안내하는 학교 생활 매니저.",
+                icon: "fa-school",
+                color: "from-rose-500 to-red-600",
+                likes: 32,
+                date: "2026.06.14",
+                tools: ["HTML5", "Tailwind CSS", "JavaScript", "TensorFlow.js"],
+                detail: {
+                    summary: "점심시간마다 발생하는 급식실 혼잡 문제를 카메라 기반 인원 카운팅 라이트급 AI 모델로 해결하는 웹 애플리케이션입니다.",
+                    highlights: [
+                        "<strong>핵심 기능:</strong> 학년별 예상 대기시간 계산 및 메뉴 기반 선호도 점수 산출",
+                        "<strong>사용자 이점:</strong> 학생들의 대기시간 평균 8분 단축 효과 기대",
+                        "<strong>실습 구현:</strong> Responsive Web Design으로 모바일 단말 완벽 지원"
+                    ],
+                    interactiveType: "appDemo"
+                }
+            },
+            {
+                id: "public-api-app",
+                categoryKey: "app",
+                badge: "공공데이터",
+                title: "공공데이터 앱",
+                desc: "기상청 미세먼지 API와 대중교통 실시간 정보를 통합 제공하는 리얼타임 대시보드.",
+                icon: "fa-cloud-sun",
+                color: "from-cyan-500 to-blue-600",
+                likes: 27,
+                date: "2026.07.02",
+                tools: ["REST API", "Fetch API", "Chart.js"],
+                detail: {
+                    summary: "공공데이터 포털 Open API를 호출하여 내 위치 중심 환경 지수와 등교 버스 도착 시각을 통합 제공하는 웹앱입니다.",
+                    highlights: [
+                        "<strong>API 통합:</strong> 한국환경공단 에어코리아 API + 시내버스 실시간 위치 API",
+                        "<strong>에러 핸들링:</strong> API 장애 발생 시 캐시 데이터 자동 로드 로직 구현",
+                        "<strong>시각화:</strong> 실시간 대기질 경보 색상 변경 UI 및 트렌드 차트"
+                    ],
+                    interactiveType: "apiWidget"
+                }
+            },
+            {
+                id: "reflection",
+                categoryKey: "ethics",
+                badge: "최종 성찰",
+                title: "최종 성찰 내용",
+                desc: "인공지능일반 수강 후 느낀 기술의 가치, 윤리적 책임감, 그리고 미래 다짐 성찰문.",
+                icon: "fa-heart-pulse",
+                color: "from-violet-500 to-purple-700",
+                likes: 41,
+                date: "2026.07.20",
+                tools: ["Self Retrospective", "AI Human Values"],
+                detail: {
+                    summary: "기술적 구현 능력 못지않게 '무엇을 위해 AI를 사용할 것인가'에 대한 인간 중심적 고민의 중요성을 깨달았습니다.",
+                    highlights: [
+                        "<strong>기술관의 변화:</strong> AI를 단순한 신기한 도구가 아닌, 인간의 창의성을 확장하는 파트너로 재인식",
+                        "<strong>윤리 의식:</strong> 편향된 데이터가 가져올 사회적 차별의 위험성을 깨닫고 책임감 있는 AI 개발 다짐",
+                        "<strong>향후 다짐:</strong> 꾸준한 수학·컴퓨팅 공부와 함께 타인을 돕는 따뜻한 인공지능 서비스 창작"
+                    ],
+                    interactiveType: "reflectionView"
+                }
+            }
+        ];
+
+        const initialProfileData = {
+            avatar: "Gemini_Generated_Image_psja77psja77psja.png",
+            name: "박우혁",
+            role: "AI & SW Engineering Aspirant",
+            grade: "2026학년도 1학기 수강생",
+            subTitle: "인공지능일반 수강 포트폴리오",
+            bio: "안녕하세요! 인공지능이 제시하는 미래 기술과 인간 중심의 가치를 탐구하는 고등학교 학생 박우혁입니다. '인공지능일반' 수업을 이수하며 AI 윤리 가이드라인 수립, 데이터 시각화, 그리고 실생활 문제 해결 웹앱을 제작했습니다.",
+            email: "woohyuk@aigeneral.edu",
+            github: "github.com/woohyuk-ai"
+        };
+
+        let portfolioData = [];
+        let profileData = {};
+        let isEditMode = false;
+        let activeFilter = 'all';
+        let searchQuery = '';
+        let currentModalId = null;
+        let chartInstance = null;
+
+        let tempProfileImageData = "";
+        let tempCardImageData = "";
+
+        function handleProfileFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    tempProfileImageData = e.target.result;
+                    document.getElementById('profileFormAvatar').value = file.name;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleCardFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    tempCardImageData = e.target.result;
+                    document.getElementById('formImage').value = file.name;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Initialize Data from LocalStorage or Defaults
+        function loadStoredData() {
+            const savedPortfolio = localStorage.getItem('ai_portfolio_items');
+            if (savedPortfolio) {
+                try { portfolioData = JSON.parse(savedPortfolio); } 
+                catch(e) { portfolioData = [...initialPortfolioData]; }
+            } else {
+                portfolioData = [...initialPortfolioData];
+            }
+
+            const savedProfile = localStorage.getItem('ai_portfolio_profile');
+            if (savedProfile) {
+                try { profileData = JSON.parse(savedProfile); } 
+                catch(e) { profileData = {...initialProfileData}; }
+            } else {
+                profileData = {...initialProfileData};
+            }
+        }
+
+        function saveDataToStorage() {
+            localStorage.setItem('ai_portfolio_items', JSON.stringify(portfolioData));
+            localStorage.setItem('ai_portfolio_profile', JSON.stringify(profileData));
+        }
+
+        // Apply Profile Data to UI
+        function renderProfile() {
+            const avatarImg = document.getElementById('profileAvatar');
+            avatarImg.src = profileData.avatar;
+            avatarImg.onerror = function() {
+                this.src = 'https://placehold.co/300x300/1e293b/38bdf8?text=Profile+Image';
+            };
+
+            document.getElementById('profileName').innerHTML = `${profileData.name} <span class="text-sm font-normal text-slate-400 light:text-slate-500">(Student)</span>`;
+            document.getElementById('profileRoleBadge').innerText = profileData.role;
+            document.getElementById('profileGrade').innerText = profileData.grade || "2026학년도 수강생";
+            document.getElementById('profileSubTitle').innerText = profileData.subTitle || "인공지능일반 수강 포트폴리오";
+            document.getElementById('profileBio').innerText = profileData.bio;
+            document.getElementById('profileEmail').innerText = profileData.email;
+            document.getElementById('profileGithub').innerText = profileData.github;
+        }
+
+        function initTheme() {
+            const savedTheme = localStorage.getItem('ai_theme') || 'dark';
+            applyTheme(savedTheme);
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.classList.contains('light') ? 'light' : 'dark';
+            const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(nextTheme);
+            localStorage.setItem('ai_theme', nextTheme);
+            showToast(`${nextTheme === 'dark' ? '다크' : '라이트'} 모드로 변경되었습니다. ☀️🌙`);
+        }
+
+        function applyTheme(theme) {
+            const html = document.documentElement;
+            const icon = document.getElementById('themeIcon');
+            if (theme === 'light') {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                if(icon) icon.className = 'fa-solid fa-sun text-amber-500';
+            } else {
+                html.classList.remove('light');
+                html.classList.add('dark');
+                if(icon) icon.className = 'fa-solid fa-moon text-amber-300';
+            }
+        }
+
+        function toggleEditMode() {
+            isEditMode = !isEditMode;
+            const label = document.getElementById('editModeLabel');
+            const btn = document.getElementById('editModeBtn');
+            if (isEditMode) {
+                label.innerText = "편집 중";
+                btn.classList.add('ring-2', 'ring-sky-500', 'bg-sky-500/20');
+                showToast("카드 수정 버튼이 노출됩니다.");
+            } else {
+                label.innerText = "편집 모드";
+                btn.classList.remove('ring-2', 'ring-sky-500', 'bg-sky-500/20');
+            }
+            renderCards();
+        }
+
+        function renderCards() {
+            const grid = document.getElementById('portfolioGrid');
+            const noResults = document.getElementById('noResults');
+            grid.innerHTML = '';
+
+            document.getElementById('statCardCount').innerText = `${portfolioData.length}개`;
+
+            const filtered = portfolioData.filter(item => {
+                const matchesFilter = (activeFilter === 'all') || (item.categoryKey === activeFilter);
+                const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      item.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                      item.badge.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesFilter && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                noResults.classList.remove('hidden');
+                return;
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            filtered.forEach(item => {
+                const cardEl = document.createElement('div');
+                cardEl.className = 'glass-card rounded-3xl p-6 flex flex-col justify-between hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300 cursor-pointer group relative overflow-hidden shadow-lg';
+                cardEl.onclick = (e) => {
+                    if (e.target.closest('.no-modal-trigger')) return;
+                    openModal(item.id);
+                };
+
+                const categoryColors = {
+                    ethics: "from-sky-500 to-blue-600",
+                    creative: "from-purple-500 to-pink-600",
+                    data: "from-emerald-500 to-teal-600",
+                    app: "from-rose-500 to-red-600"
+                };
+                const gradientColor = item.color || categoryColors[item.categoryKey] || "from-sky-500 to-indigo-600";
+
+                const imageHTML = item.image ? `
+                    <div class="w-full h-36 mb-3 rounded-2xl overflow-hidden bg-slate-800/80 border border-slate-700/50">
+                        <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.parentElement.style.display='none'">
+                    </div>
+                ` : '';
+
+                cardEl.innerHTML = `
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${gradientColor} opacity-80 group-hover:opacity-100 transition"></div>
+                    
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-semibold px-3 py-1 rounded-full bg-slate-800/80 light:bg-slate-200 text-sky-400 light:text-sky-600 border border-slate-700/50">
+                                ${item.badge || '프로젝트'}
+                            </span>
+                            <div class="flex items-center space-x-1.5">
+                                ${isEditMode ? `
+                                    <button onclick="openEditItemModal('${item.id}'); event.stopPropagation();" class="no-modal-trigger w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 flex items-center justify-center text-xs transition" title="수정">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </button>
+                                ` : ''}
+                                <div class="w-9 h-9 rounded-xl bg-gradient-to-br ${gradientColor} flex items-center justify-center text-white text-base shadow-md group-hover:rotate-6 transition">
+                                    <i class="fa-solid ${item.icon || 'fa-folder'}"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        ${imageHTML}
+
+                        <h3 class="text-lg font-bold text-slate-100 light:text-slate-900 group-hover:text-sky-400 transition mb-2">
+                            ${item.title}
+                        </h3>
+
+                        <p class="text-xs text-slate-400 light:text-slate-600 line-clamp-3 leading-relaxed mb-4">
+                            ${item.desc}
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="flex flex-wrap gap-1 mb-4">
+                            ${(item.tools || []).map(t => `<span class="text-[10px] px-2 py-0.5 rounded bg-slate-800/80 light:bg-slate-200/80 text-slate-400 light:text-slate-700">${t}</span>`).join('')}
+                        </div>
+
+                        <div class="pt-3 border-t border-slate-800/80 light:border-slate-200/80 flex items-center justify-between text-xs text-slate-400">
+                            <span class="flex items-center space-x-1 hover:text-rose-400 transition">
+                                <i class="fa-solid fa-heart text-rose-500/80"></i>
+                                <span>${item.likes || 0}</span>
+                            </span>
+                            <span class="font-medium text-sky-400 group-hover:translate-x-1 transition inline-flex items-center">
+                                상세보기 <i class="fa-solid fa-arrow-right text-[10px] ml-1"></i>
+                            </span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(cardEl);
+            });
+        }
+
+        function openModal(id) {
+            const item = portfolioData.find(p => p.id === id);
+            if (!item) return;
+
+            currentModalId = id;
+            document.getElementById('modalTitle').innerText = item.title;
+            document.getElementById('modalCategory').innerText = item.badge || '상세 탐구';
+            document.getElementById('modalDate').innerText = item.date || '2026학년도';
+            document.getElementById('modalLikeCount').innerText = item.likes || 0;
+
+            const categoryColors = {
+                ethics: "from-sky-500 to-blue-600",
+                creative: "from-purple-500 to-pink-600",
+                data: "from-emerald-500 to-teal-600",
+                app: "from-rose-500 to-red-600"
+            };
+            const gradientColor = item.color || categoryColors[item.categoryKey] || "from-sky-500 to-indigo-600";
+
+            const iconBox = document.getElementById('modalIconBox');
+            iconBox.className = `w-12 h-12 rounded-2xl flex items-center justify-center text-white text-xl shadow-md bg-gradient-to-br ${gradientColor}`;
+            iconBox.innerHTML = `<i class="fa-solid ${item.icon || 'fa-folder'}"></i>`;
+
+            const detailSummary = item.detail?.summary || item.desc || "상세 개요가 마련되어 있습니다.";
+            const highlights = item.detail?.highlights || ["교과 탐구 수강 내용 이수", "실습 파일 등록 완료"];
+
+            const modalImageHTML = item.image ? `
+                <div class="w-full max-h-64 rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 mb-4">
+                    <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover">
+                </div>
+            ` : '';
+
+            const body = document.getElementById('modalBody');
+            body.innerHTML = `
+                ${modalImageHTML}
+                <div class="p-4 rounded-2xl bg-slate-800/40 light:bg-slate-100 border border-slate-700/50 light:border-slate-200 space-y-2">
+                    <h4 class="text-xs font-bold text-sky-400 uppercase tracking-wider">Project Summary</h4>
+                    <p class="text-sm text-slate-200 light:text-slate-800 leading-relaxed">${detailSummary}</p>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="text-sm font-bold text-slate-200 light:text-slate-900">핵심 활동 및 성과</h4>
+                    <ul class="space-y-2 text-xs sm:text-sm text-slate-300 light:text-slate-700">
+                        ${highlights.map(h => `
+                            <li class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check text-sky-400 mt-1 text-xs"></i>
+                                <span>${h}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+
+                <div id="interactiveContainer" class="mt-4 p-4 rounded-2xl bg-slate-950/60 light:bg-slate-50 border border-slate-800 light:border-slate-200">
+                </div>
+            `;
+
+            renderInteractiveContent(item.detail?.interactiveType);
+            document.getElementById('detailModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').classList.add('hidden');
+            if (chartInstance) {
+                chartInstance.destroy();
+                chartInstance = null;
+            }
+        }
+
+        function editCurrentModalItem() {
+            if (currentModalId) {
+                closeModal();
+                openEditItemModal(currentModalId);
+            }
+        }
+
+        function renderInteractiveContent(type) {
+            const container = document.getElementById('interactiveContainer');
+            if (!container) return;
+
+            if (type === 'checklist') {
+                container.innerHTML = `
+                    <h5 class="text-xs font-bold text-slate-400 mb-3">AI 윤리 실천 자가 진단 체크리스트</h5>
+                    <div class="space-y-2 text-xs">
+                        <label class="flex items-center space-x-2 cursor-pointer p-2 rounded bg-slate-900 light:bg-white border border-slate-800 light:border-slate-200">
+                            <input type="checkbox" checked class="rounded accent-sky-500">
+                            <span>AI 생성물에 대한 출처 표기 의무화</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer p-2 rounded bg-slate-900 light:bg-white border border-slate-800 light:border-slate-200">
+                            <input type="checkbox" checked class="rounded accent-sky-500">
+                            <span>입력 프롬프트 상의 개인정보 식별 및 제거</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer p-2 rounded bg-slate-900 light:bg-white border border-slate-800 light:border-slate-200">
+                            <input type="checkbox" checked class="rounded accent-sky-500">
+                            <span>결과물의 할루시네이션(환각) 2차 출처 검증</span>
+                        </label>
+                    </div>
+                `;
+            } else if (type === 'chartCareer') {
+                container.innerHTML = `<canvas id="modalChart" class="w-full max-h-56"></canvas>`;
+                setTimeout(() => {
+                    const ctx = document.getElementById('modalChart')?.getContext('2d');
+                    if (ctx) {
+                        chartInstance = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: ['Python', 'PyTorch', 'TensorFlow', 'TypeScript', 'SQL', 'Git'],
+                                datasets: [{
+                                    label: 'AI 채용공고 요구 비중 (%)',
+                                    data: [88, 68, 45, 35, 52, 60],
+                                    backgroundColor: 'rgba(56, 189, 248, 0.7)',
+                                    borderColor: '#38bdf8',
+                                    borderWidth: 1,
+                                    borderRadius: 6
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: { legend: { display: false } },
+                                scales: { y: { beginAtZero: true, max: 100 } }
+                            }
+                        });
+                    }
+                }, 100);
+            } else if (type === 'chartLocal') {
+                container.innerHTML = `<canvas id="modalChart" class="w-full max-h-56"></canvas>`;
+                setTimeout(() => {
+                    const ctx = document.getElementById('modalChart')?.getContext('2d');
+                    if (ctx) {
+                        chartInstance = new Chart(ctx, {
+                            type: 'doughnut',
+                            data: {
+                                labels: ['야간 주택가 음영지대', '상가 밀집 구역', '공원 주변', '기타'],
+                                datasets: [{
+                                    data: [48, 27, 15, 10],
+                                    backgroundColor: ['#f43f5e', '#f59e0b', '#10b981', '#64748b']
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false
+                            }
+                        });
+                    }
+                }, 100);
+            } else if (type === 'videoMock') {
+                container.innerHTML = `
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-slate-900 flex items-center justify-center border border-slate-800">
+                        <div class="text-center p-4">
+                            <i class="fa-solid fa-circle-play text-4xl text-purple-400 mb-2 animate-bounce"></i>
+                            <p class="text-xs text-slate-300 font-semibold">AI 숏폼 스토리 시연 플레이어</p>
+                            <p class="text-[10px] text-slate-500">Runway Gen-2 & Sora 패밀리 합성 렌더링 완성본</p>
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'appDemo') {
+                container.innerHTML = `
+                    <div class="p-3 bg-slate-900 rounded-xl text-center">
+                        <span class="text-xs font-bold text-rose-400">실시간 급식 대기시간 예측 서비스 미리보기</span>
+                        <div class="mt-2 grid grid-cols-2 gap-2 text-xs">
+                            <div class="p-2 bg-slate-800 rounded">
+                                <span class="text-slate-400 block text-[10px]">현재 대기 인원</span>
+                                <strong class="text-slate-100 text-base">42명</strong>
+                            </div>
+                            <div class="p-2 bg-slate-800 rounded">
+                                <span class="text-slate-400 block text-[10px]">예상 대기시간</span>
+                                <strong class="text-emerald-400 text-base">약 6분</strong>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `<p class="text-xs text-slate-400 text-center py-2"><i class="fa-solid fa-circle-info mr-1"></i> 포트폴리오 세부 실습 탐구 기록이 정상 등록되어 있습니다.</p>`;
+            }
+        }
+
+        function openEditItemModal(itemId) {
+            const deleteBtn = document.getElementById('deleteCardBtn');
+            const titleEl = document.getElementById('editModalTitle');
+            tempProfileImageData = "";
+            tempCardImageData = "";
+
+            if (itemId) {
+                const item = portfolioData.find(p => p.id === itemId);
+                if (!item) return;
+
+                document.getElementById('formItemId').value = item.id;
+                document.getElementById('formTitle').value = item.title;
+                document.getElementById('formImage').value = item.image || '';
+                document.getElementById('formCategoryKey').value = item.categoryKey;
+                document.getElementById('formBadge').value = item.badge || '';
+                document.getElementById('formDesc').value = item.desc;
+                document.getElementById('formDetailSummary').value = item.detail?.summary || item.desc;
+                
+                const rawHighlights = (item.detail?.highlights || []).map(h => h.replace(/<[^>]*>?/gm, '')).join('\n');
+                document.getElementById('formHighlights').value = rawHighlights;
+                
+                document.getElementById('formTools').value = (item.tools || []).join(', ');
+                document.getElementById('formIcon').value = item.icon || 'fa-folder';
+
+                titleEl.innerText = "프로젝트 카드 수정";
+                deleteBtn.classList.remove('hidden');
+            } else {
+                // New Item
+                document.getElementById('portfolioEditForm').reset();
+                document.getElementById('formItemId').value = '';
+                document.getElementById('formImage').value = '';
+                document.getElementById('formIcon').value = 'fa-rocket';
+                titleEl.innerText = "새 프로젝트 추가";
+                deleteBtn.classList.add('hidden');
+            }
+
+            document.getElementById('editItemModal').classList.remove('hidden');
+        }
+
+        function closeEditItemModal() {
+            document.getElementById('editItemModal').classList.add('hidden');
+        }
+
+        function deleteCurrentFormItem() {
+            const id = document.getElementById('formItemId').value;
+            if (!id) return;
+            const item = portfolioData.find(p => p.id === id);
+            if (item) {
+                const title = item.title;
+                portfolioData = portfolioData.filter(p => p.id !== id);
+                saveDataToStorage();
+                renderCards();
+                closeEditItemModal();
+                showToast(`'${title}' 프로젝트가 삭제되었습니다.`);
+            }
+        }
+
+        function saveItemForm(e) {
+            e.preventDefault();
+            const id = document.getElementById('formItemId').value;
+            const title = document.getElementById('formTitle').value.trim();
+            const categoryKey = document.getElementById('formCategoryKey').value;
+            const badge = document.getElementById('formBadge').value.trim();
+            const desc = document.getElementById('formDesc').value.trim();
+            const detailSummary = document.getElementById('formDetailSummary').value.trim();
+            
+            let cardImage = "";
+            if (tempCardImageData) {
+                cardImage = tempCardImageData;
+            } else {
+                cardImage = document.getElementById('formImage').value.trim();
+            }
+
+            const rawHighlights = document.getElementById('formHighlights').value.split('\n').filter(h => h.trim());
+            const highlights = rawHighlights.map(h => `<strong>${h.split(':')[0] || '특징'}:</strong> ${h.split(':')[1] || h}`);
+
+            const tools = document.getElementById('formTools').value.split(',').map(t => t.trim()).filter(Boolean);
+            const icon = document.getElementById('formIcon').value.trim() || 'fa-folder';
+
+            if (id) {
+                // Update Existing
+                const item = portfolioData.find(p => p.id === id);
+                if (item) {
+                    item.title = title;
+                    item.image = cardImage;
+                    item.categoryKey = categoryKey;
+                    item.badge = badge;
+                    item.desc = desc;
+                    item.tools = tools;
+                    item.icon = icon;
+                    if (!item.detail) item.detail = {};
+                    item.detail.summary = detailSummary;
+                    item.detail.highlights = highlights;
+                }
+                showToast(`'${title}' 프로젝트가 수정되었습니다! ✏️`);
+            } else {
+                // Create New Item
+                const newId = 'custom-' + Date.now();
+                const newItem = {
+                    id: newId,
+                    categoryKey: categoryKey,
+                    badge: badge,
+                    title: title,
+                    desc: desc,
+                    image: cardImage,
+                    icon: icon,
+                    likes: 1,
+                    date: new Date().toISOString().slice(0,10).replace(/-/g, '.'),
+                    tools: tools.length ? tools : ["AI General"],
+                    detail: {
+                        summary: detailSummary,
+                        highlights: highlights,
+                        interactiveType: "default"
+                    }
+                };
+                portfolioData.unshift(newItem);
+                showToast(`새 프로젝트 '${title}'가 게시되었습니다! 🎉`);
+            }
+
+            tempCardImageData = "";
+            saveDataToStorage();
+            renderCards();
+            closeEditItemModal();
+        }
+
+        function openProfileModal() {
+            tempProfileImageData = "";
+            document.getElementById('profileFormAvatar').value = profileData.avatar || '';
+            document.getElementById('profileFormName').value = profileData.name;
+            document.getElementById('profileFormRole').value = profileData.role;
+            document.getElementById('profileFormBio').value = profileData.bio;
+            document.getElementById('profileFormEmail').value = profileData.email;
+            document.getElementById('profileFormGithub').value = profileData.github;
+
+            document.getElementById('profileModal').classList.remove('hidden');
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profileModal').classList.add('hidden');
+        }
+
+        function saveProfileForm(e) {
+            e.preventDefault();
+            
+            if (tempProfileImageData) {
+                profileData.avatar = tempProfileImageData;
+            } else {
+                profileData.avatar = document.getElementById('profileFormAvatar').value.trim();
+            }
+
+            profileData.name = document.getElementById('profileFormName').value.trim();
+            profileData.role = document.getElementById('profileFormRole').value.trim();
+            profileData.bio = document.getElementById('profileFormBio').value.trim();
+            profileData.email = document.getElementById('profileFormEmail').value.trim();
+            profileData.github = document.getElementById('profileFormGithub').value.trim();
+
+            tempProfileImageData = "";
+            saveDataToStorage();
+            renderProfile();
+            closeProfileModal();
+            showToast("자기소개 프로필이 새로고침되었습니다! 👤");
+        }
+
+        function resetDefaultData() {
+            portfolioData = [...initialPortfolioData];
+            profileData = {...initialProfileData};
+            saveDataToStorage();
+            renderProfile();
+            renderCards();
+            closeSummaryModal();
+            showToast("모든 데이터가 기본 초기상태로 원복되었습니다.");
+        }
+
+        /* Filtering & Search */
+        function filterCards(key, ev) {
+            activeFilter = key;
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active', 'bg-sky-500', 'text-white');
+                btn.classList.add('bg-slate-800', 'light:bg-slate-200', 'text-slate-300', 'light:text-slate-700');
+            });
+
+            if (ev && ev.currentTarget) {
+                ev.currentTarget.classList.add('active', 'bg-sky-500', 'text-white');
+                ev.currentTarget.classList.remove('bg-slate-800', 'light:bg-slate-200', 'text-slate-300', 'light:text-slate-700');
+            }
+
+            renderCards();
+        }
+
+        function searchCards() {
+            searchQuery = document.getElementById('searchInput').value;
+            renderCards();
+        }
+
+        function resetSearch() {
+            searchQuery = '';
+            document.getElementById('searchInput').value = '';
+            activeFilter = 'all';
+            renderCards();
+        }
+
+        function toggleLikeCurrent() {
+            if (!currentModalId) return;
+            const item = portfolioData.find(p => p.id === currentModalId);
+            if (item) {
+                item.likes = (item.likes || 0) + 1;
+                document.getElementById('modalLikeCount').innerText = item.likes;
+                saveDataToStorage();
+                showToast(`'${item.title}' 프로젝트에 좋아요를 남겼습니다! ❤️`);
+                renderCards();
+            }
+        }
+
+        function showToast(message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'px-4 py-2.5 rounded-xl bg-slate-900 border border-sky-500/30 text-sky-400 text-xs shadow-xl flex items-center space-x-2 animate-bounce';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check"></i><span>${message}</span>`;
+            
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        function openSummaryModal() {
+            document.getElementById('summaryModal').classList.remove('hidden');
+        }
+
+        function closeSummaryModal() {
+            document.getElementById('summaryModal').classList.add('hidden');
+        }
+
+        function copySummaryText() {
+            const summaryText = `[${profileData.name} - 인공지능일반 포트폴리오 요약]\n- 생성형 AI 활용 원칙 수립\n- AI 스토리 & 미디어 제작\n- 진로/지역 문제 데이터 분석\n- 학교 문제 해결 웹앱 구축\n- 공공데이터 연동 서비스 개발\n- 최종 성찰 완료`;
+            const dummy = document.createElement('textarea');
+            document.body.appendChild(dummy);
+            dummy.value = summaryText;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+            showToast('종합 요약문이 클립보드에 복사되었습니다!');
+        }
+
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = (Math.random() - 0.5) * 0.4;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(56, 189, 248, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.floor(window.innerWidth / 22);
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 100) {
+                        ctx.strokeStyle = `rgba(56, 189, 248, ${0.12 * (1 - dist / 100)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        /* On Initial Load */
+        window.onload = function() {
+            initTheme();
+            loadStoredData();
+            renderProfile();
+            renderCards();
+
+            resizeCanvas();
+            initParticles();
+            animateParticles();
+
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+                initParticles();
+            });
+        };
+    </script>
+</body>
+</html>
