@@ -604,6 +604,21 @@
     </footer>
 
     <script>
+        /* Available Color Palettes for Cards */
+        const availableGradients = [
+            "from-sky-500 to-blue-600",
+            "from-purple-500 to-pink-600",
+            "from-emerald-500 to-teal-600",
+            "from-indigo-500 to-purple-600",
+            "from-amber-500 to-orange-600",
+            "from-rose-500 to-red-600",
+            "from-cyan-500 to-blue-600",
+            "from-violet-500 to-purple-700",
+            "from-fuchsia-500 to-rose-500",
+            "from-teal-400 to-emerald-600",
+            "from-blue-600 to-indigo-800"
+        ];
+
         /* Default Data Sets */
         const initialPortfolioData = [
             {
@@ -799,6 +814,17 @@
 
         let tempProfileImageData = "";
         let tempCardImageData = "";
+
+        // Get Unique Random Color Gradient
+        function getRandomUniqueGradient() {
+            const usedColors = portfolioData.map(p => p.color).filter(Boolean);
+            const unusedColors = availableGradients.filter(c => !usedColors.includes(c));
+            
+            if (unusedColors.length > 0) {
+                return unusedColors[Math.floor(Math.random() * unusedColors.length)];
+            }
+            return availableGradients[Math.floor(Math.random() * availableGradients.length)];
+        }
 
         function handleProfileFileSelect(event) {
             const file = event.target.files[0];
@@ -1252,13 +1278,19 @@
             }
 
             const rawHighlights = document.getElementById('formHighlights').value.split('\n').filter(h => h.trim());
-            const highlights = rawHighlights.map(h => `<strong>${h.split(':')[0] || '특징'}:</strong> ${h.split(':')[1] || h}`);
+            const highlights = rawHighlights.map(h => {
+                if (h.includes(':')) {
+                    const parts = h.split(':');
+                    return `<strong>${parts[0].trim()}:</strong> ${parts.slice(1).join(':').trim()}`;
+                }
+                return `<strong>핵심:</strong> ${h.trim()}`;
+            });
 
             const tools = document.getElementById('formTools').value.split(',').map(t => t.trim()).filter(Boolean);
             const icon = document.getElementById('formIcon').value.trim() || 'fa-folder';
 
             if (id) {
-                // Update Existing
+                // Update Existing Item
                 const item = portfolioData.find(p => p.id === id);
                 if (item) {
                     item.title = title;
@@ -1274,8 +1306,10 @@
                 }
                 showToast(`'${title}' 프로젝트가 수정되었습니다! ✏️`);
             } else {
-                // Create New Item
+                // Create New Item with Unique Random Gradient Color
                 const newId = 'custom-' + Date.now();
+                const randomColor = getRandomUniqueGradient();
+
                 const newItem = {
                     id: newId,
                     categoryKey: categoryKey,
@@ -1284,7 +1318,8 @@
                     desc: desc,
                     image: cardImage,
                     icon: icon,
-                    likes: 1,
+                    color: randomColor,
+                    likes: 0,
                     date: new Date().toISOString().slice(0,10).replace(/-/g, '.'),
                     tools: tools.length ? tools : ["AI General"],
                     detail: {
