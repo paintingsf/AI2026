@@ -307,9 +307,15 @@
                         <h2 id="modalTitle" class="text-xl sm:text-2xl font-bold mt-1 text-slate-100 light:text-slate-900"></h2>
                     </div>
                 </div>
-                <button onclick="closeModal()" class="p-2 rounded-full text-slate-400 hover:text-white light:hover:text-slate-800 hover:bg-slate-800 light:hover:bg-slate-100 transition">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
+                <div class="flex items-center space-x-2">
+                    <a id="modalDetailLinkBtn" href="Chapter2_AI_ehnic/index.html" class="hidden px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white text-xs font-semibold transition flex items-center space-x-1.5 shadow-md">
+                        <span>더 상세히 보기</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                    <button onclick="closeModal()" class="p-2 rounded-full text-slate-400 hover:text-white light:hover:text-slate-800 hover:bg-slate-800 light:hover:bg-slate-100 transition">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
             </div>
 
             <!-- Modal Content Body -->
@@ -604,21 +610,6 @@
     </footer>
 
     <script>
-        /* Available Color Palettes for Cards */
-        const availableGradients = [
-            "from-sky-500 to-blue-600",
-            "from-purple-500 to-pink-600",
-            "from-emerald-500 to-teal-600",
-            "from-indigo-500 to-purple-600",
-            "from-amber-500 to-orange-600",
-            "from-rose-500 to-red-600",
-            "from-cyan-500 to-blue-600",
-            "from-violet-500 to-purple-700",
-            "from-fuchsia-500 to-rose-500",
-            "from-teal-400 to-emerald-600",
-            "from-blue-600 to-indigo-800"
-        ];
-
         /* Default Data Sets */
         const initialPortfolioData = [
             {
@@ -633,6 +624,7 @@
                 date: "2026.03.15",
                 tools: ["ChatGPT", "Claude 3.5", "AI 윤리헌장"],
                 image: "",
+                detailUrl: "Chapter2_AI_ehnic/index.html",
                 detail: {
                     summary: "생성형 AI 사용 시 발생할 수 있는 환각(Hallucination), 표절, 개인정보 유출 문제를 방지하기 위해 나만의 5대 활용 원칙을 수립했습니다.",
                     highlights: [
@@ -814,17 +806,6 @@
 
         let tempProfileImageData = "";
         let tempCardImageData = "";
-
-        // Get Unique Random Color Gradient
-        function getRandomUniqueGradient() {
-            const usedColors = portfolioData.map(p => p.color).filter(Boolean);
-            const unusedColors = availableGradients.filter(c => !usedColors.includes(c));
-            
-            if (unusedColors.length > 0) {
-                return unusedColors[Math.floor(Math.random() * unusedColors.length)];
-            }
-            return availableGradients[Math.floor(Math.random() * availableGradients.length)];
-        }
 
         function handleProfileFileSelect(event) {
             const file = event.target.files[0];
@@ -1038,6 +1019,15 @@
             document.getElementById('modalCategory').innerText = item.badge || '상세 탐구';
             document.getElementById('modalDate').innerText = item.date || '2026학년도';
             document.getElementById('modalLikeCount').innerText = item.likes || 0;
+
+            const detailLinkBtn = document.getElementById('modalDetailLinkBtn');
+            const targetUrl = item.detailUrl || (item.id === 'principles' ? 'Chapter2_AI_ehnic/index.html' : null);
+            if (targetUrl) {
+                detailLinkBtn.href = targetUrl;
+                detailLinkBtn.classList.remove('hidden');
+            } else {
+                detailLinkBtn.classList.add('hidden');
+            }
 
             const categoryColors = {
                 ethics: "from-sky-500 to-blue-600",
@@ -1278,19 +1268,13 @@
             }
 
             const rawHighlights = document.getElementById('formHighlights').value.split('\n').filter(h => h.trim());
-            const highlights = rawHighlights.map(h => {
-                if (h.includes(':')) {
-                    const parts = h.split(':');
-                    return `<strong>${parts[0].trim()}:</strong> ${parts.slice(1).join(':').trim()}`;
-                }
-                return `<strong>핵심:</strong> ${h.trim()}`;
-            });
+            const highlights = rawHighlights.map(h => `<strong>${h.split(':')[0] || '특징'}:</strong> ${h.split(':')[1] || h}`);
 
             const tools = document.getElementById('formTools').value.split(',').map(t => t.trim()).filter(Boolean);
             const icon = document.getElementById('formIcon').value.trim() || 'fa-folder';
 
             if (id) {
-                // Update Existing Item
+                // Update Existing
                 const item = portfolioData.find(p => p.id === id);
                 if (item) {
                     item.title = title;
@@ -1306,10 +1290,8 @@
                 }
                 showToast(`'${title}' 프로젝트가 수정되었습니다! ✏️`);
             } else {
-                // Create New Item with Unique Random Gradient Color
+                // Create New Item
                 const newId = 'custom-' + Date.now();
-                const randomColor = getRandomUniqueGradient();
-
                 const newItem = {
                     id: newId,
                     categoryKey: categoryKey,
@@ -1318,8 +1300,7 @@
                     desc: desc,
                     image: cardImage,
                     icon: icon,
-                    color: randomColor,
-                    likes: 0,
+                    likes: 1,
                     date: new Date().toISOString().slice(0,10).replace(/-/g, '.'),
                     tools: tools.length ? tools : ["AI General"],
                     detail: {
