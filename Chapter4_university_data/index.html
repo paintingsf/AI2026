@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026학년도 대입 분석 | 서울 지역 대입 결과 및 상위 대학 기계공학부 경쟁률 분석</title>
+    <title>2026 대입 분석 | 서울 대입 결과 및 상위대 기계공학 경쟁률 분석</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -78,33 +78,36 @@
 <body class="min-h-screen grid-pattern antialiased text-slate-100 flex flex-col justify-between">
 
     <!-- Navigation Bar -->
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/80 border-b border-sky-900/50">
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/90 border-b border-sky-900/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-3">
+                <!-- Header Title (Concise & Single-Line) -->
+                <div class="flex items-center space-x-3 shrink-0">
                     <div class="p-2 bg-sky-500/10 rounded-lg border border-sky-500/30 text-sky-400">
-                        <i class="fa-solid fa-graduation-cap text-xl"></i>
+                        <i class="fa-solid fa-graduation-cap text-lg"></i>
                     </div>
-                    <div>
-                        <span class="text-xs uppercase tracking-widest text-sky-400 font-semibold block">2026학년도 대입 입시 대시보드</span>
-                        <h1 class="text-base sm:text-lg font-bold text-white tracking-tight">서울 지역 대입 결과 분석 및 상위 대학 기계공학부 경쟁률 분석</h1>
+                    <div class="whitespace-nowrap">
+                        <span class="text-[10px] uppercase tracking-widest text-sky-400 font-semibold block">2026 대입 대시보드</span>
+                        <h1 class="text-sm sm:text-base font-bold text-white tracking-tight">서울 대입 결과 및 상위대 기계공학 경쟁률 분석</h1>
                     </div>
                 </div>
                 
-                <nav class="hidden md:flex space-x-1 lg:space-x-4 text-sm font-medium">
-                    <a href="#overview" class="px-3 py-2 text-slate-300 hover:text-sky-400 transition-colors">개요</a>
-                    <a href="#seoul-results" class="px-3 py-2 text-slate-300 hover:text-sky-400 transition-colors">서울 대입 결과 분석</a>
-                    <a href="#mech-competition" class="px-3 py-2 text-slate-300 hover:text-sky-400 transition-colors">기계공학부 경쟁률</a>
-                    <a href="#strategy" class="px-3 py-2 text-slate-300 hover:text-sky-400 transition-colors">지원 전략 원칙</a>
-                    <a href="#calculator" class="px-3 py-2 text-slate-300 hover:text-sky-400 transition-colors">모의 시뮬레이션</a>
+                <!-- Nav Links -->
+                <nav class="hidden lg:flex items-center space-x-1 text-xs font-medium">
+                    <a href="#overview" class="px-3 py-1.5 text-slate-300 hover:text-sky-400 transition-colors whitespace-nowrap">개요</a>
+                    <a href="#seoul-results" class="px-3 py-1.5 text-slate-300 hover:text-sky-400 transition-colors whitespace-nowrap">서울 대입 결과</a>
+                    <a href="#mech-competition" class="px-3 py-1.5 text-slate-300 hover:text-sky-400 transition-colors whitespace-nowrap">기계공학 경쟁률</a>
+                    <a href="#strategy" class="px-3 py-1.5 text-slate-300 hover:text-sky-400 transition-colors whitespace-nowrap">지원 전략</a>
+                    <a href="#calculator" class="px-3 py-1.5 text-slate-300 hover:text-sky-400 transition-colors whitespace-nowrap">모의 진단</a>
                 </nav>
 
-                <div class="flex items-center space-x-2">
-                    <a href="../index.html" class="px-3 py-1.5 text-xs sm:text-sm font-medium text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg transition-all flex items-center space-x-1.5">
+                <!-- Header Actions -->
+                <div class="flex items-center space-x-2 shrink-0">
+                    <a href="../index.html" class="px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg transition-all flex items-center space-x-1.5 whitespace-nowrap">
                         <i class="fa-solid fa-house"></i>
                         <span>홈</span>
                     </a>
-                    <a href="#mech-competition" class="px-3.5 py-1.5 text-xs sm:text-sm font-medium bg-sky-600 hover:bg-sky-500 text-white rounded-lg transition-all shadow-lg shadow-sky-600/30 flex items-center space-x-1">
+                    <a href="#mech-competition" class="px-3 py-1.5 text-xs font-medium bg-sky-600 hover:bg-sky-500 text-white rounded-lg transition-all shadow-md shadow-sky-600/30 flex items-center space-x-1 whitespace-nowrap">
                         <i class="fa-solid fa-chart-line"></i>
                         <span>경쟁률 데이터</span>
                     </a>
@@ -114,112 +117,100 @@
     </header>
 
     <!-- Hero Section -->
-    <section id="overview" class="relative py-12 md:py-20 overflow-hidden border-b border-sky-900/30">
+    <section id="overview" class="relative py-10 md:py-16 overflow-hidden border-b border-sky-900/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <div class="lg:col-span-7 space-y-6">
-                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-semibold">
+                <div class="lg:col-span-7 space-y-5">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-semibold whitespace-nowrap">
                         <span class="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
-                        <span>2026학년도 대입 입시 전략 리포트</span>
+                        <span>2026학년도 대입 입시 분석</span>
                     </div>
-                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight">
-                        서울 지역 대입 결과 분석 및 <br>
-                        <span class="bg-gradient-to-r from-sky-400 via-cyan-300 to-emerald-400 bg-clip-text text-transparent">상위 대학 기계공학부 경쟁률 분석</span>
+
+                    <!-- Clean Main Title -->
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug">
+                        서울 대입 결과 및 <br class="hidden sm:inline">
+                        <span class="bg-gradient-to-r from-sky-400 via-cyan-300 to-emerald-400 bg-clip-text text-transparent">상위대 기계공학 경쟁률 분석</span>
                     </h2>
-                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl">
-                        2026학년도 서울 주요 대학 입시 합격선 변화와 기계공학부 정시·수시 경쟁률 흐름을 입체적으로 정밀 분석합니다. 데이터 기반의 다각도 검증을 통해 최적의 합격 로드맵을 구축하세요.
+
+                    <p class="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-2xl">
+                        서울 주요 대학의 수시·정시 합격선 추이와 상위권 기계공학부 전형별 경쟁률을 다각도로 정밀 분석하여 입시 전략 수립을 지원합니다.
                     </p>
 
-                    <!-- Core Concept Interactive Diagram -->
-                    <div class="p-4 sm:p-5 rounded-2xl blueprint-card border border-sky-500/30 space-y-3">
-                        <div class="text-xs text-sky-400 font-semibold tracking-wider uppercase flex items-center justify-between">
-                            <span>2026 Admission Analysis Pipeline</span>
-                            <span class="text-slate-400 text-[11px]">합격 예측 분석 프레임워크</span>
+                    <!-- Pipeline Overview Box -->
+                    <div class="p-4 rounded-xl blueprint-card border border-sky-500/30 space-y-3">
+                        <div class="text-[11px] text-sky-400 font-semibold tracking-wider uppercase flex items-center justify-between">
+                            <span>2026 Analysis Framework</span>
+                            <span class="text-slate-400 text-[10px]">입시 핵심 3단계</span>
                         </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
-                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-700/60">
-                                <i class="fa-solid fa-chart-pie text-sky-400 text-lg mb-1"></i>
-                                <h3 class="text-xs font-bold text-slate-200">01. 입결 분석 (Results)</h3>
-                                <p class="text-[11px] text-slate-400 mt-1">서울 지역 대학 70% 컷 정밀 추적</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-center">
+                            <div class="p-2.5 bg-slate-900/80 rounded-lg border border-slate-700/60">
+                                <i class="fa-solid fa-chart-pie text-sky-400 text-base mb-1"></i>
+                                <h3 class="text-xs font-bold text-slate-200 whitespace-nowrap">01. 서울 입결 분석</h3>
+                                <p class="text-[10px] text-slate-400 mt-0.5 whitespace-nowrap">주요 대학 70% Cut 추적</p>
                             </div>
-                            <div class="p-3 bg-slate-900/80 rounded-xl border border-sky-500/50 ring-1 ring-sky-500/20">
-                                <i class="fa-solid fa-microchip text-emerald-400 text-lg mb-1"></i>
-                                <h3 class="text-xs font-bold text-slate-200">02. 기계공학 경쟁률</h3>
-                                <p class="text-[11px] text-slate-400 mt-1">상위권 대학 전형별 추이 점검</p>
+                            <div class="p-2.5 bg-slate-900/80 rounded-lg border border-sky-500/50 ring-1 ring-sky-500/20">
+                                <i class="fa-solid fa-microchip text-emerald-400 text-base mb-1"></i>
+                                <h3 class="text-xs font-bold text-slate-200 whitespace-nowrap">02. 기계공학 경쟁률</h3>
+                                <p class="text-[10px] text-slate-400 mt-0.5 whitespace-nowrap">상위권 대학 전형별 분석</p>
                             </div>
-                            <div class="p-3 bg-slate-900/80 rounded-xl border border-amber-500/50">
-                                <i class="fa-solid fa-compass text-amber-400 text-lg mb-1"></i>
-                                <h3 class="text-xs font-bold text-slate-200">03. 지원 전략 (Strategy)</h3>
-                                <p class="text-[11px] text-slate-400 mt-1">2026 맞춤형 지원 시뮬레이션</p>
+                            <div class="p-2.5 bg-slate-900/80 rounded-lg border border-amber-500/50">
+                                <i class="fa-solid fa-compass text-amber-400 text-base mb-1"></i>
+                                <h3 class="text-xs font-bold text-slate-200 whitespace-nowrap">03. 지원 전략 수립</h3>
+                                <p class="text-[10px] text-slate-400 mt-0.5 whitespace-nowrap">맞춤형 모의 지원 진단</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap gap-3 pt-2">
-                        <a href="#mech-competition" class="px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-medium text-sm transition-all shadow-lg shadow-sky-600/30 flex items-center justify-center space-x-2">
-                            <span>경쟁률 데이터 확인하기</span>
-                            <i class="fa-solid fa-arrow-down"></i>
+                    <!-- Cleaned Action Buttons (Removed Download/Infographic) -->
+                    <div class="flex flex-wrap gap-3 pt-1">
+                        <a href="#mech-competition" class="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-medium text-xs transition-all shadow-md shadow-sky-600/30 flex items-center space-x-1.5 whitespace-nowrap">
+                            <span>경쟁률 데이터 확인</span>
+                            <i class="fa-solid fa-arrow-down text-[10px]"></i>
                         </a>
-                        <a href="#calculator" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium text-sm border border-slate-700 transition-all flex items-center justify-center space-x-2">
+                        <a href="#calculator" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium text-xs border border-slate-700 transition-all flex items-center space-x-1.5 whitespace-nowrap">
                             <i class="fa-solid fa-calculator text-sky-400"></i>
-                            <span>내 성적 모의 진단</span>
+                            <span>성적 모의 진단</span>
                         </a>
-                        <button onclick="downloadPresentation()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white font-medium text-sm transition-all shadow-md shadow-orange-600/20 flex items-center justify-center space-x-2 border border-amber-400/30">
-                            <i class="fa-solid fa-file-arrow-down"></i>
-                            <span>분석자료 다운로드</span>
-                        </button>
-                        <button onclick="openInfographicModal()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-medium text-sm transition-all shadow-md shadow-teal-600/20 flex items-center justify-center space-x-2 border border-emerald-400/30">
-                            <i class="fa-solid fa-chart-pie"></i>
-                            <span>인포그래픽 보기</span>
-                        </button>
                     </div>
                 </div>
 
                 <div class="lg:col-span-5">
                     <!-- Dashboard Card Graphic -->
-                    <div class="relative p-6 rounded-2xl blueprint-card border border-sky-500/40 shadow-2xl overflow-hidden">
-                        <div class="absolute -top-10 -right-10 w-40 h-40 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                        
-                        <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-700/80">
+                    <div class="relative p-5 rounded-xl blueprint-card border border-sky-500/40 shadow-xl overflow-hidden">
+                        <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-700/80">
                             <div class="flex items-center space-x-2">
-                                <div class="w-3 h-3 rounded-full bg-rose-500"></div>
-                                <div class="w-3 h-3 rounded-full bg-amber-500"></div>
-                                <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-rose-500"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-amber-500"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-emerald-500"></div>
                             </div>
-                            <span class="text-xs font-mono text-sky-400">TARGET: 2026_ADMISSION_DATA</span>
+                            <span class="text-[10px] font-mono text-sky-400">STATUS: 2026_ADMISSION_READY</span>
                         </div>
 
-                        <div class="space-y-4 font-mono text-xs">
+                        <div class="space-y-3 font-mono text-xs">
                             <div class="p-3 bg-slate-950/80 rounded-lg border border-slate-800 text-slate-300">
-                                <div class="text-slate-500 mb-1">// 2026 핵심 슬로건</div>
-                                <p class="text-sky-300 font-semibold text-sm">"전형 변화를 파악하고 기계공학 합격선을 사수하라."</p>
-                                <p class="text-slate-400 text-[11px] mt-1">(Analyze Patterns, Secure Admission.)</p>
+                                <div class="text-slate-500 text-[10px] mb-1">// 핵심 포인트</div>
+                                <p class="text-sky-300 font-semibold text-xs leading-snug">"전형 요인 변화 분석을 통한 기계공학부 합격 전략 제시"</p>
                             </div>
 
-                            <div class="space-y-2">
-                                <div class="flex justify-between text-slate-400 text-[11px]">
-                                    <span>서울 주요 대학 입결 분석 신뢰도</span>
-                                    <span class="text-emerald-400 font-bold">2026 DATA ACTIVE</span>
+                            <div class="space-y-1.5">
+                                <div class="flex justify-between text-slate-400 text-[10px]">
+                                    <span>데이터 수집 및 정밀도</span>
+                                    <span class="text-emerald-400 font-bold">100% COMPLETE</span>
                                 </div>
-                                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                                <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
                                     <div class="h-full bg-gradient-to-r from-sky-500 to-emerald-400 rounded-full w-full"></div>
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-2 gap-2 text-[11px]">
-                                <div class="p-2.5 bg-slate-900/90 rounded-lg border border-sky-900/60">
+                            <div class="grid grid-cols-2 gap-2 text-[10px]">
+                                <div class="p-2 bg-slate-900/90 rounded-lg border border-sky-900/60">
                                     <span class="text-slate-400 block">서울 주요 대학</span>
-                                    <span class="text-sky-300 font-medium">수시/정시 합격선 추적</span>
+                                    <span class="text-sky-300 font-medium">수시/정시 입결 추적</span>
                                 </div>
-                                <div class="p-2.5 bg-slate-900/90 rounded-lg border border-sky-900/60">
-                                    <span class="text-slate-400 block">상위권 기계공학부</span>
-                                    <span class="text-cyan-300 font-medium">실시간 경쟁률 시뮬레이션</span>
+                                <div class="p-2 bg-slate-900/90 rounded-lg border border-sky-900/60">
+                                    <span class="text-slate-400 block">상위권 기계공학</span>
+                                    <span class="text-cyan-300 font-medium">경쟁률 패턴 진단</span>
                                 </div>
-                            </div>
-
-                            <div class="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-200 text-[11px] leading-relaxed">
-                                <i class="fa-solid fa-triangle-exclamation mr-1 text-amber-400"></i>
-                                본 가이드의 경쟁률 분석 자료는 2026학년도 대학입학전형시행계획 및 최근 입시 결과를 기반으로 산출되었습니다.
                             </div>
                         </div>
                     </div>
@@ -229,187 +220,187 @@
     </section>
 
     <!-- Section 1: Seoul Admission Results Interactive Hub -->
-    <section id="seoul-results" class="py-16 bg-slate-950/60 border-b border-sky-900/30">
+    <section id="seoul-results" class="py-14 bg-slate-950/60 border-b border-sky-900/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-12">
-                <span class="text-xs font-bold uppercase tracking-widest text-sky-400">Seoul Regional Analysis</span>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">서울 지역 대입 결과 분석 및 주요 특징</h2>
-                <p class="text-slate-400 text-sm mt-2">탭을 클릭하여 2026학년도 서울 주요 대학별 입시 지표를 확인하세요.</p>
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-[11px] font-bold uppercase tracking-widest text-sky-400">Seoul Regional Analysis</span>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-1">서울 주요 대학 입시 결과 분석</h2>
+                <p class="text-slate-400 text-xs mt-1.5">2026학년도 서울 주요 대학 입시 지표와 핵심 변경사항을 확인하세요.</p>
             </div>
 
             <!-- Analysis Tabs -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8" id="seoul-tabs">
-                <button onclick="switchSeoulTab(1)" id="seoul-btn-1" class="p-4 rounded-xl blueprint-card text-left transition-all border-sky-500 bg-sky-900/30 text-white ring-1 ring-sky-500">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="w-7 h-7 rounded-lg bg-sky-500/20 text-sky-400 font-bold text-xs flex items-center justify-center">01</span>
-                        <i class="fa-solid fa-building-columns text-sky-400 text-lg"></i>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6" id="seoul-tabs">
+                <button onclick="switchSeoulTab(1)" id="seoul-btn-1" class="p-3.5 rounded-xl blueprint-card text-left transition-all border-sky-500 bg-sky-900/30 text-white ring-1 ring-sky-500">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="w-6 h-6 rounded bg-sky-500/20 text-sky-400 font-bold text-[11px] flex items-center justify-center">01</span>
+                        <i class="fa-solid fa-building-columns text-sky-400 text-base"></i>
                     </div>
-                    <h3 class="font-bold text-sm text-slate-100">최상위권 입결 추이</h3>
-                    <p class="text-xs text-slate-400 mt-1 line-clamp-1">서연고 성한서 종합 입결</p>
+                    <h3 class="font-bold text-xs text-slate-100 whitespace-nowrap">최상위권 입결 추이</h3>
+                    <p class="text-[10px] text-slate-400 mt-0.5 truncate">서연고 성한서 종합 입결</p>
                 </button>
 
-                <button onclick="switchSeoulTab(2)" id="seoul-btn-2" class="p-4 rounded-xl blueprint-card text-left transition-all border-slate-800 text-slate-400 hover:text-white">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="w-7 h-7 rounded-lg bg-slate-800 text-slate-400 font-bold text-xs flex items-center justify-center">02</span>
-                        <i class="fa-solid fa-balance-scale text-rose-400 text-lg"></i>
+                <button onclick="switchSeoulTab(2)" id="seoul-btn-2" class="p-3.5 rounded-xl blueprint-card text-left transition-all border-slate-800 text-slate-400 hover:text-white">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="w-6 h-6 rounded bg-slate-800 text-slate-400 font-bold text-[11px] flex items-center justify-center">02</span>
+                        <i class="fa-solid fa-balance-scale text-rose-400 text-base"></i>
                     </div>
-                    <h3 class="font-bold text-sm text-slate-200">수시 수능최저 변화</h3>
-                    <p class="text-xs text-slate-400 mt-1 line-clamp-1">충족률에 따른 실질 경쟁률</p>
+                    <h3 class="font-bold text-xs text-slate-200 whitespace-nowrap">수시 수능최저 변화</h3>
+                    <p class="text-[10px] text-slate-400 mt-0.5 truncate">충족률에 따른 실질 경쟁률</p>
                 </button>
 
-                <button onclick="switchSeoulTab(3)" id="seoul-btn-3" class="p-4 rounded-xl blueprint-card text-left transition-all border-slate-800 text-slate-400 hover:text-white">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="w-7 h-7 rounded-lg bg-slate-800 text-slate-400 font-bold text-xs flex items-center justify-center">03</span>
-                        <i class="fa-solid fa-arrow-trend-up text-amber-400 text-lg"></i>
+                <button onclick="switchSeoulTab(3)" id="seoul-btn-3" class="p-3.5 rounded-xl blueprint-card text-left transition-all border-slate-800 text-slate-400 hover:text-white">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="w-6 h-6 rounded bg-slate-800 text-slate-400 font-bold text-[11px] flex items-center justify-center">03</span>
+                        <i class="fa-solid fa-arrow-trend-up text-amber-400 text-base"></i>
                     </div>
-                    <h3 class="font-bold text-sm text-slate-200">정시 합격선 영향 요인</h3>
-                    <p class="text-xs text-slate-400 mt-1 line-clamp-1">탐구 변환표준점수 반영</p>
+                    <h3 class="font-bold text-xs text-slate-200 whitespace-nowrap">정시 합격선 영향 요인</h3>
+                    <p class="text-[10px] text-slate-400 mt-0.5 truncate">탐구 변환표준점수 반영</p>
                 </button>
 
-                <button onclick="switchSeoulTab(4)" id="seoul-btn-4" class="p-4 rounded-xl blueprint-card text-left transition-all border-slate-800 text-slate-400 hover:text-white">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="w-7 h-7 rounded-lg bg-slate-800 text-slate-400 font-bold text-xs flex items-center justify-center">04</span>
-                        <i class="fa-solid fa-layer-group text-purple-400 text-lg"></i>
+                <button onclick="switchSeoulTab(4)" id="seoul-btn-4" class="p-3.5 rounded-xl blueprint-card text-left transition-all border-slate-800 text-slate-400 hover:text-white">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="w-6 h-6 rounded bg-slate-800 text-slate-400 font-bold text-[11px] flex items-center justify-center">04</span>
+                        <i class="fa-solid fa-layer-group text-purple-400 text-base"></i>
                     </div>
-                    <h3 class="font-bold text-sm text-slate-200">무전공 및 융합학부</h3>
-                    <p class="text-xs text-slate-400 mt-1 line-clamp-1">자율전공 확대에 따른 영향</p>
+                    <h3 class="font-bold text-xs text-slate-200 whitespace-nowrap">무전공 및 융합학부</h3>
+                    <p class="text-[10px] text-slate-400 mt-0.5 truncate">자율전공 확대 영향</p>
                 </button>
             </div>
 
             <!-- Content Display Container -->
-            <div id="seoul-content-container" class="blueprint-card rounded-2xl p-6 lg:p-8 border-sky-500/40">
+            <div id="seoul-content-container" class="blueprint-card rounded-xl p-5 sm:p-6 border-sky-500/40">
                 <!-- JavaScript Content Injection -->
             </div>
         </div>
     </section>
 
     <!-- Section 2: Mechanical Engineering Competition Analysis -->
-    <section id="mech-competition" class="py-16 relative border-b border-sky-900/30">
+    <section id="mech-competition" class="py-14 relative border-b border-sky-900/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-12">
-                <span class="text-xs font-bold uppercase tracking-widest text-emerald-400">Mechanical Engineering Depth Analysis</span>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">상위 대학 기계공학부 경쟁률 분석</h2>
-                <p class="text-slate-400 text-sm mt-2">2026학년도 주요 대학 기계공학부의 전형별 경쟁률 변화 분석 및 전망입니다.</p>
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-[11px] font-bold uppercase tracking-widest text-emerald-400">Mechanical Engineering Depth Analysis</span>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-1">상위 대학 기계공학부 경쟁률 분석</h2>
+                <p class="text-slate-400 text-xs mt-1.5">2026학년도 주요 대학 기계공학부의 전형별 경쟁률 변화 및 특이사항 분석입니다.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 <!-- University Card 1 -->
-                <div class="blueprint-card rounded-2xl p-6 space-y-4 border-l-4 border-l-sky-500 relative">
+                <div class="blueprint-card rounded-xl p-5 space-y-3.5 border-l-4 border-l-sky-500 relative">
                     <div class="flex justify-between items-start">
-                        <span class="text-xs font-mono font-bold text-sky-400 bg-sky-500/10 px-2.5 py-1 rounded border border-sky-500/20">SEOUL NAT'L UNIV</span>
-                        <i class="fa-solid fa-gear text-sky-400 text-xl"></i>
+                        <span class="text-[10px] font-mono font-bold text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded border border-sky-500/20">SEOUL NAT'L UNIV</span>
+                        <i class="fa-solid fa-gear text-sky-400 text-lg"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-white">서울대학교 기계공학부</h3>
-                        <p class="text-xs text-sky-300 font-medium">2026학년도 입시 경향 분석</p>
+                        <h3 class="text-base font-bold text-white">서울대학교 기계공학부</h3>
+                        <p class="text-[11px] text-sky-300 font-medium">2026학년도 입시 경향</p>
                     </div>
                     <p class="text-xs text-slate-300 leading-relaxed">
-                        지균 전형 및 일반 전형 모두 높은 수능 최저기준과 2단계 면접 평가를 적용. 첨단 로봇·항공 분야 융합트랙 선호로 매년 안정적인 지원 형태를 유지 중입니다.
+                        지균 및 일반 전형 모두 높은 수능 최저기준과 2단계 면접을 적용. 로봇·항공 융합트랙 선호로 안정적인 지원세를 유지합니다.
                     </p>
                     <ul class="text-xs text-slate-400 space-y-1.5 pt-2 border-t border-slate-800">
                         <li class="flex items-center justify-between">
-                            <span>수시 일반전형 경쟁률 추정:</span>
+                            <span>수시 일반전형 추정:</span>
                             <span class="text-sky-400 font-bold">9.2 : 1</span>
                         </li>
                         <li class="flex items-center justify-between">
-                            <span>정시 일반전형 경쟁률 추정:</span>
+                            <span>정시 일반전형 추정:</span>
                             <span class="text-sky-400 font-bold">3.8 : 1</span>
                         </li>
                     </ul>
                 </div>
 
                 <!-- University Card 2 -->
-                <div class="blueprint-card rounded-2xl p-6 space-y-4 border-l-4 border-l-rose-500 relative">
+                <div class="blueprint-card rounded-xl p-5 space-y-3.5 border-l-4 border-l-rose-500 relative">
                     <div class="flex justify-between items-start">
-                        <span class="text-xs font-mono font-bold text-rose-400 bg-rose-500/10 px-2.5 py-1 rounded border border-rose-500/20">YONSEI UNIV</span>
-                        <i class="fa-solid fa-car-side text-rose-400 text-xl"></i>
+                        <span class="text-[10px] font-mono font-bold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded border border-rose-500/20">YONSEI UNIV</span>
+                        <i class="fa-solid fa-car-side text-rose-400 text-lg"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-white">연세대학교 기계공학부</h3>
-                        <p class="text-xs text-rose-300 font-medium">2026학년도 입시 경향 분석</p>
+                        <h3 class="text-base font-bold text-white">연세대학교 기계공학부</h3>
+                        <p class="text-[11px] text-rose-300 font-medium">2026학년도 입시 경향</p>
                     </div>
                     <p class="text-xs text-slate-300 leading-relaxed">
-                        논술전형 폐지/변경 파급력 및 학생부종합(활동우수형) 수능최저 조건 개편으로 인해 최상위권 이공계 학생들의 실질 경쟁률에 유의미한 변동이 포착됩니다.
+                        학생부종합(활동우수형) 수능최저 조건 개편으로 인해 최상위권 이공계 지원자들의 실질 경쟁률 변동성이 존재합니다.
                     </p>
                     <ul class="text-xs text-slate-400 space-y-1.5 pt-2 border-t border-slate-800">
                         <li class="flex items-center justify-between">
-                            <span>수시 활동우수형 경쟁률:</span>
+                            <span>수시 활동우수형:</span>
                             <span class="text-rose-400 font-bold">11.5 : 1</span>
                         </li>
                         <li class="flex items-center justify-between">
-                            <span>정시 가군 경쟁률:</span>
+                            <span>정시 가군:</span>
                             <span class="text-rose-400 font-bold">4.6 : 1</span>
                         </li>
                     </ul>
                 </div>
 
                 <!-- University Card 3 -->
-                <div class="blueprint-card rounded-2xl p-6 space-y-4 border-l-4 border-l-amber-500 relative">
+                <div class="blueprint-card rounded-xl p-5 space-y-3.5 border-l-4 border-l-amber-500 relative">
                     <div class="flex justify-between items-start">
-                        <span class="text-xs font-mono font-bold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded border border-amber-500/20">KOREA UNIV</span>
-                        <i class="fa-solid fa-wrench text-amber-400 text-xl"></i>
+                        <span class="text-[10px] font-mono font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">KOREA UNIV</span>
+                        <i class="fa-solid fa-wrench text-amber-400 text-lg"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-white">고려대학교 기계공학부</h3>
-                        <p class="text-xs text-amber-300 font-medium">2026학년도 입시 경향 분석</p>
+                        <h3 class="text-base font-bold text-white">고려대학교 기계공학부</h3>
+                        <p class="text-[11px] text-amber-300 font-medium">2026학년도 입시 경향</p>
                     </div>
                     <p class="text-xs text-slate-300 leading-relaxed">
-                        학업우수전형의 수능 최저학력기준 충족 여부가 합격의 핵심 변수. 다학제 간 미래 모빌리티 융합전공 인기로 기계공학부의 상위권 입결이 공고히 유지되고 있습니다.
+                        학업우수전형의 수능 최저 충족 여부가 합격의 핵심 변수. 미래 모빌리티 융합 전공 인기로 입결이 견고합니다.
                     </p>
                     <ul class="text-xs text-slate-400 space-y-1.5 pt-2 border-t border-slate-800">
                         <li class="flex items-center justify-between">
-                            <span>수시 학업우수전형 경쟁률:</span>
+                            <span>수시 학업우수전형:</span>
                             <span class="text-amber-400 font-bold">14.2 : 1</span>
                         </li>
                         <li class="flex items-center justify-between">
-                            <span>정시 가군 경쟁률:</span>
+                            <span>정시 가군:</span>
                             <span class="text-amber-400 font-bold">4.1 : 1</span>
                         </li>
                     </ul>
                 </div>
 
                 <!-- University Card 4 -->
-                <div class="blueprint-card rounded-2xl p-6 space-y-4 border-l-4 border-l-purple-500 relative">
+                <div class="blueprint-card rounded-xl p-5 space-y-3.5 border-l-4 border-l-purple-500 relative">
                     <div class="flex justify-between items-start">
-                        <span class="text-xs font-mono font-bold text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded border border-purple-500/20">HANYANG UNIV</span>
-                        <i class="fa-solid fa-robot text-purple-400 text-xl"></i>
+                        <span class="text-[10px] font-mono font-bold text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">HANYANG UNIV</span>
+                        <i class="fa-solid fa-robot text-purple-400 text-lg"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-white">한양대학교 기계공학공학부</h3>
-                        <p class="text-xs text-purple-300 font-medium">2026학년도 입시 경향 분석</p>
+                        <h3 class="text-base font-bold text-white">한양대학교 기계공학공학부</h3>
+                        <p class="text-[11px] text-purple-300 font-medium">2026학년도 입시 경향</p>
                     </div>
                     <p class="text-xs text-slate-300 leading-relaxed">
-                        전통의 공학 강자로 수시 논술 전형에서 매우 높은 경쟁률을 기록. 학생부종합전형의 수능 최저 신설 적용에 따른 지원 양상 변화를 유의 깊게 관찰해야 합니다.
+                        전통 공학 강자로 수시 논술 경쟁률이 높으며, 학생부종합전형 수능 최저 신설 적용에 따른 변화 모니터링이 필요합니다.
                     </p>
                     <ul class="text-xs text-slate-400 space-y-1.5 pt-2 border-t border-slate-800">
                         <li class="flex items-center justify-between">
-                            <span>수시 논술전형 경쟁률:</span>
+                            <span>수시 논술전형:</span>
                             <span class="text-purple-400 font-bold">58.7 : 1</span>
                         </li>
                         <li class="flex items-center justify-between">
-                            <span>정시 나군 경쟁률:</span>
+                            <span>정시 나군:</span>
                             <span class="text-purple-400 font-bold">5.2 : 1</span>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Summary Overview Box -->
-                <div class="blueprint-card rounded-2xl p-6 space-y-4 border-l-4 border-l-emerald-500 relative md:col-span-2 lg:col-span-2">
+                <div class="blueprint-card rounded-xl p-5 space-y-3.5 border-l-4 border-l-emerald-500 relative md:col-span-2 lg:col-span-2">
                     <div class="flex justify-between items-start">
-                        <span class="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded border border-emerald-500/20">ANALYSIS SUMMARY</span>
-                        <i class="fa-solid fa-chart-pie text-emerald-400 text-xl"></i>
+                        <span class="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">ANALYSIS SUMMARY</span>
+                        <i class="fa-solid fa-chart-pie text-emerald-400 text-lg"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-white">2026 기계공학부 지원 총평 및 전망</h3>
-                        <p class="text-xs text-emerald-300 font-medium">이공계 자율전공 신설과 기계공학부 지원 전략</p>
+                        <h3 class="text-base font-bold text-white">2026 기계공학부 지원 총평 및 전망</h3>
+                        <p class="text-[11px] text-emerald-300 font-medium">이공계 자율전공 신설 및 전략</p>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-300">
                         <p class="leading-relaxed">
-                            기계공학부는 반도체·AI 융합 트랙 확대로 기존 전통 기계 요소를 넘어 로봇공학, 이차전지, 모빌리티 분야로의 확장이 거셉니다. 무전공(자율전공) 선발 확대에 따른 기계공학부 자체 정원 변화를 반드시 체크해야 합니다.
+                            기계공학부는 반도체·AI 융합 트랙 확대로 첨단 분야 확장이 거셉니다. 무전공 선발 확대에 따른 기계공학부 모집정원 변화를 반드시 확인해야 합니다.
                         </p>
-                        <div class="p-3 bg-slate-900/90 rounded-xl border border-emerald-500/30 text-emerald-200">
-                            <span class="font-bold block mb-1 text-emerald-300"><i class="fa-solid fa-lightbulb mr-1"></i>2026 지원 핵심 팁</span>
-                            기계공학부는 상위 대학일수록 수학·탐구(미적/기하, 과탐) 변환표준점수의 영향력이 막대하므로 수능 영역별 반영 비율을 최우선으로 분석하십시오.
+                        <div class="p-3 bg-slate-900/90 rounded-lg border border-emerald-500/30 text-emerald-200">
+                            <span class="font-bold block mb-1 text-emerald-300"><i class="fa-solid fa-lightbulb mr-1"></i>2026 핵심 지원 팁</span>
+                            수학·탐구(미적/기하, 과탐) 변환표준점수 영향력이 크므로 수능 영역별 반영 비율을 최우선으로 검토하십시오.
                         </div>
                     </div>
                 </div>
@@ -418,52 +409,52 @@
     </section>
 
     <!-- Section 3: Interactive Practice & Calculator Tools -->
-    <section id="calculator" class="py-16 bg-slate-950/80 border-t border-b border-sky-900/40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <section id="calculator" class="py-14 bg-slate-950/80 border-t border-b border-sky-900/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
             <div class="text-center max-w-3xl mx-auto">
-                <span class="text-xs font-bold uppercase tracking-widest text-cyan-400">Interactive Simulation</span>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">기계공학부 모의 지원 및 환산점수 계산기</h2>
-                <p class="text-slate-400 text-sm mt-2">나의 예상 내신/수능 등급을 입력하여 2026학년도 대학별 합격 가능성을 테스트해 보세요.</p>
+                <span class="text-[11px] font-bold uppercase tracking-widest text-cyan-400">Interactive Simulation</span>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-1">기계공학부 모의 지원 진단기</h2>
+                <p class="text-slate-400 text-xs mt-1.5">예상 내신 및 수능 성적을 입력하여 2026학년도 합격 가능 가능성을 테스트해보세요.</p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <!-- Tool 1: Score Calculator -->
-                <div class="blueprint-card rounded-2xl p-6 space-y-4">
+                <div class="blueprint-card rounded-xl p-5 space-y-3.5">
                     <div class="flex items-center justify-between pb-3 border-b border-slate-800">
                         <div class="flex items-center space-x-2">
-                            <i class="fa-solid fa-calculator text-rose-400 text-lg"></i>
-                            <h3 class="font-bold text-white text-base">2026 수시/정시 합격 가능성 진단기</h3>
+                            <i class="fa-solid fa-calculator text-rose-400 text-base"></i>
+                            <h3 class="font-bold text-white text-sm">합격 가능성 진단기</h3>
                         </div>
-                        <span class="text-[11px] bg-rose-500/10 text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded">시뮬레이터</span>
+                        <span class="text-[10px] bg-rose-500/10 text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded">시뮬레이터</span>
                     </div>
 
                     <p class="text-xs text-slate-300">
-                        주요 과목 평균 등급 또는 백분위를 입력하면 예상 적정 대학을 가늠해 드립니다.
+                        주요 과목 평균 등급 또는 백분위를 입력하면 예상 적정 대학 수준을 진단합니다.
                     </p>
 
                     <div class="space-y-3">
                         <div class="grid grid-cols-2 gap-3 text-xs">
                             <div>
                                 <label class="text-slate-400 block mb-1">국수탐 평균 백분위 (%)</label>
-                                <input id="calc-percentile" type="number" min="0" max="100" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-slate-200 focus:outline-none focus:border-sky-500" value="92">
+                                <input id="calc-percentile" type="number" min="0" max="100" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-slate-200 focus:outline-none focus:border-sky-500" value="92">
                             </div>
                             <div>
                                 <label class="text-slate-400 block mb-1">학생부 교과 평균 등급</label>
-                                <input id="calc-grade" type="number" step="0.1" min="1.0" max="9.0" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-slate-200 focus:outline-none focus:border-sky-500" value="1.6">
+                                <input id="calc-grade" type="number" step="0.1" min="1.0" max="9.0" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-slate-200 focus:outline-none focus:border-sky-500" value="1.6">
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-between pt-2">
-                            <button onclick="runCalculator()" class="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-lg text-xs font-semibold transition-all shadow-md shadow-rose-600/30 flex items-center space-x-1.5">
+                        <div class="flex items-center justify-between pt-1">
+                            <button onclick="runCalculator()" class="px-3.5 py-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-lg text-xs font-semibold transition-all shadow-md shadow-rose-600/30 flex items-center space-x-1.5">
                                 <i class="fa-solid fa-chart-line"></i>
                                 <span>합격 진단 실행</span>
                             </button>
-                            <span id="calc-status" class="text-[11px] text-slate-400"></span>
+                            <span id="calc-status" class="text-[10px] text-slate-400"></span>
                         </div>
 
                         <div>
                             <label class="text-xs font-semibold text-emerald-400 block mb-1">진단 결과 보고서</label>
-                            <div id="calc-output" class="w-full bg-slate-900 border border-emerald-500/30 rounded-xl p-3 text-xs text-emerald-300 font-mono min-h-[90px] whitespace-pre-wrap select-all">
+                            <div id="calc-output" class="w-full bg-slate-900 border border-emerald-500/30 rounded-lg p-3 text-xs text-emerald-300 font-mono min-h-[85px] whitespace-pre-wrap select-all">
                                 [버튼을 누르면 진단 결과가 출력됩니다]
                             </div>
                         </div>
@@ -471,17 +462,17 @@
                 </div>
 
                 <!-- Tool 2: Citation & Data Excerpt Generator -->
-                <div class="blueprint-card rounded-2xl p-6 space-y-4">
+                <div class="blueprint-card rounded-xl p-5 space-y-3.5">
                     <div class="flex items-center justify-between pb-3 border-b border-slate-800">
                         <div class="flex items-center space-x-2">
-                            <i class="fa-solid fa-file-invoice text-sky-400 text-lg"></i>
-                            <h3 class="font-bold text-white text-base">입시 분석 결과 요약문 생성기</h3>
+                            <i class="fa-solid fa-file-invoice text-sky-400 text-base"></i>
+                            <h3 class="font-bold text-white text-sm">입시 분석 요약문 생성기</h3>
                         </div>
-                        <span class="text-[11px] bg-sky-500/10 text-sky-400 border border-sky-500/20 px-2 py-0.5 rounded">리포트용</span>
+                        <span class="text-[10px] bg-sky-500/10 text-sky-400 border border-sky-500/20 px-2 py-0.5 rounded">리포트용</span>
                     </div>
 
                     <p class="text-xs text-slate-300">
-                        분석 대상 대학과 관심 전형을 선택하여 보고서용 요약 문장을 자동 작성하세요.
+                        관심 대학과 전형을 입력하여 요약 문장을 생성할 수 있습니다.
                     </p>
 
                     <div class="grid grid-cols-2 gap-3 text-xs">
@@ -495,20 +486,20 @@
                         </div>
                         <div class="col-span-2">
                             <label class="text-slate-400 block mb-1">주요 분석 포인트</label>
-                            <input id="report-point" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-slate-200 focus:outline-none focus:border-sky-500" value="수능최저 신설에 따른 실질 경쟁률 하락 가능성 및 교과 성적 반영 비율">
+                            <input id="report-point" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-slate-200 focus:outline-none focus:border-sky-500" value="수능최저 신설에 따른 실질 경쟁률 하락 가능성">
                         </div>
                     </div>
 
-                    <div class="space-y-2 pt-1">
+                    <div class="space-y-1.5 pt-1">
                         <div class="flex justify-between items-center text-xs">
-                            <span class="font-semibold text-slate-300">생성된 리포트 요약 문장</span>
-                            <button onclick="copyCitation()" class="text-sky-400 hover:text-sky-300 font-medium text-[11px] flex items-center space-x-1">
+                            <span class="font-semibold text-slate-300">생성된 요약문</span>
+                            <button onclick="copyCitation()" class="text-sky-400 hover:text-sky-300 font-medium text-[10px] flex items-center space-x-1">
                                 <i class="fa-solid fa-copy"></i>
                                 <span>클립보드 복사</span>
                             </button>
                         </div>
-                        <div id="citation-result" class="p-3 bg-slate-950 rounded-xl border border-sky-500/30 text-sky-200 text-xs leading-relaxed font-mono">
-                            "2026학년도 [한양대학교] 기계공학부 [학생부종합(추천형)] 분석 결과, [수능최저 신설에 따른 실질 경쟁률 하락 가능성 및 교과 성적 반영 비율] 요인이 합불을 가르는 핵심 변수로 작용할 것으로 분석됩니다."
+                        <div id="citation-result" class="p-3 bg-slate-950 rounded-lg border border-sky-500/30 text-sky-200 text-xs leading-relaxed font-mono">
+                            "2026학년도 [한양대학교] 기계공학부 [학생부종합(추천형)] 분석 결과, [수능최저 신설에 따른 실질 경쟁률 하락 가능성] 요인이 핵심 변수로 작용할 것으로 분석됩니다."
                         </div>
                     </div>
                 </div>
@@ -517,28 +508,28 @@
     </section>
 
     <!-- Section 4: Self Strategy Checklist -->
-    <section id="strategy" class="py-16">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <section id="strategy" class="py-14">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <div class="text-center">
-                <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Strategy Checklist</span>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">2026 대입 지원 전 필수 점검 리스트</h2>
-                <p class="text-slate-400 text-sm mt-2">원서 접수 전, 지원 전략의 안정성을 자가 진단해 보세요.</p>
+                <span class="text-[11px] font-bold uppercase tracking-widest text-amber-400">Strategy Checklist</span>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-1">2026 대입 지원 전 필수 점검 리스트</h2>
+                <p class="text-slate-400 text-xs mt-1.5">원서 접수 전 지원 전략의 안정성을 자가 진단하세요.</p>
             </div>
 
-            <div class="blueprint-card rounded-2xl p-6 sm:p-8 space-y-6 border-amber-500/30">
-                <div class="space-y-4" id="quiz-questions">
+            <div class="blueprint-card rounded-xl p-5 sm:p-6 space-y-5 border-amber-500/30">
+                <div class="space-y-3" id="quiz-questions">
                     <!-- Checklists generated dynamically -->
                 </div>
 
-                <div class="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
                     <div>
-                        <span class="text-xs text-slate-400 block">진단 스코어</span>
+                        <span class="text-[10px] text-slate-400 block">진단 스코어</span>
                         <div class="flex items-center space-x-2">
-                            <span id="quiz-score" class="text-2xl font-extrabold text-sky-400">0 / 5</span>
-                            <span id="quiz-badge" class="px-2.5 py-0.5 rounded text-xs font-semibold bg-slate-800 text-slate-400">확인 대기</span>
+                            <span id="quiz-score" class="text-xl font-extrabold text-sky-400">0 / 5</span>
+                            <span id="quiz-badge" class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400">확인 대기</span>
                         </div>
                     </div>
-                    <button onclick="evaluateQuiz()" class="w-full sm:w-auto px-6 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-sm transition-all shadow-lg shadow-amber-500/20 flex items-center justify-center space-x-2">
+                    <button onclick="evaluateQuiz()" class="w-full sm:w-auto px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs transition-all shadow-md shadow-amber-500/20 flex items-center justify-center space-x-1.5">
                         <i class="fa-solid fa-square-check"></i>
                         <span>진단 완료하기</span>
                     </button>
@@ -548,53 +539,33 @@
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-sky-900/40 bg-slate-950 py-8 text-xs text-slate-500">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <footer class="border-t border-sky-900/40 bg-slate-950 py-6 text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div class="flex items-center space-x-2">
                 <i class="fa-solid fa-graduation-cap text-sky-500 text-sm"></i>
-                <span class="font-semibold text-slate-300">2026 대입 전략 컨설팅 리포트</span>
-                <span>| 입시전략분석팀</span>
+                <span class="font-semibold text-slate-300">2026 대입 분석 대시보드</span>
             </div>
-            <p>본 페이지는 2026학년도 서울 지역 주요 대학 대입 결과 분석 및 상위 대학 기계공학부 경쟁률 분석 정보 기반으로 제작되었습니다.</p>
+            <p class="text-[11px]">본 페이지는 서울 주요 대학 대입 결과 및 기계공학부 경쟁률 정보를 기반으로 제작되었습니다.</p>
         </div>
     </footer>
 
-    <!-- Media Popup Modal -->
-    <div id="media-modal" onclick="if(event.target === this) closeMediaModal()" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-md p-4 transition-all">
-        <div class="relative max-w-4xl w-full bg-slate-900 border border-sky-500/30 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col max-h-[90vh]">
-            <div class="flex justify-between items-center pb-3 mb-3 border-b border-slate-800">
-                <h3 id="modal-title" class="text-sm sm:text-base font-bold text-white flex items-center space-x-2">
-                    <i id="modal-icon" class="fa-solid fa-image text-sky-400"></i>
-                    <span id="modal-title-text">미디어 뷰어</span>
-                </h3>
-                <button onclick="closeMediaModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors">
-                    <i class="fa-solid fa-xmark text-lg sm:text-xl"></i>
-                </button>
-            </div>
-            <div id="modal-body" class="flex-1 overflow-auto flex items-center justify-center min-h-[250px]">
-            </div>
-        </div>
-    </div>
-
     <!-- Interactive Logic JavaScript -->
     <script>
-        /* ----------------------------------------------------
-           1. SEOUL RESULTS DATA & TAB SWITCHING
-        ---------------------------------------------------- */
+        /* 1. SEOUL RESULTS DATA & TAB SWITCHING */
         const seoulData = {
             1: {
                 title: "01. 서울 최상위권 대학 입결 추이 분석",
                 icon: "fa-building-columns text-sky-400",
                 badge: "서·연·고 및 주요 대학 70% Cut",
                 badgeBg: "bg-sky-500/10 text-sky-400 border-sky-500/30",
-                description: "2026학년도 서울 지역 최상위권 대학의 입합격선은 의대 정원 변화 및 이공계 선호 현상 지속에 따라 다변화 양상을 보입니다. 상위권 대학 교과전형 70% 컷 합격선은 견고하게 유지되고 있습니다.",
-                exampleTitle: "주요 전형별 입결 변동 시뮬레이션",
+                description: "2026학년도 서울 주요 대학의 합격선은 이공계 선호 현상 지속 및 의대 정원 변동 영향으로 다변화 양상을 보입니다. 상위권 대학 교과전형 70% Cut 합격선은 견고하게 유지되고 있습니다.",
+                exampleTitle: "주요 전형별 입결 변동 요약",
                 exampleContent: `<strong>[학생부교과전형]:</strong> 서울 주요 대학 평균 70% Cut 1.3 ~ 1.7등급 형성<br>
-                                 <strong class="text-sky-300">[학생부종합전형]:</strong> 서류 평가 비중 강화로 교과 성적 1.5 ~ 2.2등급대에서 자율적 형성<br>
+                                 <strong class="text-sky-300">[학생부종합전형]:</strong> 서류 평가 비중에 따라 1.5 ~ 2.2등급대 형성<br>
                                  <strong class="text-emerald-400">[정시 수능위주]:</strong> 백분위 합 91~96% 선에서 기계공학부 상위권 형성`,
                 keyTakeaways: [
-                    "학생부교과전형은 수능최저학력기준 충족 여부가 최종 합격의 가장 큰 변수",
-                    "학생부종합전형의 경우 전공자율선택제(무전공) 도입 대학 정원 변동 체크 필수",
+                    "학생부교과전형은 수능최저학력기준 충족 여부가 최종 합격의 변수",
+                    "학생부종합전형은 전공자율선택제(무전공) 도입 대학 정원 변동 체크 필수",
                     "정시에서는 과탐 필수 반영 해제 대학 확대에 따른 변환표준점수 영향력 증대"
                 ]
             },
@@ -603,21 +574,21 @@
                 icon: "fa-balance-scale text-rose-400",
                 badge: "Min-Requirement Analysis",
                 badgeBg: "bg-rose-500/10 text-rose-400 border-rose-500/30",
-                description: "서울 지역 대학들의 2026 수능최저기준 조정은 실질 경쟁률을 변화시키는 직접적인 요인입니다. 최저 완화 시 실질 경쟁률과 합격선이 동반 상승하는 경향이 있습니다.",
-                exampleTitle: "최저기준 변화에 따른 실질 경쟁률 산출",
+                description: "2026 수능최저기준 조정은 실질 경쟁률을 변화시키는 직접적인 요인입니다. 최저 완화 시 실질 경쟁률과 합격선이 동반 상승하는 경향이 있습니다.",
+                exampleTitle: "최저기준 변화에 따른 실질 경쟁률 구조",
                 exampleContent: `<strong>[최초 최초 경쟁률]</strong>: 15.0 : 1<br>
                                  <i class="fa-solid fa-arrow-down my-1 text-slate-500 block"></i>
                                  <strong>[수능 최저 충족 비율]</strong>: 약 55~65% 수준 충족<br>
                                  <i class="fa-solid fa-arrow-down my-1 text-slate-500 block"></i>
-                                 <strong class="text-emerald-400">[실질 경쟁률]</strong>: 약 8.2 : 1로 대폭 감소`,
+                                 <strong class="text-emerald-400">[실질 경쟁률]</strong>: 약 8.2 : 1 수준으로 하락`,
                 keyTakeaways: [
                     "탐구 영역 1과목 반영 대학 증가에 따른 충족률 상승 예측",
                     "최저 기준 완화 대학은 교과 성적(내신) 컷 상승 가능성 염두",
-                    "비상주 탐구 과목 및 미적분/기하 선택자의 과탐 가산점 여부 점검"
+                    "미적분/기하 선택자의 과탐 가산점 부여 여부 점검"
                 ]
             },
             3: {
-                title: "03. 정시 모의 지원 및 탐구 변환표준점수",
+                title: "03. 정시 지원 및 탐구 변환표준점수",
                 icon: "fa-arrow-trend-up text-amber-400",
                 badge: "CSAT Score Strategy",
                 badgeBg: "bg-amber-500/10 text-amber-400 border-amber-500/30",
@@ -630,33 +601,33 @@
                                     </div>
                                     <div class="p-2.5 bg-slate-900 rounded-lg border border-slate-800">
                                         <strong class="text-amber-300 block mb-1">02. 과탐 가산점 부여 대학</strong>
-                                        사탐 응시자의 자연계열 지원을 견제하기 위한 과탐 가산점 비율 확인
+                                        사탐 응시자의 자연계 지원을 견제하기 위한 과탐 가산점 비율 확인
                                     </div>
                                 </div>`,
                 keyTakeaways: [
                     "2026학년도 영역별 반영 비율 변화(수학/탐구) 유의 깊게 분석",
                     "영어 등급별 감점/가점 폭에 따른 지원 가능 대학군 재설정",
-                    "동일 백분위 내에서도 대학별 환산점 계산 방식에 따라 순위 대폭 변동"
+                    "대학별 환산점 계산 방식에 따라 순위 변동 가능성 상존"
                 ]
             },
             4: {
-                title: "04. 전공자율선택제(무전공)와 기계공학부 정원 변동",
+                title: "04. 무전공 확대와 기계공학부 정원 변동",
                 icon: "fa-layer-group text-purple-400",
                 badge: "Major-Free Admission Effect",
                 badgeBg: "bg-purple-500/10 text-purple-400 border-purple-500/30",
-                description: "2026학년도 대학입학전형의 주요 화두인 '무전공 선발'로 인해 기계공학부의 모집정원 변화가 수시/정시 합격선에 직접적인 영향을 미칩니다.",
-                exampleTitle: "무전공 선발 확대에 따른 파급력 순환",
+                description: "2026학년도 대학입학전형의 주요 화두인 '무전공 선발'로 인해 기계공학부 모집정원 변화가 합격선에 직접적인 영향을 미칩니다.",
+                exampleTitle: "무전공 선발 확대 구조",
                 exampleContent: `<div class="flex items-center justify-around text-center text-xs py-2">
-                                    <span class="p-2 bg-slate-900 rounded border border-slate-800">자율전공 모집 정원 증가</span>
+                                    <span class="p-2 bg-slate-900 rounded border border-slate-800">자율전공 모집 증가</span>
                                     <i class="fa-solid fa-chevron-right text-slate-600"></i>
-                                    <span class="p-2 bg-slate-900 rounded border border-slate-800">학과별 모집 정원 조정</span>
+                                    <span class="p-2 bg-slate-900 rounded border border-slate-800">학과별 정원 조정</span>
                                     <i class="fa-solid fa-chevron-right text-slate-600"></i>
-                                    <span class="p-2 bg-slate-900 rounded border border-purple-500/40 text-purple-300">기계공학 합격선 변동</span>
+                                    <span class="p-2 bg-slate-900 rounded border border-purple-500/40 text-purple-300">합격선 변동</span>
                                 </div>`,
                 keyTakeaways: [
                     "기계공학부 자체 모집정원이 축소된 경우 합격선 상승 가능성 존재",
-                    "자율전공으로 입학 후 기계공학 전공 선택 가능 여부 및 조건 확인",
-                    "단과대학 단위 통합 선발(공과대학 융합모집) 경쟁률 모니터링"
+                    "자율전공 입학 후 기계공학 전공 선택 조건 및 진입 장벽 확인",
+                    "공과대학 융합모집 단위 경쟁률 모니터링"
                 ]
             }
         };
@@ -665,9 +636,9 @@
             for (let i = 1; i <= 4; i++) {
                 const btn = document.getElementById(`seoul-btn-${i}`);
                 if (i === id) {
-                    btn.className = "p-4 rounded-xl blueprint-card text-left transition-all border-sky-500 bg-sky-900/30 text-white ring-1 ring-sky-500";
+                    btn.className = "p-3.5 rounded-xl blueprint-card text-left transition-all border-sky-500 bg-sky-900/30 text-white ring-1 ring-sky-500";
                 } else {
-                    btn.className = "p-4 rounded-xl blueprint-card text-left transition-all border-slate-800 text-slate-400 hover:text-white";
+                    btn.className = "p-3.5 rounded-xl blueprint-card text-left transition-all border-slate-800 text-slate-400 hover:text-white";
                 }
             }
 
@@ -675,30 +646,30 @@
             const container = document.getElementById('seoul-content-container');
             
             container.innerHTML = `
-                <div class="space-y-6 animate-fadeIn">
-                    <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-slate-800">
-                        <div class="flex items-center space-x-3">
-                            <i class="fa-solid ${data.icon} text-2xl"></i>
-                            <h3 class="text-xl font-bold text-white">${data.title}</h3>
+                <div class="space-y-4 animate-fadeIn">
+                    <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-800">
+                        <div class="flex items-center space-x-2.5">
+                            <i class="fa-solid ${data.icon} text-xl"></i>
+                            <h3 class="text-base font-bold text-white">${data.title}</h3>
                         </div>
-                        <span class="text-xs font-semibold px-3 py-1 rounded-full border ${data.badgeBg}">${data.badge}</span>
+                        <span class="text-[10px] font-semibold px-2.5 py-0.5 rounded-full border ${data.badgeBg}">${data.badge}</span>
                     </div>
 
-                    <p class="text-sm text-slate-300 leading-relaxed">${data.description}</p>
+                    <p class="text-xs text-slate-300 leading-relaxed">${data.description}</p>
 
-                    <div class="p-4 bg-slate-950/90 rounded-xl border border-slate-800 space-y-2">
-                        <span class="text-xs font-bold text-sky-400 uppercase tracking-wider block">${data.exampleTitle}</span>
+                    <div class="p-3.5 bg-slate-950/90 rounded-lg border border-slate-800 space-y-1.5">
+                        <span class="text-[10px] font-bold text-sky-400 uppercase tracking-wider block">${data.exampleTitle}</span>
                         <div class="text-xs text-slate-300 leading-relaxed font-mono">
                             ${data.exampleContent}
                         </div>
                     </div>
 
-                    <div class="space-y-2">
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">입시 전략 가이드 수칙</span>
-                        <ul class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div class="space-y-1.5">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">핵심 점검 가이드</span>
+                        <ul class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                             ${data.keyTakeaways.map(item => `
-                                <li class="p-3 bg-slate-900/80 rounded-lg border border-slate-800 text-xs text-slate-300 flex items-start space-x-2">
-                                    <i class="fa-solid fa-circle-check text-sky-400 mt-0.5 text-[11px]"></i>
+                                <li class="p-2.5 bg-slate-900/80 rounded-lg border border-slate-800 text-xs text-slate-300 flex items-start space-x-2">
+                                    <i class="fa-solid fa-circle-check text-sky-400 mt-0.5 text-[10px]"></i>
                                     <span>${item}</span>
                                 </li>
                             `).join('')}
@@ -708,9 +679,7 @@
             `;
         }
 
-        /* ----------------------------------------------------
-           2. CALCULATOR SIMULATION LOGIC
-        ---------------------------------------------------- */
+        /* 2. CALCULATOR SIMULATION LOGIC */
         function runCalculator() {
             const percentile = parseFloat(document.getElementById('calc-percentile').value) || 0;
             const grade = parseFloat(document.getElementById('calc-grade').value) || 0;
@@ -718,29 +687,27 @@
             let resultMsg = "";
 
             if (percentile >= 96 || (grade <= 1.3 && grade > 0)) {
-                resultMsg = "🎯 [최상위권 최적 지원] 최상위 대학(서울대, 연세대, 고려대) 기계공학부 안정/적정 지원권입니다.\n- 수시: 학업우수 및 지균전형 고려 가능\n- 정시: 백분위 변환표준점수 우위 유지 시 합격 가능성 매우 높음";
+                resultMsg = "🎯 [최상위권 최적 지원] 서울대, 연세대, 고려대 기계공학부 지원권입니다.\n- 수시: 학업우수 및 지균전형 고려 가능\n- 정시: 백분위 변환표준점수 우위 검토 필요";
             } else if (percentile >= 91 || (grade <= 1.8 && grade > 1.3)) {
-                resultMsg = "✨ [상위권 주요대 소신/적정 지원] 상위 대학(서강대, 성균관대, 한양대, 중앙대) 기계공학부 적정 지원권입니다.\n- 수시: 수능최저 충족 시 합격 확률 상향\n- 정시: 수학 및 과탐 가산점 비율을 필히 확인하세요.";
+                resultMsg = "✨ [상위권 주요대 지원] 서강대, 성균관대, 한양대, 중앙대 기계공학부 지원권입니다.\n- 수시: 수능최저 충족 시 합격 확률 상승\n- 정시: 수학 및 과탐 가산점 비율 확인 필요";
             } else if (percentile >= 84 || (grade <= 2.5 && grade > 1.8)) {
-                resultMsg = "📌 [서울 인아웃 주요 공대 지원권] 서울 주요 대학 및 수도권 상위 공과대학 기계공학부 소신 지원권입니다.\n- 수시: 논술전형 병행 및 전공자율선택제 모집단위 활용 추천\n- 정시: 대학별 영역 반영비율 적합도 정밀 탐색 필요";
+                resultMsg = "📌 [서울/수도권 공대 지원] 서울 주요 대학 및 수도권 상위 공과대학 지원권입니다.\n- 수시: 논술전형 병행 및 무전공 모집단위 활용 추천\n- 정시: 대학별 반영비율 탐색 필요";
             } else {
-                resultMsg = "💡 [전략적 가산 지원 필요] 수도권 및 지역 거점 국립대 기계공학부 전략 지원을 검토하세요.\n- 수시: 학생부 적합성 검토 및 면접 반영 전형 노림수 추천\n- 정시: 백분위 우수 영역 집중 대학 탐색";
+                resultMsg = "💡 [전략적 지원 필요] 수도권 및 지역 거점 국립대 지원을 검토하세요.\n- 수시: 면접 반영 전형 및 학생부 적합성 검토 추천";
             }
 
             document.getElementById('calc-output').innerText = resultMsg;
-            document.getElementById('calc-status').innerText = "✅ 진단 완료!";
-            document.getElementById('calc-status').className = "text-[11px] text-emerald-400 font-semibold";
+            document.getElementById('calc-status').innerText = "✅ 진단 완료";
+            document.getElementById('calc-status').className = "text-[10px] text-emerald-400 font-semibold";
         }
 
-        /* ----------------------------------------------------
-           3. REPORT CITATION GENERATOR LOGIC
-        ---------------------------------------------------- */
+        /* 3. REPORT CITATION GENERATOR LOGIC */
         function updateCitation() {
             const univ = document.getElementById('report-univ').value || '상위 대학';
             const type = document.getElementById('report-type').value || '수시/정시 전형';
             const point = document.getElementById('report-point').value || '경쟁률 변화';
 
-            const text = `"2026학년도 [${univ}] 기계공학부 [${type}] 분석 결과, [${point}] 요인이 합불을 가르는 핵심 변수로 작용할 것으로 분석됩니다."`;
+            const text = `"2026학년도 [${univ}] 기계공학부 [${type}] 분석 결과, [${point}] 요인이 핵심 변수로 작용할 것으로 분석됩니다."`;
 
             document.getElementById('citation-result').innerText = text;
         }
@@ -754,26 +721,24 @@
             document.execCommand("copy");
             document.body.removeChild(tempInput);
 
-            alert("리포트 요약 문장이 클립보드에 복사되었습니다!");
+            showToast("요약 문장이 클립보드에 복사되었습니다.");
         }
 
-        /* ----------------------------------------------------
-           4. STRATEGY CHECKLIST QUIZ LOGIC
-        ---------------------------------------------------- */
+        /* 4. STRATEGY CHECKLIST QUIZ LOGIC */
         const quizItems = [
             "2026학년도 지원 희망 대학 기계공학부의 수능최저학력기준을 파악하였는가?",
             "해당 대학의 탐구 영역 반영 방식(과탐 필수 지정 해제 여부 및 가산점)을 확인했는가?",
-            "전공자율선택제(무전공) 신설로 인한 기계공학부의 정원 축소/확대 여부를 확인했는가?",
+            "전공자율선택제(무전공) 신설로 인한 기계공학부 정원 변동을 확인했는가?",
             "수시 학생부종합전형 지원 시 기계·모빌리티·로봇 관련 세특 연계성을 점검했는가?",
-            "정시 모의지원 시 대학별 환산점수 계산 결과의 유불리를 파악했는가?"
+            "정시 지원 시 대학별 환산점수 계산 결과의 유불리를 파악했는가?"
         ];
 
         function renderQuiz() {
             const container = document.getElementById('quiz-questions');
             container.innerHTML = quizItems.map((q, idx) => `
-                <label class="flex items-start space-x-3 p-3 bg-slate-900/80 rounded-xl border border-slate-800 hover:border-sky-500/40 cursor-pointer transition-all">
-                    <input type="checkbox" id="q-${idx}" onchange="updateQuizScore()" class="mt-1 w-4 h-4 text-sky-600 rounded bg-slate-950 border-slate-700 focus:ring-sky-500">
-                    <span class="text-xs sm:text-sm text-slate-200">${idx + 1}. ${q}</span>
+                <label class="flex items-start space-x-2.5 p-2.5 bg-slate-900/80 rounded-lg border border-slate-800 hover:border-sky-500/40 cursor-pointer transition-all">
+                    <input type="checkbox" id="q-${idx}" onchange="updateQuizScore()" class="mt-0.5 w-3.5 h-3.5 text-sky-600 rounded bg-slate-950 border-slate-700 focus:ring-sky-500">
+                    <span class="text-xs text-slate-200">${idx + 1}. ${q}</span>
                 </label>
             `).join('');
         }
@@ -790,14 +755,14 @@
             scoreEl.innerText = `${checkedCount} / ${quizItems.length}`;
 
             if (checkedCount === 5) {
-                badgeEl.innerText = "전략 준비 완료!";
-                badgeEl.className = "px-2.5 py-0.5 rounded text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+                badgeEl.innerText = "전략 준비 완료";
+                badgeEl.className = "px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
             } else if (checkedCount >= 3) {
                 badgeEl.innerText = "추가 확인 필요";
-                badgeEl.className = "px-2.5 py-0.5 rounded text-xs font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/30";
+                badgeEl.className = "px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/30";
             } else {
                 badgeEl.innerText = "점검 미완료";
-                badgeEl.className = "px-2.5 py-0.5 rounded text-xs font-semibold bg-rose-500/20 text-rose-400 border border-rose-500/30";
+                badgeEl.className = "px-2 py-0.5 rounded text-[10px] font-semibold bg-rose-500/20 text-rose-400 border border-rose-500/30";
             }
         }
 
@@ -808,24 +773,22 @@
             });
 
             if (checkedCount === 5) {
-                showToast("축하합니다! 2026 대입 지원을 위한 5대 전략 점검 항목을 완료했습니다.");
+                showToast("2026 대입 지원을 위한 5대 전략 점검을 완료했습니다.");
             } else {
-                showToast(`현재 ${checkedCount}/5개 항목만 완료되었습니다. 체크되지 않은 항목을 추가 검토하세요.`);
+                showToast(`현재 ${checkedCount}/5개 항목만 완료되었습니다. 미체크 항목을 추가 검토하세요.`);
             }
         }
 
-        /* ----------------------------------------------------
-           5. TOAST NOTIFICATION LOGIC
-        ---------------------------------------------------- */
+        /* 5. TOAST NOTIFICATION LOGIC */
         function showToast(message) {
             let toast = document.getElementById('toast-notification');
             if (!toast) {
                 toast = document.createElement('div');
                 toast.id = 'toast-notification';
-                toast.className = 'fixed bottom-6 right-6 z-50 px-5 py-3 rounded-xl bg-slate-900/95 border border-sky-500/50 text-sky-200 text-xs font-semibold shadow-2xl transition-all duration-300 transform translate-y-10 opacity-0 flex items-center space-x-2 backdrop-blur-md';
+                toast.className = 'fixed bottom-5 right-5 z-50 px-4 py-2.5 rounded-lg bg-slate-900/95 border border-sky-500/50 text-sky-200 text-xs font-semibold shadow-2xl transition-all duration-300 transform translate-y-10 opacity-0 flex items-center space-x-2 backdrop-blur-md';
                 document.body.appendChild(toast);
             }
-            toast.innerHTML = `<i class="fa-solid fa-circle-info text-sky-400 text-base"></i> <span>${message}</span>`;
+            toast.innerHTML = `<i class="fa-solid fa-circle-info text-sky-400 text-sm"></i> <span>${message}</span>`;
             toast.classList.remove('translate-y-10', 'opacity-0');
             toast.classList.add('translate-y-0', 'opacity-100');
             
@@ -836,42 +799,7 @@
             }, 3000);
         }
 
-        /* ----------------------------------------------------
-           6. MEDIA POPUP & DOWNLOAD HANDLERS
-        ---------------------------------------------------- */
-        function downloadPresentation() {
-            showToast('2026 대입 분석 자료(PDF) 다운로드가 요청되었습니다.');
-        }
-
-        function openInfographicModal() {
-            const modal = document.getElementById('media-modal');
-            const titleText = document.getElementById('modal-title-text');
-            const icon = document.getElementById('modal-icon');
-            const body = document.getElementById('modal-body');
-
-            titleText.innerText = '2026 대입 결과 및 기계공학부 경쟁률 인포그래픽';
-            icon.className = 'fa-solid fa-chart-pie text-emerald-400';
-            body.innerHTML = `<img src="https://placehold.co/800x1000/0f172a/38bdf8?text=2026+서울+대입+및+기계공학부+경쟁률+인포그래픽" alt="인포그래픽" class="max-w-full max-h-[70vh] object-contain rounded-xl border border-slate-800 shadow-md">`;
-
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        function closeMediaModal() {
-            const modal = document.getElementById('media-modal');
-            const body = document.getElementById('modal-body');
-            body.innerHTML = '';
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeMediaModal();
-        });
-
-        /* ----------------------------------------------------
-           INITIALIZATION ON LOAD
-        ---------------------------------------------------- */
+        /* INITIALIZATION ON LOAD */
         window.onload = function() {
             switchSeoulTab(1);
 
