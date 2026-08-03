@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인공지능 일반 (박우혁) - AI 전공 대학 추천 분석 대시보드</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#0b0f19',
+                        cardbg: '#111827',
+                        borderbg: '#1f2937'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+        }
+        .glass-card {
+            background: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #111827;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #374151;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 glass-card border-b border-gray-800 px-4 lg:px-8 py-3.5">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="p-2.5 bg-gradient-to-tr from-indigo-600 to-violet-500 rounded-xl shadow-lg shadow-indigo-500/20">
+                    <i data-lucide="brain-circuit" class="w-6 h-6 text-white"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-indigo-300">
+                            AI 전공 대학 추천 분석 대시보드
+                        </h1>
+                        <span class="px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-[11px] font-bold">
+                            인공지능 일반 | 박우혁
+                        </span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-0.5">경쟁률 · 취업률 · 등록금을 분리 평가한 목적별 지원 가이드 (제시 자료 수치 100% 반영)</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3 text-xs">
+                <span class="px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1.5 font-medium">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    종합 1위: 아주대학교
+                </span>
+                <a href="../index.html" class="px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 transition flex items-center gap-1">
+                    <i data-lucide="home" class="w-3.5 h-3.5"></i> 홈으로
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-10">
+
+        <!-- Executive Summary Cards -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Card 1: Overall Winner -->
+            <div class="glass-card rounded-2xl p-4 border border-indigo-500/40 bg-gradient-to-br from-indigo-950/40 to-cardbg">
+                <div class="flex items-center justify-between text-indigo-300 mb-2">
+                    <span class="text-xs font-semibold uppercase tracking-wider">종합 평가 1위</span>
+                    <i data-lucide="trophy" class="w-4 h-4 text-amber-400"></i>
+                </div>
+                <div class="text-2xl font-black text-white">아주대학교</div>
+                <div class="text-[11px] text-indigo-300 mt-1 flex items-center gap-1">
+                    <i data-lucide="check-circle" class="w-3 h-3"></i> 순위 평균 2.33 (경쟁 2위, 취업 1위)
+                </div>
+            </div>
+
+            <!-- Card 2: Top Challenger -->
+            <div class="glass-card rounded-2xl p-4 border border-amber-500/30">
+                <div class="flex items-center justify-between text-gray-400 mb-2">
+                    <span class="text-xs font-semibold uppercase tracking-wider">상위권 도전 1위</span>
+                    <i data-lucide="flame" class="w-4 h-4 text-amber-400"></i>
+                </div>
+                <div class="text-xl font-bold text-white">국민대(소프트웨어)</div>
+                <div class="text-[11px] text-amber-400 mt-1 flex items-center gap-1">
+                    <i data-lucide="zap" class="w-3 h-3"></i> 통합 경쟁률 17.32:1 (수시 27.25:1)
+                </div>
+            </div>
+
+            <!-- Card 3: Career Priority -->
+            <div class="glass-card rounded-2xl p-4 border border-blue-500/30">
+                <div class="flex items-center justify-between text-gray-400 mb-2">
+                    <span class="text-xs font-semibold uppercase tracking-wider">취업 최우선 1위</span>
+                    <i data-lucide="briefcase" class="w-4 h-4 text-blue-400"></i>
+                </div>
+                <div class="text-xl font-bold text-white">아주대학교 (69.3%)</div>
+                <div class="text-[11px] text-blue-400 mt-1 flex items-center gap-1">
+                    <i data-lucide="trending-up" class="w-3 h-3"></i> 숭실대(67.7%), 홍익대(65.6%) 순
+                </div>
+            </div>
+
+            <!-- Card 4: Financial Priority -->
+            <div class="glass-card rounded-2xl p-4 border border-emerald-500/30">
+                <div class="flex items-center justify-between text-gray-400 mb-2">
+                    <span class="text-xs font-semibold uppercase tracking-wider">재정 최우선 1위</span>
+                    <i data-lucide="piggy-bank" class="w-4 h-4 text-emerald-400"></i>
+                </div>
+                <div class="text-xl font-bold text-white">부산대학교</div>
+                <div class="text-[11px] text-emerald-400 mt-1 flex items-center gap-1">
+                    <i data-lucide="coins" class="w-3 h-3"></i> 연간 약 4,728,000원 (최저 부담)
+                </div>
+            </div>
+        </section>
+
+        <!-- Chart Section Header -->
+        <div class="border-l-4 border-indigo-500 pl-4 py-1">
+            <h2 class="text-2xl font-bold text-white">주요 지표별 대학 비교 차트</h2>
+            <p class="text-sm text-gray-400 mt-1">
+                제공된 자료 기반 10개 대학의 수시·정시 경쟁률 및 완전자료 7개교의 취업률·등록금 시각화 분석입니다.
+            </p>
+        </div>
+
+        <!-- 3 Main Charts Grid -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <!-- Chart 1: Competition Rates -->
+            <div class="glass-card rounded-2xl p-5 shadow-xl flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-2">
+                            <span class="p-2 rounded-xl bg-amber-500/10 text-amber-400">
+                                <i data-lucide="flame" class="w-5 h-5"></i>
+                            </span>
+                            <div>
+                                <h3 class="font-bold text-sm text-gray-100">1. 경쟁률 순위 (10개교)</h3>
+                                <p class="text-[11px] text-gray-400">수시 vs 정시 vs 통합 평균 (:1)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative h-64 w-full">
+                        <canvas id="compChart"></canvas>
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-gray-800 text-xs text-gray-400 flex justify-between">
+                    <span>최고: <strong class="text-amber-400">국민대(소프트) 17.32:1</strong></span>
+                    <span>최저: <strong class="text-emerald-400">부산대 4.66:1</strong></span>
+                </div>
+            </div>
+
+            <!-- Chart 2: Employment Rates -->
+            <div class="glass-card rounded-2xl p-5 shadow-xl flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-2">
+                            <span class="p-2 rounded-xl bg-blue-500/10 text-blue-400">
+                                <i data-lucide="briefcase" class="w-5 h-5"></i>
+                            </span>
+                            <div>
+                                <h3 class="font-bold text-sm text-gray-100">2. 취업률 순위 (7개교)</h3>
+                                <p class="text-[11px] text-gray-400">졸업생 취업률 (%)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative h-64 w-full">
+                        <canvas id="empChart"></canvas>
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-gray-800 text-xs text-gray-400 flex justify-between">
+                    <span>최고: <strong class="text-blue-400">아주대 69.3%</strong></span>
+                    <span>7위: <strong class="text-gray-400">부산대 57.5%</strong></span>
+                </div>
+            </div>
+
+            <!-- Chart 3: Annual Tuition -->
+            <div class="glass-card rounded-2xl p-5 shadow-xl flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-2">
+                            <span class="p-2 rounded-xl bg-emerald-500/10 text-emerald-400">
+                                <i data-lucide="coins" class="w-5 h-5"></i>
+                            </span>
+                            <div>
+                                <h3 class="font-bold text-sm text-gray-100">3. 연간 등록금 순위 (7개교)</h3>
+                                <p class="text-[11px] text-gray-400">낮을수록 우수 (원)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative h-64 w-full">
+                        <canvas id="tuitionChart"></canvas>
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-gray-800 text-xs text-gray-400 flex justify-between">
+                    <span>최저(우수): <strong class="text-emerald-400">부산대 약 472.8만원</strong></span>
+                    <span>최고: <strong class="text-rose-400">숙명여대 약 986.1만원</strong></span>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Student Recommendation Cards Section -->
+        <section class="space-y-6">
+            <div class="border-l-4 border-purple-500 pl-4 py-1">
+                <h2 class="text-2xl font-bold text-white">지원 목적별 맞춤 추천 학교</h2>
+                <p class="text-sm text-gray-400 mt-1">학생 개인의 성향과 입시 목표에 맞춘 3가지 카테고리별 추천 대학 명단입니다.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                <!-- 1. Challenger (Top Students) -->
+                <div class="glass-card rounded-2xl p-6 border-t-4 border-t-amber-500 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-bold px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                                🎯 상위권 도전형 추천
+                            </span>
+                            <i data-lucide="sparkles" class="w-5 h-5 text-amber-400"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-1">경쟁률 기준 추천 (Top 5)</h3>
+                        <p class="text-xs text-gray-400 mb-4">지원 선호도가 높고 합격 경쟁이 치열한 대학</p>
+
+                        <div id="rec-challenge-list" class="space-y-2.5">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-800 text-xs text-gray-300 bg-amber-500/5 -mx-6 -mb-6 p-4 rounded-b-2xl">
+                        💡 <strong>추천 해석:</strong> 상위권 학생에게는 국민대(소프트웨어)를 최우선 도전 카드로, 아주대·동국대(AI)·숭실대를 상위 경쟁군으로 제시합니다.
+                    </div>
+                </div>
+
+                <!-- 2. Career Oriented -->
+                <div class="glass-card rounded-2xl p-6 border-t-4 border-t-blue-500 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-bold px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                                💼 취업 목적형 추천
+                            </span>
+                            <i data-lucide="briefcase" class="w-5 h-5 text-blue-400"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-1">취업률 기준 추천 (Top 5)</h3>
+                        <p class="text-xs text-gray-400 mb-4">졸업 후 안정적인 취업 성과를 보이는 대학</p>
+
+                        <div id="rec-career-list" class="space-y-2.5">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-800 text-xs text-gray-300 bg-blue-500/5 -mx-6 -mb-6 p-4 rounded-b-2xl">
+                        💡 <strong>추천 해석:</strong> 취업을 최우선으로 둘 경우 아주대(69.3%)가 1순위입니다. 숭실대(67.7%)와 홍익대(65.6%)가 뒤를 잇습니다.
+                    </div>
+                </div>
+
+                <!-- 3. Financial Priority -->
+                <div class="glass-card rounded-2xl p-6 border-t-4 border-t-emerald-500 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                💰 재정 부담 완화형 추천
+                            </span>
+                            <i data-lucide="coins" class="w-5 h-5 text-emerald-400"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-1">등록금 저렴한 순 추천 (Top 5)</h3>
+                        <p class="text-xs text-gray-400 mb-4">연간 학비 부담이 적고 실용성이 높은 대학</p>
+
+                        <div id="rec-finance-list" class="space-y-2.5">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-800 text-xs text-gray-300 bg-emerald-500/5 -mx-6 -mb-6 p-4 rounded-b-2xl">
+                        💡 <strong>추천 해석:</strong> 재정 우선 학생에게는 부산대가 연간 약 472.8만원으로 가장 유리하며, 서울과학기술대가 약 558.5만원으로 2위입니다.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Comprehensive Analysis & Winner Section (Bottom of Website) -->
+        <section class="glass-card rounded-3xl p-6 lg:p-10 border border-indigo-500/30 bg-gradient-to-b from-cardbg via-cardbg to-indigo-950/20 space-y-8 shadow-2xl">
+            
+            <div class="border-b border-gray-800 pb-6">
+                <span class="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 text-xs font-bold tracking-wide uppercase">
+                    종합 평가 결론 (인공지능 일반 - 박우혁)
+                </span>
+                <h2 class="text-2xl lg:text-3xl font-extrabold text-white mt-2">
+                    🏆 종합 1위 최우수 대학: 아주대학교
+                </h2>
+                <p class="text-sm text-gray-400 mt-1">
+                    경쟁률·취업률·등록금 순위를 같은 비중으로 반영했을 때 가장 균형적인 성과를 보인 종합 평가 결과입니다.
+                </p>
+            </div>
+
+            <!-- Winner Detail Breakdown Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <!-- Winner Podium Card (Left 5 cols) -->
+                <div class="lg:col-span-5 relative p-6 lg:p-8 rounded-2xl bg-gradient-to-br from-indigo-900/60 via-purple-900/40 to-slate-900 border border-indigo-500/40 text-center flex flex-col items-center justify-center space-y-4 shadow-2xl">
+                    <div class="absolute -top-4 bg-amber-400 text-slate-950 font-black text-xs px-4 py-1 rounded-full shadow-lg flex items-center gap-1 uppercase">
+                        <i data-lucide="crown" class="w-4 h-4"></i> Overall #1 Winner
+                    </div>
+
+                    <div class="p-4 bg-indigo-500/20 rounded-full border border-indigo-400/30 text-indigo-300 mt-2">
+                        <i data-lucide="award" class="w-12 h-12"></i>
+                    </div>
+
+                    <div>
+                        <div class="text-xs text-indigo-300 font-semibold tracking-widest uppercase">종합 1위 최우수 대학</div>
+                        <h3 class="text-3xl font-black text-white mt-1">아주대학교</h3>
+                        <div class="text-xl font-extrabold text-amber-400 mt-1">순위 평균: 2.33위</div>
+                    </div>
+
+                    <p class="text-xs text-gray-300 leading-relaxed max-w-sm">
+                        경쟁률 2위, 취업률 1위(69.3%), 등록금 5위로 높은 취업률과 강한 지원 수요를 동시에 보여 세 목표를 균형 있게 달성하려는 학생에게 가장 우수합니다.
+                    </p>
+
+                    <!-- Key Metrics Pills -->
+                    <div class="grid grid-cols-3 gap-2 w-full pt-2">
+                        <div class="p-2 rounded-lg bg-gray-900/80 border border-gray-800 text-center">
+                            <div class="text-[10px] text-gray-400">경쟁률 순위</div>
+                            <div class="text-xs font-bold text-amber-400 mt-0.5">2위 (10.62:1)</div>
+                        </div>
+                        <div class="p-2 rounded-lg bg-gray-900/80 border border-gray-800 text-center">
+                            <div class="text-[10px] text-gray-400">취업률 순위</div>
+                            <div class="text-xs font-bold text-blue-400 mt-0.5">1위 (69.3%)</div>
+                        </div>
+                        <div class="p-2 rounded-lg bg-gray-900/80 border border-gray-800 text-center">
+                            <div class="text-[10px] text-gray-400">등록금 순위</div>
+                            <div class="text-xs font-bold text-emerald-400 mt-0.5">5위 (약 935만원)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7 Universities Full Comprehensive Table (Right 7 cols) -->
+                <div class="lg:col-span-7 space-y-4">
+                    <h4 class="text-base font-bold text-white flex items-center gap-2">
+                        <i data-lucide="bar-chart-2" class="w-4 h-4 text-indigo-400"></i>
+                        종합 순위 평가표 (동일 가중치 반영)
+                    </h4>
+
+                    <div class="overflow-x-auto custom-scrollbar border border-gray-800 rounded-xl">
+                        <table class="w-full text-left text-xs text-gray-300">
+                            <thead class="bg-gray-900/90 text-gray-400 font-semibold border-b border-gray-800">
+                                <tr>
+                                    <th class="p-2.5">종합 순위</th>
+                                    <th class="p-2.5">대학명</th>
+                                    <th class="p-2.5 text-center">경쟁률 순위</th>
+                                    <th class="p-2.5 text-center">취업률 순위</th>
+                                    <th class="p-2.5 text-center">등록금 순위</th>
+                                    <th class="p-2.5 text-right">순위 평균</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-800/60">
+                                <tr class="bg-indigo-950/40 font-semibold border-l-2 border-indigo-500">
+                                    <td class="p-2.5 font-bold text-amber-400">1위</td>
+                                    <td class="p-2.5 text-white font-bold">아주대</td>
+                                    <td class="p-2.5 text-center text-amber-300">2위 (10.62:1)</td>
+                                    <td class="p-2.5 text-center text-blue-400 font-bold">1위 (69.3%)</td>
+                                    <td class="p-2.5 text-center text-gray-300">5위</td>
+                                    <td class="p-2.5 text-right font-bold text-indigo-300">2.33</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2.5 font-bold text-gray-300">2위</td>
+                                    <td class="p-2.5 text-white">숭실대</td>
+                                    <td class="p-2.5 text-center text-gray-300">3위 (10.05:1)</td>
+                                    <td class="p-2.5 text-center text-blue-400">2위 (67.7%)</td>
+                                    <td class="p-2.5 text-center text-emerald-400">3위</td>
+                                    <td class="p-2.5 text-right font-bold text-indigo-400">2.67</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2.5 font-bold text-gray-300">3위</td>
+                                    <td class="p-2.5 text-white">홍익대</td>
+                                    <td class="p-2.5 text-center text-gray-300">4위 (9.87:1)</td>
+                                    <td class="p-2.5 text-center text-blue-400">3위 (65.6%)</td>
+                                    <td class="p-2.5 text-center text-gray-300">4위</td>
+                                    <td class="p-2.5 text-right font-bold text-indigo-400">3.67</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2.5 font-bold text-gray-300">4위</td>
+                                    <td class="p-2.5 text-white">서울과학기술대</td>
+                                    <td class="p-2.5 text-center text-gray-300">6위 (7.88:1)</td>
+                                    <td class="p-2.5 text-center text-gray-300">4위 (63.6%)</td>
+                                    <td class="p-2.5 text-center text-emerald-400 font-bold">2위</td>
+                                    <td class="p-2.5 text-right font-bold text-indigo-400">4.00</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2.5 font-bold text-gray-300">5위</td>
+                                    <td class="p-2.5 text-white">동국대(AI)</td>
+                                    <td class="p-2.5 text-center text-amber-400">2위 (10.45:1)</td>
+                                    <td class="p-2.5 text-center text-gray-300">6위 (60.7%)</td>
+                                    <td class="p-2.5 text-center text-gray-300">6위</td>
+                                    <td class="p-2.5 text-right font-bold text-indigo-400">4.67</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2.5 font-bold text-gray-300">6위</td>
+                                    <td class="p-2.5 text-white">부산대</td>
+                                    <td class="p-2.5 text-center text-gray-300">7위 (4.66:1)</td>
+                                    <td class="p-2.5 text-center text-gray-300">7위 (57.5%)</td>
+                                    <td class="p-2.5 text-center text-emerald-400 font-bold">1위</td>
+                                    <td class="p-2.5 text-right font-bold text-indigo-400">5.00</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2.5 font-bold text-gray-300">7위</td>
+                                    <td class="p-2.5 text-white">숙명여대</td>
+                                    <td class="p-2.5 text-center text-gray-300">5위 (8.39:1)</td>
+                                    <td class="p-2.5 text-center text-gray-300">5위 (62.5%)</td>
+                                    <td class="p-2.5 text-center text-rose-400">7위</td>
+                                    <td class="p-2.5 text-right font-bold text-indigo-400">5.67</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Purpose-based One Line Recommendations & Considerations -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-gray-800">
+                <!-- One-line Recommendations -->
+                <div class="bg-gray-900/90 rounded-2xl p-5 border border-gray-800 space-y-3">
+                    <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                        <i data-lucide="check-square" class="w-4 h-4 text-emerald-400"></i>
+                        목적별 한 줄 핵심 지원 전략
+                    </h4>
+                    <ul class="space-y-2 text-xs text-gray-300 leading-relaxed">
+                        <li class="p-2 rounded-lg bg-gray-800/40 border border-gray-700/40">
+                            <strong class="text-amber-400">상위권 도전:</strong> <span class="font-bold text-white">국민대(소프트웨어)</span> - 통합 경쟁률 17.32:1로 가장 높음 (단, 등록금·취업률 미기재).
+                        </li>
+                        <li class="p-2 rounded-lg bg-gray-800/40 border border-gray-700/40">
+                            <strong class="text-blue-400">취업 최우선:</strong> <span class="font-bold text-white">아주대</span> - 취업률 69.3%로 1위, 종합 평가도 1위.
+                        </li>
+                        <li class="p-2 rounded-lg bg-gray-800/40 border border-gray-700/40">
+                            <strong class="text-emerald-400">재정 최우선:</strong> <span class="font-bold text-white">부산대</span> - 연간 등록금 약 472.8만원으로 가장 낮음.
+                        </li>
+                        <li class="p-2 rounded-lg bg-gray-800/40 border border-gray-700/40">
+                            <strong class="text-indigo-400">비용·취업 균형:</strong> <span class="font-bold text-white">서울과학기술대</span> - 낮은 등록금 2위와 취업률 4위의 우수한 조합.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Caveats / Considerations -->
+                <div class="bg-gray-900/90 rounded-2xl p-5 border border-gray-800 space-y-3">
+                    <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                        <i data-lucide="alert-circle" class="w-4 h-4 text-amber-400"></i>
+                        해석 시 유의사항
+                    </h4>
+                    <div class="space-y-2 text-xs text-gray-400 leading-relaxed">
+                        <p class="p-2 rounded-lg bg-gray-800/30">
+                            <strong>1. 경쟁률:</strong> 전형별 모집인원, 복수지원, 모집단위 세분화에 따라 달라지며, 합격선과 동일한 지표가 아닙니다.
+                        </p>
+                        <p class="p-2 rounded-lg bg-gray-800/30">
+                            <strong>2. 취업률:</strong> 조사 기준 시점·대상자 범위에 따라 달라질 수 있으므로 커리큘럼과 산학협력을 함께 검토해야 합니다.
+                        </p>
+                        <p class="p-2 rounded-lg bg-gray-800/30">
+                            <strong>3. 등록금:</strong> 연간 표기금액 기준이며, 장학금 수혜 및 거주비(기숙사)에 따라 실질 부담은 달라질 수 있습니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Full Data Table Section -->
+        <section class="glass-card rounded-2xl p-6 border border-gray-800 space-y-4">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i data-lucide="table" class="w-5 h-5 text-indigo-400"></i>
+                        제공 자료 10개 대학 세부 원본 데이터
+                    </h3>
+                    <p class="text-xs text-gray-400">자료에 명시된 10개 대학 수시·정시 경쟁률 및 등록금·취업률 원본 표입니다.</p>
+                </div>
+
+                <div class="relative w-full sm:w-64">
+                    <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-gray-500"></i>
+                    <input type="text" id="table-search" oninput="renderTable()" placeholder="대학명 검색..." class="w-full pl-9 pr-3 py-1.5 rounded-lg bg-gray-900 border border-gray-700 text-xs text-white focus:outline-none focus:border-indigo-500">
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="overflow-x-auto custom-scrollbar border border-gray-800 rounded-xl">
+                <table class="w-full text-left text-xs text-gray-300">
+                    <thead class="bg-gray-900/80 text-gray-400 font-semibold border-b border-gray-800">
+                        <tr>
+                            <th class="p-3">경쟁률 순위</th>
+                            <th class="p-3">대학명</th>
+                            <th class="p-3 text-right">수시 경쟁률</th>
+                            <th class="p-3 text-right">정시 경쟁률</th>
+                            <th class="p-3 text-right">통합 경쟁률</th>
+                            <th class="p-3 text-right">취업률 (%)</th>
+                            <th class="p-3 text-right">연간 등록금 (원)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="university-table-body" class="divide-y divide-gray-800/60">
+                        <!-- Injected by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 py-6 text-center text-xs text-gray-500 mt-12">
+        <p>© 2026 인공지능 일반 | 박우혁 - AI Department Recommendation &amp; Evaluation System.</p>
+        <p class="mt-1">자료 출처: 「인공지능 일반(입결)」 제공 PDF 표 데이터 100% 재정렬 및 실시간 계산 분석</p>
+    </footer>
+
+    <script>
+        // STRICT DATASET FROM THE PROVIDED REPORT PDF / TEXT
+        const universitiesData = [
+            { rank: 1, name: "국민대(소프트웨어)", early: 27.25, regular: 7.40, integrated: 17.32, emp: null, tuition: null, empRank: null, tuitionRank: null, overallRank: null },
+            { rank: 2, name: "아주대", early: 14.32, regular: 6.92, integrated: 10.62, emp: 69.3, tuition: 9357400, empRank: 1, tuitionRank: 5, overallRank: 1 },
+            { rank: 3, name: "동국대(AI)", early: 16.79, regular: 4.11, integrated: 10.45, emp: 60.7, tuition: 9631900, empRank: 6, tuitionRank: 6, overallRank: 5 },
+            { rank: 4, name: "숭실대", early: 14.65, regular: 5.45, integrated: 10.05, emp: 67.7, tuition: 9256100, empRank: 2, tuitionRank: 3, overallRank: 2 },
+            { rank: 5, name: "홍익대", early: 12.22, regular: 7.52, integrated: 9.87, emp: 65.6, tuition: 9347600, empRank: 3, tuitionRank: 4, overallRank: 3 },
+            { rank: 6, name: "경북대", early: 11.29, regular: 7.36, integrated: 9.32, emp: null, tuition: null, empRank: null, tuitionRank: null, overallRank: null },
+            { rank: 7, name: "숙명여대", early: 10.09, regular: 6.70, integrated: 8.39, emp: 62.5, tuition: 9860900, empRank: 5, tuitionRank: 7, overallRank: 7 },
+            { rank: 8, name: "서울과학기술대", early: 10.97, regular: 4.80, integrated: 7.88, emp: 63.6, tuition: 5585300, empRank: 4, tuitionRank: 2, overallRank: 4 },
+            { rank: 9, name: "인하대", early: 10.23, regular: 3.71, integrated: 6.97, emp: null, tuition: null, empRank: null, tuitionRank: null, overallRank: null },
+            { rank: 10, name: "부산대", early: 6.77, regular: 2.55, integrated: 4.66, emp: 57.5, tuition: 4728000, empRank: 7, tuitionRank: 1, overallRank: 6 }
+        ];
+
+        let compChartInstance = null;
+        let empChartInstance = null;
+        let tuitionChartInstance = null;
+
+        function initCharts() {
+            // Chart 1: Competition Rates (All 10 Unis)
+            const compLabels = universitiesData.map(u => u.name);
+            const earlyValues = universitiesData.map(u => u.early);
+            const regValues = universitiesData.map(u => u.regular);
+            const integratedValues = universitiesData.map(u => u.integrated);
+
+            if (compChartInstance) compChartInstance.destroy();
+            const ctx1 = document.getElementById('compChart').getContext('2d');
+            compChartInstance = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: compLabels,
+                    datasets: [
+                        { label: '통합 경쟁률', data: integratedValues, backgroundColor: 'rgba(245, 158, 11, 0.85)', borderRadius: 4 },
+                        { label: '수시 경쟁률', data: earlyValues, backgroundColor: 'rgba(99, 102, 241, 0.4)', borderRadius: 4 },
+                        { label: '정시 경쟁률', data: regValues, backgroundColor: 'rgba(59, 130, 246, 0.4)', borderRadius: 4 }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: '#9ca3af', font: { size: 9 } } } },
+                    scales: {
+                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9ca3af', font: { size: 9 } } },
+                        x: { grid: { display: false }, ticks: { color: '#9ca3af', font: { size: 9 }, maxRotation: 45, minRotation: 45 } }
+                    }
+                }
+            });
+
+            // Chart 2: Employment Rates (7 Complete Unis)
+            const empUnis = [...universitiesData].filter(u => u.emp !== null).sort((a,b) => b.emp - a.emp);
+            const empLabels = empUnis.map(u => u.name);
+            const empValues = empUnis.map(u => u.emp);
+
+            if (empChartInstance) empChartInstance.destroy();
+            const ctx2 = document.getElementById('empChart').getContext('2d');
+            empChartInstance = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: empLabels,
+                    datasets: [{ label: '취업률 (%)', data: empValues, backgroundColor: 'rgba(59, 130, 246, 0.85)', borderRadius: 4 }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9ca3af', font: { size: 9 } }, min: 50 },
+                        x: { grid: { display: false }, ticks: { color: '#9ca3af', font: { size: 9 }, maxRotation: 45, minRotation: 45 } }
+                    }
+                }
+            });
+
+            // Chart 3: Annual Tuition (7 Complete Unis, Sorted Lowest to Highest)
+            const tuitionUnis = [...universitiesData].filter(u => u.tuition !== null).sort((a,b) => a.tuition - b.tuition);
+            const tuitionLabels = tuitionUnis.map(u => u.name);
+            const tuitionValues = tuitionUnis.map(u => Math.round(u.tuition / 10000)); // Convert to 10,000 KRW
+
+            if (tuitionChartInstance) tuitionChartInstance.destroy();
+            const ctx3 = document.getElementById('tuitionChart').getContext('2d');
+            tuitionChartInstance = new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: tuitionLabels,
+                    datasets: [{ label: '연간 등록금 (만원)', data: tuitionValues, backgroundColor: 'rgba(34, 197, 94, 0.85)', borderRadius: 4 }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9ca3af', font: { size: 9 } } },
+                        x: { grid: { display: false }, ticks: { color: '#9ca3af', font: { size: 9 }, maxRotation: 45, minRotation: 45 } }
+                    }
+                }
+            });
+        }
+
+        function renderRecommendations() {
+            // 1. Challenger Recommendations (Highest Competition Rate Top 5)
+            const challengeList = [...universitiesData].sort((a,b) => b.integrated - a.integrated).slice(0, 5);
+            document.getElementById('rec-challenge-list').innerHTML = challengeList.map((u, i) => `
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-gray-900/70 border border-gray-800 text-xs">
+                    <div class="flex items-center gap-2">
+                        <span class="w-5 h-5 rounded-full ${i === 0 ? 'bg-amber-500 text-slate-950 font-black' : 'bg-gray-800 text-gray-300'} text-[11px] flex items-center justify-center font-bold">
+                            ${i+1}
+                        </span>
+                        <span class="font-bold text-white">${u.name}</span>
+                    </div>
+                    <span class="font-bold text-amber-400 font-mono">${u.integrated}:1</span>
+                </div>
+            `).join('');
+
+            // 2. Career Recommendations (Highest Employment Rate Top 5)
+            const careerList = [...universitiesData].filter(u => u.emp !== null).sort((a,b) => b.emp - a.emp).slice(0, 5);
+            document.getElementById('rec-career-list').innerHTML = careerList.map((u, i) => `
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-gray-900/70 border border-gray-800 text-xs">
+                    <div class="flex items-center gap-2">
+                        <span class="w-5 h-5 rounded-full ${i === 0 ? 'bg-blue-500 text-white font-black' : 'bg-gray-800 text-gray-300'} text-[11px] flex items-center justify-center font-bold">
+                            ${i+1}
+                        </span>
+                        <span class="font-bold text-white">${u.name}</span>
+                    </div>
+                    <span class="font-bold text-blue-400 font-mono">${u.emp}%</span>
+                </div>
+            `).join('');
+
+            // 3. Finance Recommendations (Lowest Tuition Top 5)
+            const financeList = [...universitiesData].filter(u => u.tuition !== null).sort((a,b) => a.tuition - b.tuition).slice(0, 5);
+            document.getElementById('rec-finance-list').innerHTML = financeList.map((u, i) => `
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-gray-900/70 border border-gray-800 text-xs">
+                    <div class="flex items-center gap-2">
+                        <span class="w-5 h-5 rounded-full ${i === 0 ? 'bg-emerald-500 text-slate-950 font-black' : 'bg-gray-800 text-gray-300'} text-[11px] flex items-center justify-center font-bold">
+                            ${i+1}
+                        </span>
+                        <span class="font-bold text-white">${u.name}</span>
+                    </div>
+                    <span class="font-bold text-emerald-400 font-mono">약 ${(u.tuition / 10000).toFixed(1)}만원</span>
+                </div>
+            `).join('');
+        }
+
+        function renderTable() {
+            const query = document.getElementById('table-search').value.toLowerCase();
+            const filtered = universitiesData.filter(u => u.name.toLowerCase().includes(query));
+
+            const tbody = document.getElementById('university-table-body');
+            tbody.innerHTML = filtered.map(u => `
+                <tr class="hover:bg-gray-800/40 transition">
+                    <td class="p-3 font-bold text-gray-400 font-mono">${u.rank}위</td>
+                    <td class="p-3 font-semibold text-white">${u.name}</td>
+                    <td class="p-3 text-right font-mono text-gray-300">${u.early}:1</td>
+                    <td class="p-3 text-right font-mono text-gray-300">${u.regular}:1</td>
+                    <td class="p-3 text-right font-mono font-bold text-amber-400">${u.integrated}:1</td>
+                    <td class="p-3 text-right font-mono ${u.emp !== null ? 'text-blue-400 font-semibold' : 'text-gray-500'}">
+                        ${u.emp !== null ? u.emp + '%' : '미기재'}
+                    </td>
+                    <td class="p-3 text-right font-mono ${u.tuition !== null ? 'text-emerald-400 font-semibold' : 'text-gray-500'}">
+                        ${u.tuition !== null ? '약 ' + (u.tuition).toLocaleString() + '원' : '미기재'}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function exportToCSV() {
+            let csv = '경쟁률순위,대학명,수시경쟁률(:1),정시경쟁률(:1),통합경쟁률(:1),취업률(%),연간등록금(원)\n';
+            universitiesData.forEach(u => {
+                csv += `${u.rank},"${u.name}",${u.early},${u.regular},${u.integrated},${u.emp || '미기재'},${u.tuition || '미기재'}\n`;
+            });
+
+            const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'AI전공_대학추천분석보고서_인공지능일반_박우혁.csv';
+            a.click();
+        }
+
+        window.onload = function() {
+            initCharts();
+            renderRecommendations();
+            renderTable();
+            lucide.createIcons();
+        };
+    </script>
+</body>
+</html>
