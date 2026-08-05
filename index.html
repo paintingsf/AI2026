@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko" class="dark">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,24 +38,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Chart.js for data visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    
     <style>
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-
+        
         /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
-
         ::-webkit-scrollbar-track {
             background: rgba(15, 23, 42, 0.6);
         }
-
         ::-webkit-scrollbar-thumb {
             background: #334155;
             border-radius: 4px;
         }
-
         ::-webkit-scrollbar-thumb:hover {
             background: #475569;
         }
@@ -99,22 +95,17 @@
         }
     </style>
 </head>
-
-<body
-    class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white">
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white">
 
     <canvas id="particleCanvas"></canvas>
 
     <!-- Toast Notification Container -->
     <div id="toastContainer" class="fixed top-5 right-5 z-50 flex flex-col gap-2"></div>
 
-    <header
-        class="sticky top-0 z-40 w-full border-b border-slate-200 dark:border-slate-800/80 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md transition-colors">
+    <header class="sticky top-0 z-40 w-full border-b border-slate-200 dark:border-slate-800/80 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md transition-colors">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3 cursor-pointer"
-                onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-                <div
-                    class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/20">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/20">
                     <i class="fa-solid fa-brain text-xl"></i>
                 </div>
                 <div>
@@ -126,22 +117,18 @@
             <!-- Header Quick Controls -->
             <div class="flex items-center space-x-2 sm:space-x-3">
                 <!-- Theme Toggle Button -->
-                <button id="themeToggleBtn" onclick="toggleTheme()"
-                    class="p-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-amber-500 dark:text-amber-300 hover:scale-105 transition shadow-sm"
-                    title="다크/라이트 모드 전환">
+                <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-amber-500 dark:text-amber-300 hover:scale-105 transition shadow-sm" title="다크/라이트 모드 전환">
                     <i class="fa-solid fa-moon text-lg" id="themeIcon"></i>
                 </button>
 
                 <!-- Edit Mode Toggle -->
-                <button id="editModeBtn" onclick="toggleEditMode()"
-                    class="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs sm:text-sm font-semibold transition border border-slate-300 dark:border-slate-700/50">
+                <button id="editModeBtn" onclick="toggleEditMode()" class="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs sm:text-sm font-semibold transition border border-slate-300 dark:border-slate-700/50">
                     <i class="fa-solid fa-pen-to-square text-sky-500 dark:text-sky-400"></i>
                     <span id="editModeLabel">편집 모드</span>
                 </button>
 
                 <!-- Portfolio Summary Button -->
-                <button onclick="openSummaryModal()"
-                    class="hidden sm:flex items-center space-x-2 px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-medium text-sm shadow-md transition">
+                <button onclick="openSummaryModal()" class="hidden sm:flex items-center space-x-2 px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-medium text-sm shadow-md transition">
                     <i class="fa-solid fa-file-invoice"></i>
                     <span>종합 요약</span>
                 </button>
@@ -149,10 +136,8 @@
         </div>
     </header>
 
-    <section
-        class="relative z-10 min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center text-center px-4 py-12">
-        <div
-            class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-600 dark:text-sky-400 text-xs sm:text-sm font-semibold mb-6">
+    <section class="relative z-10 min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center text-center px-4 py-12">
+        <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-600 dark:text-sky-400 text-xs sm:text-sm font-semibold mb-6">
             <i class="fa-solid fa-sparkles"></i>
             <span>2026학년도 1학기 AI 포트폴리오</span>
         </div>
@@ -160,11 +145,9 @@
             <span class="gradient-text">인공지능일반</span><br>수강 포트폴리오
         </h1>
         <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-lg max-w-2xl mb-10 leading-relaxed">
-            기술의 윤리적 가치와 실생활 문제 해결을 탐구하는 <strong class="text-sky-600 dark:text-sky-400">박우혁</strong> 학생의 인공지능일반 학습 결과물 및
-            실습 프로젝트 모음입니다.
+            기술의 윤리적 가치와 실생활 문제 해결을 탐구하는 <strong class="text-sky-600 dark:text-sky-400">박우혁</strong> 학생의 인공지능일반 학습 결과물 및 실습 프로젝트 모음입니다.
         </p>
-        <button onclick="document.getElementById('profileSection').scrollIntoView({behavior: 'smooth'})"
-            class="animate-bounce flex flex-col items-center text-sky-500 hover:text-sky-400 transition text-sm font-medium space-y-2 cursor-pointer focus:outline-none">
+        <button onclick="document.getElementById('profileSection').scrollIntoView({behavior: 'smooth'})" class="animate-bounce flex flex-col items-center text-sky-500 hover:text-sky-400 transition text-sm font-medium space-y-2 cursor-pointer focus:outline-none">
             <span>아래로 스크롤하여 탐색하기</span>
             <i class="fa-solid fa-chevron-down text-xl"></i>
         </button>
@@ -174,19 +157,17 @@
         <!-- Self-Introduction Profile Card -->
         <div class="glass-card rounded-3xl p-6 sm:p-8 mb-8 relative overflow-hidden">
             <div class="absolute top-0 right-0 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
+            
             <div class="flex flex-col md:flex-row items-center md:items-start gap-6 sm:gap-8 relative z-10">
                 <!-- Profile Image Avatar -->
                 <div class="relative group">
-                    <div
-                        class="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl overflow-hidden ring-4 ring-sky-500/30 shadow-2xl bg-slate-200 dark:bg-slate-800 flex-shrink-0">
-                        <img id="profileAvatar" src="Gemini_Generated_Image_psja77psja77psja.png" alt="프로필 이미지"
-                            onerror="this.src='https://placehold.co/300x300/1e293b/38bdf8?text=Profile'"
-                            class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    <div class="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl overflow-hidden ring-4 ring-sky-500/30 shadow-2xl bg-slate-200 dark:bg-slate-800 flex-shrink-0">
+                        <img id="profileAvatar" src="Gemini_Generated_Image_psja77psja77psja.png" 
+                             alt="프로필 이미지" 
+                             onerror="this.src='https://placehold.co/300x300/1e293b/38bdf8?text=Profile'"
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     </div>
-                    <button onclick="openProfileModal()"
-                        class="absolute -bottom-2 -right-2 w-9 h-9 rounded-xl bg-sky-500 hover:bg-sky-400 text-white shadow-lg flex items-center justify-center text-xs transition"
-                        title="프로필 수정">
+                    <button onclick="openProfileModal()" class="absolute -bottom-2 -right-2 w-9 h-9 rounded-xl bg-sky-500 hover:bg-sky-400 text-white shadow-lg flex items-center justify-center text-xs transition" title="프로필 수정">
                         <i class="fa-solid fa-camera"></i>
                     </button>
                 </div>
@@ -194,28 +175,23 @@
                 <!-- Profile Info & Bio -->
                 <div class="flex-1 text-center md:text-left space-y-3">
                     <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
-                        <span id="profileRoleBadge"
-                            class="px-3 py-1 rounded-full text-xs font-bold bg-sky-500/10 border border-sky-500/30 text-sky-600 dark:text-sky-400">
+                        <span id="profileRoleBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-sky-500/10 border border-sky-500/30 text-sky-600 dark:text-sky-400">
                             AI & SW Engineering Aspirant
                         </span>
-                        <span id="profileGrade"
-                            class="px-3 py-1 rounded-full text-xs font-medium bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                        <span id="profileGrade" class="px-3 py-1 rounded-full text-xs font-medium bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
                             2026학년도 1학기 수강생
                         </span>
                     </div>
 
                     <div class="flex flex-col md:flex-row items-center md:items-baseline gap-2">
-                        <h1 id="profileName"
-                            class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-slate-100">
-                            박우혁 <span class="text-sm font-normal text-slate-500 dark:text-slate-400">(Park
-                                Woo-hyuk)</span>
+                        <h1 id="profileName" class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-slate-100">
+                            박우혁 <span class="text-sm font-normal text-slate-500 dark:text-slate-400">(Park Woo-hyuk)</span>
                         </h1>
-                        <span id="profileSubTitle"
-                            class="text-xs sm:text-sm text-sky-600 dark:text-sky-400 font-medium">인공지능일반 수강 포트폴리오</span>
+                        <span id="profileSubTitle" class="text-xs sm:text-sm text-sky-600 dark:text-sky-400 font-medium">인공지능일반 수강 포트폴리오</span>
                     </div>
 
                     <p id="profileBio" class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
-                        안녕하세요! 인공지능이 제시하는 미래 기술과 인간 중심의 가치를 탐구하는 고등학교 학생 박우혁입니다.
+                        안녕하세요! 인공지능이 제시하는 미래 기술과 인간 중심의 가치를 탐구하는 고등학교 학생 박우혁입니다. 
                         '인공지능일반' 수업을 이수하며 AI 윤리 가이드라인 수립, 데이터 시각화, 그리고 실생활 문제 해결 웹앱을 제작했습니다.
                     </p>
 
@@ -229,8 +205,7 @@
                             <i class="fa-brands fa-github text-purple-500 dark:text-purple-400"></i>
                             <span id="profileGithub">github.com/woohyuk-ai</span>
                         </div>
-                        <button onclick="openProfileModal()"
-                            class="px-3 py-1 rounded-lg bg-slate-200 dark:bg-slate-800/80 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs text-sky-600 dark:text-sky-400 font-semibold border border-slate-300 dark:border-slate-700 transition">
+                        <button onclick="openProfileModal()" class="px-3 py-1 rounded-lg bg-slate-200 dark:bg-slate-800/80 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs text-sky-600 dark:text-sky-400 font-semibold border border-slate-300 dark:border-slate-700 transition">
                             <i class="fa-solid fa-user-pen mr-1"></i> 자기소개 수정
                         </button>
                     </div>
@@ -261,28 +236,22 @@
 
     <section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
         <div class="glass-card p-4 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
-
+            
             <!-- Category Filter Buttons -->
-            <div class="flex items-center space-x-1.5 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none"
-                id="filterBtnGroup">
-                <button onclick="filterCards('all', event)"
-                    class="filter-btn active px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition bg-sky-500 text-white shadow-md">
+            <div class="flex items-center space-x-1.5 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none" id="filterBtnGroup">
+                <button onclick="filterCards('all', event)" class="filter-btn active px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition bg-sky-500 text-white shadow-md">
                     전체
                 </button>
-                <button onclick="filterCards('ethics', event)"
-                    class="filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700">
+                <button onclick="filterCards('ethics', event)" class="filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700">
                     윤리 & 리포트
                 </button>
-                <button onclick="filterCards('creative', event)"
-                    class="filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700">
+                <button onclick="filterCards('creative', event)" class="filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700">
                     창작 & 스토리
                 </button>
-                <button onclick="filterCards('data', event)"
-                    class="filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700">
+                <button onclick="filterCards('data', event)" class="filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700">
                     데이터 분석
                 </button>
-                <button onclick="filterCards('app', event)"
-                    class="filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700">
+                <button onclick="filterCards('app', event)" class="filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700">
                     앱 & 문제해결
                 </button>
             </div>
@@ -290,14 +259,12 @@
             <!-- Search Bar & Add Button -->
             <div class="flex items-center space-x-2 w-full md:w-auto">
                 <div class="relative flex-1 md:w-64">
-                    <i
-                        class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                    <input type="text" id="searchInput" oninput="searchCards()" placeholder="프로젝트 키워드 검색..."
-                        class="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 text-xs sm:text-sm text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-sky-500 transition">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                    <input type="text" id="searchInput" oninput="searchCards()" placeholder="프로젝트 키워드 검색..." 
+                           class="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 text-xs sm:text-sm text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-sky-500 transition">
                 </div>
 
-                <button onclick="openEditItemModal(null)"
-                    class="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs sm:text-sm shadow-md transition flex-shrink-0">
+                <button onclick="openEditItemModal(null)" class="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs sm:text-sm shadow-md transition flex-shrink-0">
                     <i class="fa-solid fa-plus"></i>
                     <span>새 프로젝트</span>
                 </button>
@@ -315,40 +282,32 @@
         <div id="noResults" class="hidden text-center py-16">
             <i class="fa-solid fa-ghost text-4xl text-slate-400 dark:text-slate-600 mb-3"></i>
             <p class="text-slate-500 dark:text-slate-400 font-medium">검색 결과와 일치하는 포트폴리오 카드가 없습니다.</p>
-            <button onclick="resetSearch()"
-                class="mt-4 px-4 py-2 rounded-xl bg-sky-500/20 text-sky-600 dark:text-sky-400 text-sm hover:bg-sky-500/30 transition">
+            <button onclick="resetSearch()" class="mt-4 px-4 py-2 rounded-xl bg-sky-500/20 text-sky-600 dark:text-sky-400 text-sm hover:bg-sky-500/30 transition">
                 검색 조건 초기화
             </button>
         </div>
     </main>
 
-    <div id="detailModal"
-        class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
-        <div
-            class="relative w-full max-w-3xl glass-card bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700/60 shadow-2xl transition-all duration-300 transform my-8">
-
+    <div id="detailModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
+        <div class="relative w-full max-w-3xl glass-card bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700/60 shadow-2xl transition-all duration-300 transform my-8">
+            
             <!-- Modal Header -->
             <div class="flex items-start justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
                 <div class="flex items-center space-x-3">
-                    <div id="modalIconBox"
-                        class="w-12 h-12 rounded-2xl flex items-center justify-center text-white text-xl shadow-md">
+                    <div id="modalIconBox" class="w-12 h-12 rounded-2xl flex items-center justify-center text-white text-xl shadow-md">
                         <!-- Dynamic Icon -->
                     </div>
                     <div>
-                        <span id="modalCategory"
-                            class="text-xs font-semibold px-2.5 py-1 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20"></span>
-                        <h2 id="modalTitle"
-                            class="text-xl sm:text-2xl font-bold mt-1 text-slate-900 dark:text-slate-100"></h2>
+                        <span id="modalCategory" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20"></span>
+                        <h2 id="modalTitle" class="text-xl sm:text-2xl font-bold mt-1 text-slate-900 dark:text-slate-100"></h2>
                     </div>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <a id="modalDetailLinkBtn" href="Chapter2_AI_ethic/index.html"
-                        class="hidden px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white text-xs font-semibold transition flex items-center space-x-1.5 shadow-md">
+                    <a id="modalDetailLinkBtn" href="Chapter2_AI_ethic/index.html" class="hidden px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white text-xs font-semibold transition flex items-center space-x-1.5 shadow-md">
                         <span>더 상세히 보기</span>
                         <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                     </a>
-                    <button onclick="closeModal()"
-                        class="p-2 rounded-full text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <button onclick="closeModal()" class="p-2 rounded-full text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                         <i class="fa-solid fa-xmark text-xl"></i>
                     </button>
                 </div>
@@ -360,25 +319,20 @@
             </div>
 
             <!-- Modal Footer -->
-            <div
-                class="pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
+            <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
                 <div class="flex items-center space-x-2 text-xs text-slate-500 dark:text-slate-400">
                     <i class="fa-solid fa-clock"></i>
-                    <span>수행 시기: <strong id="modalDate" class="text-slate-700 dark:text-slate-300">2026.03 ~
-                            2026.07</strong></span>
+                    <span>수행 시기: <strong id="modalDate" class="text-slate-700 dark:text-slate-300">2026.03 ~ 2026.07</strong></span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <button id="editFromModalBtn" onclick="editCurrentModalItem()"
-                        class="px-3 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 text-xs font-semibold border border-amber-500/20 transition">
+                    <button id="editFromModalBtn" onclick="editCurrentModalItem()" class="px-3 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 text-xs font-semibold border border-amber-500/20 transition">
                         <i class="fa-solid fa-pen-to-square mr-1"></i> 이 카드 수정
                     </button>
-                    <button id="modalLikeBtn" onclick="toggleLikeCurrent()"
-                        class="px-3 py-1.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 dark:text-rose-400 text-xs font-medium border border-rose-500/20 transition flex items-center space-x-1">
+                    <button id="modalLikeBtn" onclick="toggleLikeCurrent()" class="px-3 py-1.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 dark:text-rose-400 text-xs font-medium border border-rose-500/20 transition flex items-center space-x-1">
                         <i class="fa-solid fa-heart"></i>
                         <span id="modalLikeCount">0</span>
                     </button>
-                    <button onclick="closeModal()"
-                        class="px-4 py-1.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white text-xs font-semibold transition">
+                    <button onclick="closeModal()" class="px-4 py-1.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white text-xs font-semibold transition">
                         닫기
                     </button>
                 </div>
@@ -387,23 +341,19 @@
         </div>
     </div>
 
-    <div id="editItemModal"
-        class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
-        <div
-            class="relative w-full max-w-2xl glass-card bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700/60 shadow-2xl my-8">
+    <div id="editItemModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
+        <div class="relative w-full max-w-2xl glass-card bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700/60 shadow-2xl my-8">
             <div class="flex justify-between items-center pb-4 border-b border-slate-200 dark:border-slate-800">
                 <div class="flex items-center space-x-3">
                     <div class="p-2.5 bg-sky-500/20 text-sky-500 dark:text-sky-400 rounded-xl">
                         <i class="fa-solid fa-pen-to-square text-xl"></i>
                     </div>
                     <div>
-                        <h3 id="editModalTitle" class="text-lg font-bold text-slate-900 dark:text-slate-100">프로젝트 카드 수정
-                        </h3>
+                        <h3 id="editModalTitle" class="text-lg font-bold text-slate-900 dark:text-slate-100">프로젝트 카드 수정</h3>
                         <p class="text-xs text-slate-500 dark:text-slate-400">포트폴리오 내용 및 정보를 업데이트합니다.</p>
                     </div>
                 </div>
-                <button onclick="closeEditItemModal()"
-                    class="p-2 text-slate-400 hover:text-slate-800 dark:hover:text-white">
+                <button onclick="closeEditItemModal()" class="p-2 text-slate-400 hover:text-slate-800 dark:hover:text-white">
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
             </div>
@@ -414,25 +364,23 @@
                 <div>
                     <label class="block font-semibold mb-1 text-slate-700 dark:text-slate-300">프로젝트 제목</label>
                     <input type="text" id="formTitle" required placeholder="예: 생성형 AI 윤리 수칙 수립"
-                        class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
+                           class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
                 </div>
 
                 <div>
-                    <label class="block font-semibold mb-1 text-slate-700 dark:text-slate-300">프로젝트 대표 이미지 (내장 파일 선택 또는
-                        상대 경로)</label>
+                    <label class="block font-semibold mb-1 text-slate-700 dark:text-slate-300">프로젝트 대표 이미지 (내장 파일 선택 또는 상대 경로)</label>
                     <div class="flex flex-col gap-2">
                         <input type="file" id="cardFileInput" accept="image/*" onchange="handleCardFileSelect(event)"
-                            class="block w-full text-xs text-slate-500 dark:text-slate-400 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-sky-500/20 file:text-sky-600 dark:file:text-sky-400 hover:file:bg-sky-500/30 cursor-pointer">
+                               class="block w-full text-xs text-slate-500 dark:text-slate-400 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-sky-500/20 file:text-sky-600 dark:file:text-sky-400 hover:file:bg-sky-500/30 cursor-pointer">
                         <input type="text" id="formImage" placeholder="파일 상대 경로(예: ./images/project.jpg) 또는 선택된 파일"
-                            class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
+                               class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                         <label class="block font-semibold mb-1 text-slate-700 dark:text-slate-300">카테고리 구분</label>
-                        <select id="formCategoryKey"
-                            class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
+                        <select id="formCategoryKey" class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
                             <option value="ethics">윤리 & 리포트</option>
                             <option value="creative">창작 & 스토리</option>
                             <option value="data">데이터 분석</option>
@@ -442,56 +390,50 @@
                     <div>
                         <label class="block font-semibold mb-1 text-slate-700 dark:text-slate-300">뱃지 이름</label>
                         <input type="text" id="formBadge" required placeholder="예: 윤리 & 기준"
-                            class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
+                               class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
                     </div>
                 </div>
 
                 <div>
                     <label class="block font-semibold mb-1 text-slate-700 dark:text-slate-300">카드 간단 설명 (요약)</label>
                     <textarea id="formDesc" rows="2" required placeholder="카드 전면에 표시될 2-3줄의 간략한 안내문"
-                        class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500"></textarea>
+                              class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500"></textarea>
                 </div>
 
                 <div>
                     <label class="block font-semibold mb-1 text-slate-700 dark:text-slate-300">상세 설명 (모달 상세 내용)</label>
                     <textarea id="formDetailSummary" rows="3" required placeholder="모달 창 상단에 보일 상세 연구 내용"
-                        class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500"></textarea>
+                              class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500"></textarea>
                 </div>
 
                 <div>
-                    <label class="block font-semibold mb-1 text-slate-700 dark:text-slate-300">주요 핵심 활동 (줄바꿈 구분, 제목:내용
-                        형태 지원)</label>
+                    <label class="block font-semibold mb-1 text-slate-700 dark:text-slate-300">주요 핵심 활동 (줄바꿈 구분, 제목:내용 형태 지원)</label>
                     <textarea id="formHighlights" rows="3" placeholder="예:\n투명성 원칙: AI 활용 출처 명시\n교차 검증: 2개 이상 출처 확인"
-                        class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500"></textarea>
+                              class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500"></textarea>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                        <label class="block font-semibold mb-1 text-slate-700 dark:text-slate-300">사용 도구 (쉼표 ,
-                            구분)</label>
+                        <label class="block font-semibold mb-1 text-slate-700 dark:text-slate-300">사용 도구 (쉼표 , 구분)</label>
                         <input type="text" id="formTools" placeholder="Python, ChatGPT, Claude"
-                            class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
+                               class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
                     </div>
                     <div>
-                        <label class="block font-semibold mb-1 text-slate-700 dark:text-slate-300">FontAwesome
-                            아이콘</label>
+                        <label class="block font-semibold mb-1 text-slate-700 dark:text-slate-300">FontAwesome 아이콘</label>
                         <input type="text" id="formIcon" placeholder="fa-scale-balanced"
-                            class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
+                               class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
                     </div>
                 </div>
 
                 <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center">
-                    <button type="button" id="deleteCardBtn" onclick="deleteCurrentFormItem()"
-                        class="px-3.5 py-2 rounded-xl bg-rose-500/20 text-rose-600 dark:text-rose-400 hover:bg-rose-500/30 text-xs font-semibold transition hidden">
+                    <button type="button" id="deleteCardBtn" onclick="deleteCurrentFormItem()" class="px-3.5 py-2 rounded-xl bg-rose-500/20 text-rose-600 dark:text-rose-400 hover:bg-rose-500/30 text-xs font-semibold transition hidden">
                         <i class="fa-solid fa-trash mr-1"></i> 삭제하기
                     </button>
                     <div class="flex items-center space-x-2 ml-auto">
-                        <button type="button" onclick="closeEditItemModal()"
-                            class="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold">
+                        <button type="button" onclick="closeEditItemModal()" class="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold">
                             취소
                         </button>
-                        <button type="submit"
-                            class="px-5 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold shadow-md">
+                        <button type="submit" class="px-5 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold shadow-md">
                             저장하기
                         </button>
                     </div>
@@ -500,10 +442,8 @@
         </div>
     </div>
 
-    <div id="profileModal"
-        class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
-        <div
-            class="relative w-full max-w-lg glass-card bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700/60 shadow-2xl my-8">
+    <div id="profileModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
+        <div class="relative w-full max-w-lg glass-card bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700/60 shadow-2xl my-8">
             <div class="flex justify-between items-center pb-4 border-b border-slate-200 dark:border-slate-800">
                 <div class="flex items-center space-x-3">
                     <div class="p-2.5 bg-purple-500/20 text-purple-600 dark:text-purple-400 rounded-xl">
@@ -514,67 +454,60 @@
                         <p class="text-xs text-slate-500 dark:text-slate-400">사진 및 프로필 인적사항을 변경합니다.</p>
                     </div>
                 </div>
-                <button onclick="closeProfileModal()"
-                    class="p-2 text-slate-400 hover:text-slate-800 dark:hover:text-white">
+                <button onclick="closeProfileModal()" class="p-2 text-slate-400 hover:text-slate-800 dark:hover:text-white">
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
             </div>
 
             <form onsubmit="saveProfileForm(event)" class="py-4 space-y-3.5 text-xs sm:text-sm">
                 <div>
-                    <label class="block font-semibold mb-1 text-slate-700 dark:text-slate-300">프로필 사진 (내장 JPG 파일 선택 또는
-                        경로)</label>
+                    <label class="block font-semibold mb-1 text-slate-700 dark:text-slate-300">프로필 사진 (내장 JPG 파일 선택 또는 경로)</label>
                     <div class="flex flex-col gap-2">
-                        <input type="file" id="profileFileInput" accept="image/*"
-                            onchange="handleProfileFileSelect(event)"
-                            class="block w-full text-xs text-slate-500 dark:text-slate-400 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-purple-500/20 file:text-purple-600 dark:file:text-purple-400 hover:file:bg-purple-500/30 cursor-pointer">
-                        <input type="text" id="profileFormAvatar" required
-                            placeholder="내장 파일 경로 (예: ./my_photo.jpg) 또는 URL"
-                            class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
+                        <input type="file" id="profileFileInput" accept="image/*" onchange="handleProfileFileSelect(event)"
+                               class="block w-full text-xs text-slate-500 dark:text-slate-400 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-purple-500/20 file:text-purple-600 dark:file:text-purple-400 hover:file:bg-purple-500/30 cursor-pointer">
+                        <input type="text" id="profileFormAvatar" required placeholder="내장 파일 경로 (예: ./my_photo.jpg) 또는 URL"
+                               class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
                     </div>
-                    <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-1">컴퓨터의 사진 파일 선택 또는 이미지 경로를 입력할 수 있습니다.
-                    </p>
+                    <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-1">컴퓨터의 사진 파일 선택 또는 이미지 경로를 입력할 수 있습니다.</p>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                         <label class="block font-semibold mb-1 text-slate-700 dark:text-slate-300">이름</label>
                         <input type="text" id="profileFormName" required placeholder="박우혁"
-                            class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
+                               class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
                     </div>
                     <div>
                         <label class="block font-semibold mb-1 text-slate-700 dark:text-slate-300">희망 진로/역할 뱃지</label>
                         <input type="text" id="profileFormRole" required placeholder="AI & SW Engineering Aspirant"
-                            class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
+                               class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
                     </div>
                 </div>
 
                 <div>
                     <label class="block font-semibold mb-1 text-slate-700 dark:text-slate-300">자기소개글 (Bio)</label>
                     <textarea id="profileFormBio" rows="3" required placeholder="나의 소신과 활동 각오..."
-                        class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500"></textarea>
+                              class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500"></textarea>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                         <label class="block font-semibold mb-1 text-slate-700 dark:text-slate-300">이메일</label>
                         <input type="email" id="profileFormEmail" placeholder="student@aigeneral.edu"
-                            class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
+                               class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
                     </div>
                     <div>
                         <label class="block font-semibold mb-1 text-slate-700 dark:text-slate-300">GitHub 주소</label>
                         <input type="text" id="profileFormGithub" placeholder="github.com/ai-student"
-                            class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
+                               class="w-full px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-sky-500">
                     </div>
                 </div>
 
                 <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex justify-end space-x-2">
-                    <button type="button" onclick="closeProfileModal()"
-                        class="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold">
+                    <button type="button" onclick="closeProfileModal()" class="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold">
                         취소
                     </button>
-                    <button type="submit"
-                        class="px-5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold shadow-md">
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold shadow-md">
                         프로필 저장
                     </button>
                 </div>
@@ -582,10 +515,8 @@
         </div>
     </div>
 
-    <div id="summaryModal"
-        class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
-        <div
-            class="relative w-full max-w-2xl glass-card bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700/60 shadow-2xl my-8">
+    <div id="summaryModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
+        <div class="relative w-full max-w-2xl glass-card bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700/60 shadow-2xl my-8">
             <div class="flex justify-between items-center pb-4 border-b border-slate-200 dark:border-slate-800">
                 <div class="flex items-center space-x-3">
                     <div class="p-3 bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 rounded-xl">
@@ -596,18 +527,15 @@
                         <p class="text-xs text-slate-500 dark:text-slate-400">한 학기 활동 성과 및 총괄 요약</p>
                     </div>
                 </div>
-                <button onclick="closeSummaryModal()"
-                    class="p-2 text-slate-400 hover:text-slate-800 dark:hover:text-white">
+                <button onclick="closeSummaryModal()" class="p-2 text-slate-400 hover:text-slate-800 dark:hover:text-white">
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
             </div>
 
             <div class="py-6 space-y-4 text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-                <div
-                    class="p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                <div class="p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                     <h4 class="font-bold text-sky-600 dark:text-sky-400 mb-1">핵심 역량 이수 평가</h4>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">AI 윤리 이해, 미디어 표현, 데이터 정제 및 시각화, 문제 해결 컴퓨팅
-                        사고력 종합 우수</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">AI 윤리 이해, 미디어 표현, 데이터 정제 및 시각화, 문제 해결 컴퓨팅 사고력 종합 우수</p>
                     <div class="space-y-2">
                         <div>
                             <div class="flex justify-between text-xs font-semibold mb-1">
@@ -650,17 +578,14 @@
             </div>
 
             <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center">
-                <button onclick="resetDefaultData()"
-                    class="px-3 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-800/80 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 text-xs font-medium">
+                <button onclick="resetDefaultData()" class="px-3 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-800/80 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 text-xs font-medium">
                     <i class="fa-solid fa-rotate-left mr-1"></i> 데이터 초기화
                 </button>
                 <div class="flex space-x-2">
-                    <button onclick="copySummaryText()"
-                        class="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-medium text-slate-800 dark:text-slate-200">
+                    <button onclick="copySummaryText()" class="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-medium text-slate-800 dark:text-slate-200">
                         <i class="fa-regular fa-copy mr-1"></i> 클립보드 복사
                     </button>
-                    <button onclick="closeSummaryModal()"
-                        class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-xs font-bold text-white">
+                    <button onclick="closeSummaryModal()" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-xs font-bold text-white">
                         확인
                     </button>
                 </div>
@@ -668,8 +593,7 @@
         </div>
     </div>
 
-    <footer
-        class="relative z-10 border-t border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-950/90 py-8 text-center text-xs text-slate-500">
+    <footer class="relative z-10 border-t border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-950/90 py-8 text-center text-xs text-slate-500">
         <div class="max-w-7xl mx-auto px-4 space-y-2">
             <p>© 2026 Artificial Intelligence General Course Portfolio. All rights reserved.</p>
             <p class="text-slate-400 dark:text-slate-600">본 포트폴리오는 생성형 AI 윤리 및 최신 데이터 분석 기술을 준수하여 제작되었습니다.</p>
@@ -780,6 +704,7 @@
                 likes: 19,
                 date: "2026.05.29",
                 tools: ["QGIS", "Public Data Portal", "Python"],
+                detailUrl: "Chapter6_kids/index.html",
                 detail: {
                     summary: "지자체 유동인구 데이터와 CCTV 설치 위치 공공데이터를 결합하여 무단투기 발생 위험 지역 모형을 설계했습니다.",
                     highlights: [
@@ -902,7 +827,7 @@
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     tempProfileImageData = e.target.result;
                     document.getElementById('profileFormAvatar').value = file.name;
                 };
@@ -914,7 +839,7 @@
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     tempCardImageData = e.target.result;
                     document.getElementById('formImage').value = file.name;
                 };
@@ -926,18 +851,18 @@
         function loadStoredData() {
             const savedPortfolio = localStorage.getItem('ai_portfolio_items');
             if (savedPortfolio) {
-                try { portfolioData = JSON.parse(savedPortfolio); }
-                catch (e) { portfolioData = [...initialPortfolioData]; }
+                try { portfolioData = JSON.parse(savedPortfolio); } 
+                catch(e) { portfolioData = [...initialPortfolioData]; }
             } else {
                 portfolioData = [...initialPortfolioData];
             }
 
             const savedProfile = localStorage.getItem('ai_portfolio_profile');
             if (savedProfile) {
-                try { profileData = JSON.parse(savedProfile); }
-                catch (e) { profileData = { ...initialProfileData }; }
+                try { profileData = JSON.parse(savedProfile); } 
+                catch(e) { profileData = {...initialProfileData}; }
             } else {
-                profileData = { ...initialProfileData };
+                profileData = {...initialProfileData};
             }
         }
 
@@ -949,7 +874,7 @@
         function renderProfile() {
             const avatarImg = document.getElementById('profileAvatar');
             avatarImg.src = profileData.avatar;
-            avatarImg.onerror = function () {
+            avatarImg.onerror = function() {
                 this.src = 'https://placehold.co/300x300/1e293b/38bdf8?text=Profile+Image';
             };
 
@@ -981,10 +906,10 @@
             const icon = document.getElementById('themeIcon');
             if (theme === 'light') {
                 html.classList.remove('dark');
-                if (icon) icon.className = 'fa-solid fa-sun text-amber-500';
+                if(icon) icon.className = 'fa-solid fa-sun text-amber-500';
             } else {
                 html.classList.add('dark');
-                if (icon) icon.className = 'fa-solid fa-moon text-amber-300';
+                if(icon) icon.className = 'fa-solid fa-moon text-amber-300';
             }
         }
 
@@ -1012,9 +937,9 @@
 
             const filtered = portfolioData.filter(item => {
                 const matchesFilter = (activeFilter === 'all') || (item.categoryKey === activeFilter);
-                const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    item.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    item.badge.toLowerCase().includes(searchQuery.toLowerCase());
+                const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      item.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                      item.badge.toLowerCase().includes(searchQuery.toLowerCase());
                 return matchesFilter && matchesSearch;
             });
 
@@ -1110,7 +1035,7 @@
 
             const detailLinkBtn = document.getElementById('modalDetailLinkBtn');
             let targetUrl = item.detailUrl;
-
+            
             // Chapter2 경로 오탈자(ethnic -> ethic) 자동 정정 및 지정
             if (item.id === 'principles' || targetUrl === 'Chapter2_AI_ethnic/index.html') {
                 targetUrl = 'Chapter2_AI_ethic/index.html';
@@ -1120,6 +1045,7 @@
                 else if (item.id === 'story-video') targetUrl = 'Chapter3_AI_storybook/index.html';
                 else if (item.id === 'career-data') targetUrl = 'Chapter5_total_university/index.html';
                 else if (item.id === 'career-report') targetUrl = 'Chapter4_university_data/index.html';
+                else if (item.id === 'local-issue') targetUrl = 'Chapter6_kids/index.html';
             }
 
             if (targetUrl) {
@@ -1311,10 +1237,10 @@
                 document.getElementById('formBadge').value = item.badge || '';
                 document.getElementById('formDesc').value = item.desc;
                 document.getElementById('formDetailSummary').value = item.detail?.summary || item.desc;
-
+                
                 const rawHighlights = (item.detail?.highlights || []).map(h => h.replace(/<[^>]*>?/gm, '')).join('\n');
                 document.getElementById('formHighlights').value = rawHighlights;
-
+                
                 document.getElementById('formTools').value = (item.tools || []).join(', ');
                 document.getElementById('formIcon').value = item.icon || 'fa-folder';
 
@@ -1358,7 +1284,7 @@
             const badge = document.getElementById('formBadge').value.trim();
             const desc = document.getElementById('formDesc').value.trim();
             const detailSummary = document.getElementById('formDetailSummary').value.trim();
-
+            
             let cardImage = "";
             if (tempCardImageData) {
                 cardImage = tempCardImageData;
@@ -1407,7 +1333,7 @@
                     image: cardImage,
                     icon: icon,
                     likes: 1,
-                    date: new Date().toISOString().slice(0, 10).replace(/-/g, '.'),
+                    date: new Date().toISOString().slice(0,10).replace(/-/g, '.'),
                     tools: tools.length ? tools : ["AI General"],
                     detail: {
                         summary: detailSummary,
@@ -1443,7 +1369,7 @@
 
         function saveProfileForm(e) {
             e.preventDefault();
-
+            
             if (tempProfileImageData) {
                 profileData.avatar = tempProfileImageData;
             } else {
@@ -1465,7 +1391,7 @@
 
         function resetDefaultData() {
             portfolioData = [...initialPortfolioData];
-            profileData = { ...initialProfileData };
+            profileData = {...initialProfileData};
             saveDataToStorage();
             renderProfile();
             renderCards();
@@ -1518,7 +1444,7 @@
             const toast = document.createElement('div');
             toast.className = 'px-4 py-2.5 rounded-xl bg-slate-900 border border-sky-500/30 text-sky-400 text-xs shadow-xl flex items-center space-x-2 animate-bounce';
             toast.innerHTML = `<i class="fa-solid fa-circle-check"></i><span>${message}</span>`;
-
+            
             container.appendChild(toast);
             setTimeout(() => {
                 toast.remove();
@@ -1589,7 +1515,7 @@
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+            
             for (let i = 0; i < particles.length; i++) {
                 particles[i].update();
                 particles[i].draw();
@@ -1613,7 +1539,7 @@
         }
 
         /* On Initial Load */
-        window.onload = function () {
+        window.onload = function() {
             initTheme();
             loadStoredData();
             renderProfile();
@@ -1630,5 +1556,4 @@
         };
     </script>
 </body>
-
 </html>
