@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘 양정고 점심 뭐야? 🍱 | 부산 양정고 스마트 급식 서비스</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f6ff',
+                            100: '#e0edff',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        },
+                        pop: {
+                            coral: '#ff6b6b',
+                            mint: '#10b981',
+                            amber: '#f59e0b',
+                            purple: '#8b5cf6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        .glass-header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        
+        .hero-gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bounce-gentle {
+            animation: bounceGentle 2s infinite;
+        }
+
+        @keyframes bounceGentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-500 selection:text-white min-h-screen flex flex-col transition-colors duration-300">
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-50 border-b border-slate-200/80 glass-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- Brand Logo / Title -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-pink-500 flex items-center justify-center text-white text-xl shadow-lg shadow-brand-500/30 transform hover:scale-105 transition-transform">
+                    🍱
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-extrabold text-slate-900 text-base sm:text-lg tracking-tight">양정고 급식 서비스</span>
+                        <span class="px-2.5 py-0.5 text-[11px] font-bold rounded-full bg-amber-100 text-amber-700 border border-amber-300">🔥 인공지능 일반 박우혁</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 hidden sm:block">부산 양정고등학교 스마트 식단 모니터</p>
+                </div>
+            </div>
+
+            <!-- Header Quick Action Buttons -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Navigation Link: 홈으로 -->
+                <a href="../index.html" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-semibold text-slate-700 hover:text-brand-600 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all" title="홈 페이지로 이동">
+                    <i class="fa-solid fa-house"></i>
+                    <span>홈으로</span>
+                </a>
+
+                <!-- Navigation Link: 바로 보기 (Main Meal App) -->
+                <a href="https://mealservice-kappa.vercel.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-brand-600 via-indigo-600 to-purple-600 hover:from-brand-500 hover:to-purple-500 rounded-xl shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 transition-all transform hover:-translate-y-0.5 active:scale-95" title="급식 서비스 라이브 사이트 바로가기">
+                    <span>바로 보기</span>
+                    <i class="fa-solid fa-bolt text-amber-300"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden py-12 lg:py-20 bg-gradient-to-b from-brand-50/80 via-purple-50/30 to-transparent">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    
+                    <!-- Hero Left Content -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white text-brand-600 text-xs font-bold shadow-md shadow-slate-200/50 border border-brand-200 bounce-gentle">
+                            <span class="text-base">⚡</span>
+                            <span>오늘 양정고 점심 메뉴 3초 만에 체크 완료!</span>
+                        </div>
+
+                        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight">
+                            급식 확인도<br class="hidden sm:block"/>
+                            <span class="hero-gradient-text">힙하고 짜릿하게!</span> 😋
+                        </h1>
+
+                        <p class="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                            나이스(NEIS) 공식 데이터 100% 실시간 연동! 찰진 3D 드럼 휠로 날짜를 틱-틱 돌리고, 내 알레르기 성분까지 한눈에 감지하는 양정고 전용 스마트 급식 보관소 🍕
+                        </p>
+
+                        <!-- Key Value Badges -->
+                        <div class="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3 pt-2">
+                            <span class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-800 shadow-sm flex items-center gap-1.5">
+                                <span class="text-amber-500">🛞</span> 손맛 넘치는 3D 드럼 휠
+                            </span>
+                            <span class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-800 shadow-sm flex items-center gap-1.5">
+                                <span class="text-rose-500">🚨</span> 19종 알레르기 실시간 경보
+                            </span>
+                            <span class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-800 shadow-sm flex items-center gap-1.5">
+                                <span class="text-indigo-500">🌙</span> 야자 저녁(석식) 완벽 지원
+                            </span>
+                        </div>
+
+                        <!-- Main CTA Buttons -->
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                            <a href="https://mealservice-kappa.vercel.app/" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-8 py-4 text-base font-extrabold text-white bg-gradient-to-r from-brand-600 via-indigo-600 to-purple-600 hover:from-brand-500 hover:to-purple-500 rounded-2xl shadow-xl shadow-brand-500/30 hover:shadow-brand-500/50 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3 group">
+                                <span>지금 바로 급식 보러가기</span>
+                                <i class="fa-solid fa-arrow-right text-amber-300 group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+
+                            <a href="#demo-section" class="w-full sm:w-auto px-6 py-4 text-sm font-bold text-slate-700 bg-white border border-slate-200 hover:bg-slate-100 rounded-2xl transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-gamepad text-brand-500"></i>
+                                <span>미니 체험존 즐기기</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Hero Right Interactive Mockup Card -->
+                    <div class="lg:col-span-5">
+                        <div class="relative p-6 sm:p-8 rounded-3xl bg-white border-2 border-brand-500/20 shadow-2xl shadow-brand-500/10 overflow-hidden transform hover:scale-[1.02] transition-transform">
+                            <!-- Glowing background blob -->
+                            <div class="absolute -top-12 -right-12 w-40 h-40 bg-gradient-to-br from-brand-400 to-purple-500 rounded-full blur-3xl opacity-20 pointer-events-none"></div>
+
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+                                    <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                                    <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                                </div>
+                                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-slate-100 text-brand-600">
+                                    🏫 부산 양정고등학교
+                                </span>
+                            </div>
+
+                            <!-- Live Sample Today Meal -->
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <span class="text-xs font-bold text-slate-400">TODAY's MENU</span>
+                                        <h3 class="text-xl font-black text-slate-900">☀️ 오늘의 중식</h3>
+                                    </div>
+                                    <span class="px-3 py-1 rounded-xl bg-amber-100 text-amber-700 text-xs font-bold font-mono">
+                                        🔥 850 Kcal
+                                    </span>
+                                </div>
+
+                                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 space-y-2.5 text-sm font-semibold">
+                                    <div class="flex justify-between items-center text-slate-800">
+                                        <span>• 찰보리밥</span>
+                                        <span class="text-[10px] text-emerald-500 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">안심</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-rose-600 bg-rose-50 p-2 rounded-xl border border-rose-200">
+                                        <span>• 돼지고기 김치찌개</span>
+                                        <span class="text-[10px] bg-rose-500 text-white font-bold px-2 py-0.5 rounded-full">⚠️ 돼지고기 감지</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-slate-800">
+                                        <span>• 닭갈비 볶음</span>
+                                        <span class="text-[10px] text-slate-400">닭고기</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-slate-800">
+                                        <span>• 계란말이</span>
+                                        <span class="text-[10px] text-slate-400">난류</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-slate-800">
+                                        <span>• 아삭 배추김치 & 멜론</span>
+                                        <span class="text-[10px] text-emerald-500 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">달콤 후식</span>
+                                    </div>
+                                </div>
+
+                                <a href="https://mealservice-kappa.vercel.app/" target="_blank" class="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold flex items-center justify-center gap-2 transition-colors shadow-md">
+                                    <span>실제 사이트에서 날짜 돌려보기</span>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Demo Feature Zone -->
+        <section id="demo-section" class="py-12 lg:py-16 bg-slate-100/70 border-y border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
+                    <span class="text-xs font-extrabold text-brand-600 uppercase tracking-widest">MINI DEMO EXPERIENCE</span>
+                    <h2 class="text-2xl sm:text-4xl font-black text-slate-900">체험해봐! 3D 휠 & 알레르기 스포일러</h2>
+                    <p class="text-xs sm:text-sm text-slate-500">진짜 앱에 적용된 핵심 신기술을 지금 여기서 마우스로 클릭해서 느껴보세요.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+
+                    <!-- Demo 1: 3D Drum Wheel Picker Simulator -->
+                    <div class="md:col-span-12 lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-9 h-9 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center font-bold text-base">
+                                        🛞
+                                    </div>
+                                    <h3 class="font-bold text-slate-900 text-lg">3D 손맛 드럼 휠 + 틱 Sound</h3>
+                                </div>
+
+                                <button id="soundToggleBtn" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 flex items-center gap-1.5 transition-colors">
+                                    <i id="soundIcon" class="fa-solid fa-volume-high text-brand-500"></i>
+                                    <span id="soundStatusText">사운드 ON</span>
+                                </button>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-6">
+                                화살표를 누르거나 날짜를 정하면 Web Audio API의 기계식 조그 다이얼 틱 사운드가 착- 착- 터집니다!
+                            </p>
+
+                            <!-- Mini Interactive Wheel UI -->
+                            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                                <div class="flex items-center justify-center gap-3 sm:gap-6 my-2">
+                                    <!-- Year -->
+                                    <div class="flex flex-col items-center">
+                                        <button onclick="adjustSimDate(-1, 'year')" class="p-1.5 hover:bg-slate-200 rounded-lg text-slate-400 transition-colors"><i class="fa-solid fa-chevron-up text-xs"></i></button>
+                                        <div id="simYear" class="w-20 py-2.5 bg-white border-2 border-brand-500 rounded-xl text-center font-black font-mono text-slate-900 text-base shadow-sm">2026년</div>
+                                        <button onclick="adjustSimDate(1, 'year')" class="p-1.5 hover:bg-slate-200 rounded-lg text-slate-400 transition-colors"><i class="fa-solid fa-chevron-down text-xs"></i></button>
+                                    </div>
+
+                                    <!-- Month -->
+                                    <div class="flex flex-col items-center">
+                                        <button onclick="adjustSimDate(-1, 'month')" class="p-1.5 hover:bg-slate-200 rounded-lg text-slate-400 transition-colors"><i class="fa-solid fa-chevron-up text-xs"></i></button>
+                                        <div id="simMonth" class="w-16 py-2.5 bg-white border-2 border-brand-500 rounded-xl text-center font-black font-mono text-slate-900 text-base shadow-sm">8월</div>
+                                        <button onclick="adjustSimDate(1, 'month')" class="p-1.5 hover:bg-slate-200 rounded-lg text-slate-400 transition-colors"><i class="fa-solid fa-chevron-down text-xs"></i></button>
+                                    </div>
+
+                                    <!-- Day -->
+                                    <div class="flex flex-col items-center">
+                                        <button onclick="adjustSimDate(-1, 'day')" class="p-1.5 hover:bg-slate-200 rounded-lg text-slate-400 transition-colors"><i class="fa-solid fa-chevron-up text-xs"></i></button>
+                                        <div id="simDay" class="w-16 py-2.5 bg-white border-2 border-brand-500 rounded-xl text-center font-black font-mono text-slate-900 text-base shadow-sm">6일</div>
+                                        <button onclick="adjustSimDate(1, 'day')" class="p-1.5 hover:bg-slate-200 rounded-lg text-slate-400 transition-colors"><i class="fa-solid fa-chevron-down text-xs"></i></button>
+                                    </div>
+                                </div>
+
+                                <!-- Quick Jump Buttons -->
+                                <div class="flex justify-center gap-2 mt-4 pt-4 border-t border-slate-200/60">
+                                    <button onclick="setSimQuickDate('yesterday')" class="px-3.5 py-1.5 rounded-xl bg-white border border-slate-200 text-xs font-bold hover:bg-slate-100">어제</button>
+                                    <button onclick="setSimQuickDate('today')" class="px-3.5 py-1.5 rounded-xl bg-brand-600 text-white text-xs font-extrabold hover:bg-brand-500 shadow-md">오늘 급식</button>
+                                    <button onclick="setSimQuickDate('tomorrow')" class="px-3.5 py-1.5 rounded-xl bg-white border border-slate-200 text-xs font-bold hover:bg-slate-100">내일 급식</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500 flex justify-between items-center">
+                            <span>선택된 날짜: <strong id="simSelectedDisplay" class="text-brand-600 font-bold">2026년 08월 06일 (목)</strong></span>
+                            <span class="text-[11px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold">스프링 감쇠 완벽 적용</span>
+                        </div>
+                    </div>
+
+                    <!-- Demo 2: Allergy Alert Filter Simulator -->
+                    <div class="md:col-span-12 lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="w-9 h-9 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center font-bold text-base">
+                                    🚨
+                                </div>
+                                <h3 class="font-bold text-slate-900 text-lg">내 알레르기 수호신</h3>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-4">
+                                눌러봐! 못 먹는 음식 성분을 등록해두면 위험 메뉴가 즉각 붉은색 경고로 바뀝니다.
+                            </p>
+
+                            <!-- Allergy Toggle Pills -->
+                            <div class="flex flex-wrap gap-2 mb-5">
+                                <button onclick="toggleAllergyDemo(10)" id="algBtn-10" class="px-3 py-1.5 rounded-full text-xs font-bold transition-all bg-rose-500 text-white border border-rose-600 shadow-sm">
+                                    🐷 10. 돼지고기
+                                </button>
+                                <button onclick="toggleAllergyDemo(1)" id="algBtn-1" class="px-3 py-1.5 rounded-full text-xs font-bold transition-all bg-slate-100 text-slate-700 border border-slate-200">
+                                    🥚 1. 난류
+                                </button>
+                                <button onclick="toggleAllergyDemo(5)" id="algBtn-5" class="px-3 py-1.5 rounded-full text-xs font-bold transition-all bg-slate-100 text-slate-700 border border-slate-200">
+                                    🫘 5. 대두
+                                </button>
+                                <button onclick="toggleAllergyDemo(6)" id="algBtn-6" class="px-3 py-1.5 rounded-full text-xs font-bold transition-all bg-slate-100 text-slate-700 border border-slate-200">
+                                    🌾 6. 밀
+                                </button>
+                            </div>
+
+                            <!-- Sample Menu List Preview -->
+                            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2.5">
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">실시간 반응 결과 예시</span>
+
+                                <div id="dish1" class="p-2.5 rounded-xl text-xs font-bold flex items-center justify-between transition-all bg-rose-50 border border-rose-300 text-rose-800">
+                                    <span>• 돼지고기 김치찌개</span>
+                                    <span class="px-2 py-0.5 text-[10px] bg-rose-500 text-white rounded-md font-extrabold">⚠️ 주의! 알레르기 감지</span>
+                                </div>
+
+                                <div id="dish2" class="p-2.5 rounded-xl text-xs font-bold flex items-center justify-between transition-all bg-white border border-slate-200 text-slate-800">
+                                    <span>• 찰보리밥</span>
+                                    <span class="text-[10px] text-emerald-500 font-bold bg-emerald-50 px-2 py-0.5 rounded">안심</span>
+                                </div>
+
+                                <div id="dish3" class="p-2.5 rounded-xl text-xs font-bold flex items-center justify-between transition-all bg-white border border-slate-200 text-slate-800">
+                                    <span>• 계란말이 (1.5)</span>
+                                    <span class="text-[10px] text-emerald-500 font-bold bg-emerald-50 px-2 py-0.5 rounded">안심</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-400">
+                            💡 한번 등록해두면 브라우저에 저장되어 매번 설정할 필요 없어요!
+                        </div>
+                    </div>
+
+                    <!-- Demo 3: Weekly Bento Grid Switcher -->
+                    <div class="md:col-span-12 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-9 h-9 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-base">
+                                        📅
+                                    </div>
+                                    <h3 class="font-bold text-slate-900 text-lg">이번 주 급식 전체 스포일러 (주간표)</h3>
+                                </div>
+                                <p class="text-xs text-slate-500 mt-1">월요일부터 금요일까지! 점심/저녁 버튼 하나로 싹- 한눈에 비교 가능!</p>
+                            </div>
+
+                            <!-- Meal Toggle -->
+                            <div class="flex p-1 bg-slate-100 rounded-2xl self-start sm:self-auto">
+                                <button onclick="switchWeeklyMealTab('lunch')" id="tabLunchBtn" class="px-4 py-2 rounded-xl text-xs font-extrabold transition-all bg-white text-brand-600 shadow-sm">
+                                    ☀️ 점심 (중식)
+                                </button>
+                                <button onclick="switchWeeklyMealTab('dinner')" id="tabDinnerBtn" class="px-4 py-2 rounded-xl text-xs font-bold transition-all text-slate-600 hover:text-slate-900">
+                                    🌙 야자 저녁 (석식)
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 5 Days Cards -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3.5">
+                            <!-- Mon -->
+                            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 hover:border-brand-400 transition-colors">
+                                <div class="flex justify-between items-center pb-2 mb-2 border-b border-slate-200">
+                                    <span class="text-xs font-black text-slate-900">월요일 (08.03)</span>
+                                    <span class="text-[10px] text-slate-400 font-mono font-bold">820 Kcal</span>
+                                </div>
+                                <ul id="monList" class="text-xs space-y-1.5 text-slate-600 font-medium">
+                                    <li>• 발아현미밥</li>
+                                    <li>• 쇠고기미역국</li>
+                                    <li>• 제육볶음</li>
+                                    <li>• 깍두기</li>
+                                </ul>
+                            </div>
+
+                            <!-- Tue -->
+                            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 hover:border-brand-400 transition-colors">
+                                <div class="flex justify-between items-center pb-2 mb-2 border-b border-slate-200">
+                                    <span class="text-xs font-black text-slate-900">화요일 (08.04)</span>
+                                    <span class="text-[10px] text-slate-400 font-mono font-bold">795 Kcal</span>
+                                </div>
+                                <ul id="tueList" class="text-xs space-y-1.5 text-slate-600 font-medium">
+                                    <li>• 클로렐라밥</li>
+                                    <li>• 돈육김치찌개</li>
+                                    <li>• 계란말이</li>
+                                    <li>• 열무김치</li>
+                                </ul>
+                            </div>
+
+                            <!-- Wed -->
+                            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 hover:border-brand-400 transition-colors">
+                                <div class="flex justify-between items-center pb-2 mb-2 border-b border-slate-200">
+                                    <span class="text-xs font-black text-slate-900">수요일 (08.05)</span>
+                                    <span class="text-[10px] text-slate-400 font-mono font-bold">880 Kcal</span>
+                                </div>
+                                <ul id="wedList" class="text-xs space-y-1.5 text-slate-600 font-medium">
+                                    <li>• 치킨마요덮밥</li>
+                                    <li>• 팽이버섯장국</li>
+                                    <li>• 떡볶이 & 김말이</li>
+                                    <li>• 멜론</li>
+                                </ul>
+                            </div>
+
+                            <!-- Thu -->
+                            <div class="p-4 bg-brand-500/10 rounded-2xl border-2 border-brand-500/40 shadow-sm relative overflow-hidden">
+                                <div class="absolute top-0 right-0 bg-brand-500 text-white text-[9px] font-black px-2 py-0.5 rounded-bl-lg">TODAY</div>
+                                <div class="flex justify-between items-center pb-2 mb-2 border-b border-brand-200">
+                                    <span class="text-xs font-black text-brand-600">목요일 (08.06)</span>
+                                    <span class="text-[10px] text-brand-500 font-mono font-bold">850 Kcal</span>
+                                </div>
+                                <ul id="thuList" class="text-xs space-y-1.5 text-slate-900 font-bold">
+                                    <li>• 찰보리밥</li>
+                                    <li>• 돼지고기김치찌개</li>
+                                    <li>• 닭갈비볶음</li>
+                                    <li>• 배추김치</li>
+                                </ul>
+                            </div>
+
+                            <!-- Fri -->
+                            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 hover:border-brand-400 transition-colors">
+                                <div class="flex justify-between items-center pb-2 mb-2 border-b border-slate-200">
+                                    <span class="text-xs font-black text-slate-900">금요일 (08.07)</span>
+                                    <span class="text-[10px] text-slate-400 font-mono font-bold">810 Kcal</span>
+                                </div>
+                                <ul id="friList" class="text-xs space-y-1.5 text-slate-600 font-medium">
+                                    <li>• 비빔밥</li>
+                                    <li>• 약고추장</li>
+                                    <li>• 콩나물국</li>
+                                    <li>• 수제에이드</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Yangjeong Loves It -->
+        <section class="py-12 lg:py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span class="text-xs font-extrabold text-brand-600 uppercase tracking-widest">WHY WE LOVE IT</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-1">왜 양정고 사람들은 이 앱만 쓸까? 🔥</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    
+                    <!-- Feature Card 1 -->
+                    <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200 space-y-3 hover:-translate-y-1 transition-transform">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl font-bold">
+                            ⚡
+                        </div>
+                        <h3 class="font-extrabold text-slate-900 text-lg">0.05초 초고속로딩</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            나이스(NEIS) 데이터를 인메모리 스마트 캐싱 처리해서 날짜를 바꿀 때 버벅임이 전혀 없어요. 쉬는 시간에 3초면 확인 완료!
+                        </p>
+                    </div>
+
+                    <!-- Feature Card 2 -->
+                    <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200 space-y-3 hover:-translate-y-1 transition-transform">
+                        <div class="w-12 h-12 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-2xl font-bold">
+                            📲
+                        </div>
+                        <h3 class="font-extrabold text-slate-900 text-lg">단톡방 일괄 공유</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            "오늘 점심 뭐야?" 물어보는 친구들에게 복사 버튼 하나만 눌러 카톡 단톡방에 깔끔한 텍스트로 보낼 수 있어요.
+                        </p>
+                    </div>
+
+                    <!-- Feature Card 3 -->
+                    <div class="p-6 rounded-3xl bg-slate-50 border border-slate-200 space-y-3 hover:-translate-y-1 transition-transform">
+                        <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-2xl font-bold">
+                            🌙
+                        </div>
+                        <h3 class="font-extrabold text-slate-900 text-lg">야자 석식까지 싹-</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            점심만 보여주는 뻔한 앱은 가라! 야자 준비하는 고등학생 필수템, 저녁(석식) 메뉴와 칼로리까지 모두 챙겼습니다.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Call To Action Banner -->
+                <div class="mt-12 p-8 rounded-3xl bg-gradient-to-r from-brand-600 via-indigo-600 to-purple-600 text-white text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl shadow-brand-500/20">
+                    <div class="space-y-1">
+                        <h3 class="text-xl sm:text-2xl font-black">오늘 급식 메뉴가 궁금하다면? 😋</h3>
+                        <p class="text-xs sm:text-sm text-brand-100 font-medium">설치 없이 웹 브라우저로 접속해서 바로 사용해보세요!</p>
+                    </div>
+
+                    <a href="https://mealservice-kappa.vercel.app/" target="_blank" rel="noopener noreferrer" class="px-8 py-3.5 bg-white text-brand-700 hover:bg-slate-100 font-extrabold rounded-2xl text-sm shadow-lg transform hover:scale-105 transition-all whitespace-nowrap">
+                        🚀 라이브 서비스 바로가기
+                    </a>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-600 to-purple-600 flex items-center justify-center text-white font-bold text-lg">
+                        🍱
+                    </div>
+                    <div>
+                        <p class="font-bold text-slate-900 text-sm">부산 양정고등학교 스마트 급식 서비스</p>
+                        <p class="text-xs text-slate-500">교육부 나이스(NEIS) 오픈 API 실시간 데이터 수신</p>
+                    </div>
+                </div>
+
+                <!-- Quick links in footer -->
+                <div class="flex items-center gap-4 text-xs font-bold">
+                    <a href="../index.html" class="text-slate-600 hover:text-brand-600 transition-colors flex items-center gap-1.5">
+                        <i class="fa-solid fa-house text-xs"></i>
+                        <span>홈으로</span>
+                    </a>
+                    <span class="text-slate-300">|</span>
+                    <a href="https://mealservice-kappa.vercel.app/" target="_blank" rel="noopener noreferrer" class="text-brand-600 hover:underline flex items-center gap-1.5">
+                        <i class="fa-solid fa-bolt text-xs"></i>
+                        <span>배포 사이트 바로 보기</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-slate-100 text-center text-xs text-slate-400">
+                &copy; 2026 Yangjeong High School Meal Service. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Logic Script -->
+    <script>
+        // Web Audio Mechanical Tick Generator
+        let soundEnabled = true;
+        const soundToggleBtn = document.getElementById('soundToggleBtn');
+        const soundIcon = document.getElementById('soundIcon');
+        const soundStatusText = document.getElementById('soundStatusText');
+
+        soundToggleBtn.addEventListener('click', () => {
+            soundEnabled = !soundEnabled;
+            if (soundEnabled) {
+                soundIcon.className = "fa-solid fa-volume-high text-brand-500";
+                soundStatusText.textContent = "사운드 ON";
+            } else {
+                soundIcon.className = "fa-solid fa-volume-xmark text-slate-400";
+                soundStatusText.textContent = "사운드 OFF";
+            }
+        });
+
+        function playTickSound() {
+            if (!soundEnabled) return;
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx) return;
+                const ctx = new AudioCtx();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(650, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(140, ctx.currentTime + 0.02);
+
+                gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.02);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.start();
+                osc.stop(ctx.currentTime + 0.02);
+            } catch (e) {
+                // Audio autoplay fallback
+            }
+        }
+
+        // Drum Wheel Date Picker Simulation State
+        let currentSimDate = new Date(2026, 7, 6); // 2026-08-06
+
+        function updateSimPickerUI() {
+            const y = currentSimDate.getFullYear();
+            const m = currentSimDate.getMonth() + 1;
+            const d = currentSimDate.getDate();
+
+            const days = ['일', '월', '화', '수', '목', '금', '토'];
+            const dayName = days[currentSimDate.getDay()];
+
+            document.getElementById('simYear').textContent = y + '년';
+            document.getElementById('simMonth').textContent = m + '월';
+            document.getElementById('simDay').textContent = d + '일';
+
+            const formatted = `${y}년 ${String(m).padStart(2, '0')}월 ${String(d).padStart(2, '0')}일 (${dayName})`;
+            document.getElementById('simSelectedDisplay').textContent = formatted;
+
+            playTickSound();
+        }
+
+        function adjustSimDate(delta, unit) {
+            if (unit === 'year') {
+                currentSimDate.setFullYear(currentSimDate.getFullYear() + delta);
+            } else if (unit === 'month') {
+                currentSimDate.setMonth(currentSimDate.getMonth() + delta);
+            } else if (unit === 'day') {
+                currentSimDate.setDate(currentSimDate.getDate() + delta);
+            }
+            updateSimPickerUI();
+        }
+
+        function setSimQuickDate(type) {
+            const baseDate = new Date(2026, 7, 6);
+            if (type === 'today') {
+                currentSimDate = new Date(baseDate);
+            } else if (type === 'yesterday') {
+                currentSimDate = new Date(baseDate);
+                currentSimDate.setDate(baseDate.getDate() - 1);
+            } else if (type === 'tomorrow') {
+                currentSimDate = new Date(baseDate);
+                currentSimDate.setDate(baseDate.getDate() + 1);
+            }
+            updateSimPickerUI();
+        }
+
+        // 19 Allergy Demo Interactive State
+        const activeAllergies = new Set([10]); // Default pork selected
+
+        function toggleAllergyDemo(code) {
+            const btn = document.getElementById(`algBtn-${code}`);
+            if (activeAllergies.has(code)) {
+                activeAllergies.delete(code);
+                btn.className = "px-3 py-1.5 rounded-full text-xs font-bold transition-all bg-slate-100 text-slate-700 border border-slate-200";
+            } else {
+                activeAllergies.add(code);
+                btn.className = "px-3 py-1.5 rounded-full text-xs font-bold transition-all bg-rose-500 text-white border border-rose-600 shadow-sm";
+            }
+
+            // Update sample dish alert state
+            const d1 = document.getElementById('dish1'); // 돼지고기 (10)
+            const d3 = document.getElementById('dish3'); // 계란말이 (1, 5)
+
+            // Pork check
+            if (activeAllergies.has(10) || activeAllergies.has(5) || activeAllergies.has(6)) {
+                d1.className = "p-2.5 rounded-xl text-xs font-bold flex items-center justify-between transition-all bg-rose-50 border border-rose-300 text-rose-800";
+                d1.querySelector('span:last-child').className = "px-2 py-0.5 text-[10px] bg-rose-500 text-white rounded-md font-extrabold";
+                d1.querySelector('span:last-child').textContent = "⚠️ 주의! 알레르기 감지";
+            } else {
+                d1.className = "p-2.5 rounded-xl text-xs font-bold flex items-center justify-between transition-all bg-white border border-slate-200 text-slate-800";
+                d1.querySelector('span:last-child').className = "text-[10px] text-emerald-500 font-bold bg-emerald-50 px-2 py-0.5 rounded";
+                d1.querySelector('span:last-child').textContent = "안심";
+            }
+
+            // Egg/Soy check
+            if (activeAllergies.has(1) || activeAllergies.has(5)) {
+                d3.className = "p-2.5 rounded-xl text-xs font-bold flex items-center justify-between transition-all bg-rose-50 border border-rose-300 text-rose-800";
+                d3.querySelector('span:last-child').className = "px-2 py-0.5 text-[10px] bg-rose-500 text-white rounded-md font-extrabold";
+                d3.querySelector('span:last-child').textContent = "⚠️ 주의! 알레르기 감지";
+            } else {
+                d3.className = "p-2.5 rounded-xl text-xs font-bold flex items-center justify-between transition-all bg-white border border-slate-200 text-slate-800";
+                d3.querySelector('span:last-child').className = "text-[10px] text-emerald-500 font-bold bg-emerald-50 px-2 py-0.5 rounded";
+                d3.querySelector('span:last-child').textContent = "안심";
+            }
+        }
+
+        // Weekly Meal Tab Switcher
+        function switchWeeklyMealTab(type) {
+            const btnLunch = document.getElementById('tabLunchBtn');
+            const btnDinner = document.getElementById('tabDinnerBtn');
+
+            if (type === 'lunch') {
+                btnLunch.className = "px-4 py-2 rounded-xl text-xs font-extrabold transition-all bg-white text-brand-600 shadow-sm";
+                btnDinner.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all text-slate-600 hover:text-slate-900";
+
+                document.getElementById('monList').innerHTML = "<li>• 발아현미밥</li><li>• 쇠고기미역국</li><li>• 제육볶음</li><li>• 깍두기</li>";
+                document.getElementById('tueList').innerHTML = "<li>• 클로렐라밥</li><li>• 돈육김치찌개</li><li>• 계란말이</li><li>• 열무김치</li>";
+                document.getElementById('wedList').innerHTML = "<li>• 치킨마요덮밥</li><li>• 팽이버섯장국</li><li>• 떡볶이 & 김말이</li><li>• 멜론</li>";
+                document.getElementById('thuList').innerHTML = "<li>• 찰보리밥</li><li>• 돼지고기김치찌개</li><li>• 닭갈비볶음</li><li>• 배추김치</li>";
+                document.getElementById('friList').innerHTML = "<li>• 비빔밥</li><li>• 약고추장</li><li>• 콩나물국</li><li>• 수제에이드</li>";
+            } else {
+                btnDinner.className = "px-4 py-2 rounded-xl text-xs font-extrabold transition-all bg-white text-brand-600 shadow-sm";
+                btnLunch.className = "px-4 py-2 rounded-xl text-xs font-bold transition-all text-slate-600 hover:text-slate-900";
+
+                document.getElementById('monList').innerHTML = "<li>• 잡곡밥</li><li>• 된장찌개</li><li>• 간장찜닭</li><li>• 배추김치</li>";
+                document.getElementById('tueList').innerHTML = "<li>• 쌀밥</li><li>• 순두부찌개</li><li>• 동그랑땡전</li><li>• 깍두기</li>";
+                document.getElementById('wedList').innerHTML = "<li>• 카레라이스</li><li>• 계란파국</li><li>• 수제탕수육</li><li>• 단무지</li>";
+                document.getElementById('thuList').innerHTML = "<li>• 흑미밥</li><li>• 부대찌개</li><li>• 스팸구이</li><li>• 겉절이</li>";
+                document.getElementById('friList').innerHTML = "<li>• 오므라이스</li><li>• 유부장국</li><li>• 웨지감자</li><li>• 샐러드</li>";
+            }
+        }
+    </script>
+</body>
+</html>
