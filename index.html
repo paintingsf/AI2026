@@ -719,18 +719,19 @@
                 id: "school-app",
                 categoryKey: "app",
                 badge: "학교 웹앱",
-                title: "학교 문제 해결 웹앱",
-                desc: "급식실 대기시간을 예측하고 도서관 좌석 현황을 실시간 안내하는 학교 생활 매니저.",
+                title: "학교 급식 알림 앱",
+                desc: "우리 학교의 급식 정보를 한눈에 파악하게 만드는 어플리케이션 제작",
                 icon: "fa-school",
                 color: "from-rose-500 to-red-600",
                 likes: 32,
                 date: "2026.06.14",
-                tools: ["HTML5", "Tailwind CSS", "JavaScript", "TensorFlow.js"],
+                tools: ["HTML5", "Tailwind CSS", "JavaScript", "REST API"],
+                detailUrl: "Chapter8_mealservice/index.html",
                 detail: {
-                    summary: "점심시간마다 발생하는 급식실 혼잡 문제를 카메라 기반 인원 카운팅 라이트급 AI 모델로 해결하는 웹 애플리케이션입니다.",
+                    summary: "우리 학교의 급식 정보를 한눈에 파악하게 만드는 어플리케이션 제작",
                     highlights: [
-                        "<strong>핵심 기능:</strong> 학년별 예상 대기시간 계산 및 메뉴 기반 선호도 점수 산출",
-                        "<strong>사용자 이점:</strong> 학생들의 대기시간 평균 8분 단축 효과 기대",
+                        "<strong>핵심 기능:</strong> 일별/주별 급식 메뉴 실시간 조회 및 영양 정보 안내",
+                        "<strong>사용자 이점:</strong> 학생 및 교직원이 오늘/내일 급식 정보를 빠르게 파악",
                         "<strong>실습 구현:</strong> Responsive Web Design으로 모바일 단말 완벽 지원"
                     ],
                     interactiveType: "appDemo"
@@ -1047,6 +1048,7 @@
                 else if (item.id === 'career-data') targetUrl = 'Chapter5_total_university/index.html';
                 else if (item.id === 'career-report') targetUrl = 'Chapter4_university_data/index.html';
                 else if (item.id === 'local-issue') targetUrl = 'Chapter6_kids/index.html';
+                else if (item.id === 'school-app') targetUrl = 'Chapter8_mealservice/index.html';
                 else if (item.id === 'public-api-app') targetUrl = 'Chapter7_public_festival_website/index.html';
             }
 
