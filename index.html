@@ -288,6 +288,7 @@
         </div>
     </main>
 
+    <!-- Detail Modal -->
     <div id="detailModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
         <div class="relative w-full max-w-3xl glass-card bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700/60 shadow-2xl transition-all duration-300 transform my-8">
             
@@ -341,6 +342,7 @@
         </div>
     </div>
 
+    <!-- Edit Item Modal -->
     <div id="editItemModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
         <div class="relative w-full max-w-2xl glass-card bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700/60 shadow-2xl my-8">
             <div class="flex justify-between items-center pb-4 border-b border-slate-200 dark:border-slate-800">
@@ -442,6 +444,7 @@
         </div>
     </div>
 
+    <!-- Profile Edit Modal -->
     <div id="profileModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
         <div class="relative w-full max-w-lg glass-card bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700/60 shadow-2xl my-8">
             <div class="flex justify-between items-center pb-4 border-b border-slate-200 dark:border-slate-800">
@@ -515,6 +518,7 @@
         </div>
     </div>
 
+    <!-- Summary Report Modal -->
     <div id="summaryModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
         <div class="relative w-full max-w-2xl glass-card bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700/60 shadow-2xl my-8">
             <div class="flex justify-between items-center pb-4 border-b border-slate-200 dark:border-slate-800">
@@ -770,6 +774,7 @@
                 likes: 41,
                 date: "2026.07.20",
                 tools: ["Self Retrospective", "AI Human Values"],
+                detailUrl: "Chapter9_FINALLL/index.html",
                 detail: {
                     summary: "기술적 구현 능력 못지않게 '무엇을 위해 AI를 사용할 것인가'에 대한 인간 중심적 고민의 중요성을 깨달았습니다.",
                     highlights: [
@@ -853,7 +858,14 @@
         function loadStoredData() {
             const savedPortfolio = localStorage.getItem('ai_portfolio_items');
             if (savedPortfolio) {
-                try { portfolioData = JSON.parse(savedPortfolio); } 
+                try { 
+                    portfolioData = JSON.parse(savedPortfolio); 
+                    // 최종 성찰 경로 업데이트 적용
+                    const refItem = portfolioData.find(p => p.id === 'reflection');
+                    if (refItem) {
+                        refItem.detailUrl = "Chapter9_FINALLL/index.html";
+                    }
+                } 
                 catch(e) { portfolioData = [...initialPortfolioData]; }
             } else {
                 portfolioData = [...initialPortfolioData];
@@ -1038,9 +1050,12 @@
             const detailLinkBtn = document.getElementById('modalDetailLinkBtn');
             let targetUrl = item.detailUrl;
             
-            // Chapter2 경로 오탈자(ethnic -> ethic) 자동 정정 및 지정
+            // Chapter 경로 매핑
             if (item.id === 'principles' || targetUrl === 'Chapter2_AI_ethnic/index.html') {
                 targetUrl = 'Chapter2_AI_ethic/index.html';
+                item.detailUrl = targetUrl;
+            } else if (item.id === 'reflection') {
+                targetUrl = 'Chapter9_FINALLL/index.html';
                 item.detailUrl = targetUrl;
             } else if (!targetUrl) {
                 if (item.id === 'principles') targetUrl = 'Chapter2_AI_ethic/index.html';
@@ -1050,6 +1065,7 @@
                 else if (item.id === 'local-issue') targetUrl = 'Chapter6_kids/index.html';
                 else if (item.id === 'school-app') targetUrl = 'Chapter8_mealservice/index.html';
                 else if (item.id === 'public-api-app') targetUrl = 'Chapter7_public_festival_website/index.html';
+                else if (item.id === 'reflection') targetUrl = 'Chapter9_FINALLL/index.html';
             }
 
             if (targetUrl) {
